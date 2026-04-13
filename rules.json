@@ -1,8 +1,43 @@
 {
-  "version": "4.2",
-  "description": "Trading rules \u2014 two sections: ENTRY RULES per asset class + RISK RULES universal",
-  "last_updated": "2026-04-12",
-  "architecture": "Section 1 = WHEN to enter (per asset). Section 2 = HOW MUCH to risk and WHEN to exit (all assets).",
+  "version": "4.3",
+  "description": "Trading rules — three sections: TIERS + ENTRY RULES per asset class + RISK RULES universal",
+  "last_updated": "2026-04-13",
+  "architecture": "Section 0 = Trade TIERS (scalping vs swing). Section 1 = WHEN to enter (per asset). Section 2 = HOW MUCH to risk and WHEN to exit (all assets).",
+  "section_0_tiers": {
+    "description": "Two tiers of trades. Tier 1 is for future automation (Bitget scalper). Tier 2 is what Maria places manually now.",
+    "tier_1_scalping": {
+      "label": "TIER 1 — AUTOMATION ONLY — do not place manually",
+      "purpose": "Future automated execution via Bitget API (scalper-run.js or similar)",
+      "timeframes": ["1", "5", "15"],
+      "stop_loss": "Very tight — a few pips from entry",
+      "target": "Small — quick in and out",
+      "execution": "NOT manual. Will be automated once Bitget system is ready.",
+      "eligible_assets": {
+        "forex": "All forex pairs in watchlist",
+        "commodities": "XAUUSD, USOIL",
+        "stocks": "High-liquidity only: NVDA, TSLA, AAPL, MSFT, META, GOOGL, AMZN",
+        "crypto": "BTC, ETH only on 1m-15m charts"
+      },
+      "briefing_format": "Brief overview table only. No full trade cards."
+    },
+    "tier_2_swing": {
+      "label": "TIER 2 — PLACE MANUALLY",
+      "purpose": "Manual placement by Maria in TradingView paper trading",
+      "timeframes": ["60", "240", "D"],
+      "stop_loss": "Medium — based on clear support/resistance levels",
+      "target": "Risk/Reward minimum 1:2, preferred 1:3",
+      "execution": "Manual — Maria places limit orders with stop and target",
+      "max_open_trades": 4,
+      "position_size_usd": 100,
+      "eligible_assets": {
+        "forex": "All forex pairs in watchlist",
+        "commodities": "All commodities in watchlist",
+        "stocks": "All stocks in watchlist",
+        "crypto": "BTC, ETH, SOL, FET, RENDER, TAO on 4H-Daily charts"
+      },
+      "briefing_format": "Full trade cards with Entry, Stop, Target, R:R, Units, Alerts, Why."
+    }
+  },
   "section_1_entry_rules": {
     "forex": {
       "assets": [
