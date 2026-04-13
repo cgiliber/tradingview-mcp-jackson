@@ -1,65 +1,805 @@
 {
-  "watchlist": ["BTCUSDT"],
-  "default_timeframe": "1",
-
-  "strategy": {
-    "name": "10-Second Momentum Scalper",
-    "sources": [
-      "Price momentum — buy if last close > previous close (green candle)",
-      "RSI filter — only trade when RSI is not at an extreme (30–70 range)"
-    ],
-    "primary_timeframes": [
-      "1-minute (signal source)",
-      "10-second execution loop"
-    ]
+  "version": "4.2",
+  "description": "Trading rules \u2014 two sections: ENTRY RULES per asset class + RISK RULES universal",
+  "last_updated": "2026-04-12",
+  "architecture": "Section 1 = WHEN to enter (per asset). Section 2 = HOW MUCH to risk and WHEN to exit (all assets).",
+  "section_1_entry_rules": {
+    "forex": {
+      "assets": [
+        "EURUSD",
+        "GBPUSD",
+        "USDJPY",
+        "AUDUSD",
+        "USDCHF"
+      ],
+      "character": "Session-driven, macro/news sensitive, highest liquidity of any market",
+      "best_timeframe": "Daily (signal) confirmed by 4H (entry timing)",
+      "best_sessions_oslo": {
+        "primary": "10:00-14:00 Oslo (London open \u2014 highest volume)",
+        "secondary": "15:00-18:00 Oslo (NY-London overlap \u2014 most volatile)",
+        "avoid": "After 18:00 Oslo (liquidity drops sharply)"
+      },
+      "strategies": [
+        {
+          "id": "FX-1",
+          "name": "London Session Breakout",
+          "source": "Adam Khoo, Nial Fuller",
+          "when_to_use": "Price ranging overnight, London open creates directional break",
+          "indicators": [
+            "Previous day High/Low",
+            "EMA 20"
+          ],
+          "entry_long": "Price breaks ABOVE previous day high at London open (10:00-11:00 Oslo) with EMA 20 pointing up",
+          "entry_short": "Price breaks BELOW previous day low at London open with EMA 20 pointing down",
+          "stop_loss": "10-15 pips below breakout level",
+          "take_profit": "2:1 or 3:1 reward-to-risk",
+          "avoid": "NFP, CPI, Fed decisions \u2014 no trade 30min either side"
+        },
+        {
+          "id": "FX-2",
+          "name": "EMA 8/21 Crossover + RSI Filter",
+          "source": "Nial Fuller (Price Action Forex Trading)",
+          "when_to_use": "Trending markets. Best when macro direction is clear.",
+          "indicators": [
+            "EMA 8",
+            "EMA 21",
+            "RSI 14"
+          ],
+          "entry_long": "EMA 8 crosses ABOVE EMA 21 AND RSI > 50 AND price above both EMAs",
+          "entry_short": "EMA 8 crosses BELOW EMA 21 AND RSI < 50",
+          "stop_loss": "Behind most recent swing high (shorts) or swing low (longs)",
+          "take_profit": "3:1 reward-to-risk minimum",
+          "confluence_check": "Align with macro trend \u2014 check ECB vs Fed policy direction"
+        },
+        {
+          "id": "FX-3",
+          "name": "Pin Bar Reversal at Key Levels",
+          "source": "Nial Fuller, Steve Nison",
+          "when_to_use": "Price reaches well-established support/resistance and shows rejection candle",
+          "indicators": [
+            "Key Support/Resistance levels",
+            "Pin Bar candlestick"
+          ],
+          "entry_long": "Pin bar (long lower wick) forms AT key support level",
+          "entry_short": "Pin bar (long upper wick) forms AT key resistance level",
+          "stop_loss": "Just beyond the tail of the pin bar",
+          "take_profit": "Next key support/resistance level",
+          "notes": "Pure price action. High probability only when aligned with trend."
+        }
+      ]
+    },
+    "indices": {
+      "assets": [
+        "GER40",
+        "US30",
+        "SPX500",
+        "NAS100"
+      ],
+      "character": "Trend-following, session-bound, earnings-driven quarterly",
+      "best_timeframe": "Daily",
+      "best_sessions_oslo": {
+        "ger40": "09:00-11:00 Oslo (DAX most volatile at open)",
+        "us_indices": "15:30-17:30 Oslo (Wall Street open)",
+        "avoid": "30min before/after earnings releases and Fed decisions"
+      },
+      "earnings_season_months": [
+        "January",
+        "April",
+        "July",
+        "October"
+      ],
+      "strategies": [
+        {
+          "id": "IDX-1",
+          "name": "EMA 50/200 Trend + RSI Pullback",
+          "source": "William O Neil (CANSLIM), Larry Connors (RSI-2)",
+          "when_to_use": "Outside earnings season. Index in clear uptrend above EMA 200.",
+          "indicators": [
+            "EMA 50",
+            "EMA 200",
+            "RSI 14"
+          ],
+          "entry_long": "Price above EMA 200 AND EMA 50 > EMA 200 AND RSI pulls back to 40-50 \u2014 enter on bounce",
+          "entry_short": "Price below EMA 200 AND RSI bounces to 50-60 \u2014 enter on rejection",
+          "stop_loss": "2-5% below EMA 50",
+          "take_profit": "Previous resistance or RSI reaches 70",
+          "earnings_rule": "EXIT all positions 2 days before earnings season begins"
+        },
+        {
+          "id": "IDX-2",
+          "name": "Triple Screen \u2014 Weekly Trend + Daily MACD",
+          "source": "Alexander Elder (Triple Screen Trading System)",
+          "when_to_use": "Align daily trade with weekly trend picture",
+          "indicators": [
+            "Weekly EMA 13",
+            "Daily MACD (12,26,9)"
+          ],
+          "entry_long": "Weekly trend up (price > EMA 13 weekly) AND Daily MACD histogram turns positive",
+          "entry_short": "Weekly trend down AND Daily MACD histogram turns negative",
+          "stop_loss": "Below most recent daily swing low",
+          "take_profit": "At resistance or when weekly trend weakens",
+          "notes": "Never trade against the weekly trend. Elder first rule."
+        }
+      ],
+      "earnings_season_special": {
+        "id": "IDX-EARN",
+        "name": "Post-Earnings Gap Trading",
+        "source": "Professional earnings traders",
+        "when_to_use": "ONLY during earnings season (Jan/Apr/Jul/Oct). Individual stocks only.",
+        "entry_rule": "Wait for earnings release. Gap UP > 3% on high volume \u2014 enter LONG within first 30 minutes",
+        "stop_loss": "50% of the gap size",
+        "take_profit": "1.5x the gap size",
+        "risk_reduction": "Use HALF normal position size \u2014 earnings are binary events",
+        "avoid": "Never enter BEFORE earnings are released"
+      }
+    },
+    "commodities": {
+      "assets": [
+        "XAUUSD",
+        "XAGUSD",
+        "USOIL",
+        "NATGAS"
+      ],
+      "character": "Macro-driven by USD strength, inflation, geopolitics, OPEC",
+      "best_timeframe": "Daily and Weekly",
+      "best_sessions_oslo": {
+        "gold_silver": "10:00 Oslo (London) and 15:30 Oslo (NY) \u2014 two peak windows",
+        "oil": "15:30 Oslo (NY open). OPEC news typically 12:00-14:00 Oslo",
+        "avoid": "OPEC meeting days for oil"
+      },
+      "strategies": [
+        {
+          "id": "CMD-1",
+          "name": "Gold vs USD Inverse Correlation",
+          "source": "Ray Dalio (All Weather Portfolio)",
+          "when_to_use": "When USD has clear directional trend from Fed policy",
+          "indicators": [
+            "DXY (US Dollar Index)",
+            "EMA 50 on Gold"
+          ],
+          "entry_long": "DXY falling (USD weakening) AND Gold above EMA 50",
+          "entry_short": "DXY rising (USD strengthening) AND Gold below EMA 50",
+          "stop_loss": "Below EMA 50 on Gold chart",
+          "take_profit": "Next key resistance level",
+          "macro_check": "Always check DXY before trading Gold. They move opposite 80% of the time."
+        },
+        {
+          "id": "CMD-2",
+          "name": "Bollinger Band Squeeze Breakout",
+          "source": "John Bollinger",
+          "when_to_use": "After period of low volatility \u2014 bands visibly narrow on chart",
+          "indicators": [
+            "Bollinger Bands (20, 2)",
+            "Volume"
+          ],
+          "entry_long": "Bands squeeze then price breaks ABOVE upper band with above-average volume",
+          "entry_short": "Bands squeeze then price breaks BELOW lower band with above-average volume",
+          "stop_loss": "Middle Bollinger Band (EMA 20)",
+          "take_profit": "2x the Bollinger Band width at time of breakout"
+        },
+        {
+          "id": "CMD-3",
+          "name": "Oil EMA Trend + OPEC News Filter",
+          "source": "Energy commodity traders and macro analysts",
+          "when_to_use": "When OPEC stance is known and no meeting is imminent",
+          "indicators": [
+            "EMA 20",
+            "EMA 50",
+            "OPEC/News Calendar"
+          ],
+          "entry_long": "EMA 20 > EMA 50 AND no major OPEC supply increase expected within 2 weeks",
+          "entry_short": "EMA 20 < EMA 50 OR OPEC announces production increase",
+          "stop_loss": "Below EMA 50",
+          "take_profit": "Previous resistance level",
+          "override_rule": "OPEC surprise announcement \u2014 EXIT immediately regardless of position"
+        }
+      ]
+    },
+    "crypto": {
+      "assets": [
+        "BTCUSD",
+        "ETHUSD",
+        "SOLUSD",
+        "BNBUSD"
+      ],
+      "character": "24/7 market, high volatility, sentiment-driven, follows BTC dominance cycle",
+      "best_timeframe": "Daily (signal), 4H (entry timing)",
+      "best_sessions_oslo": {
+        "higher_volume": "08:00-12:00 and 20:00-00:00 Oslo historically higher volume",
+        "avoid": "Weekend trading \u2014 low volume, wider spreads, erratic moves",
+        "note": "Crypto never closes but signal quality is lower on weekends"
+      },
+      "btc_dominance_rule": "Check BTC.D before altcoins. BTC dominance RISING = avoid altcoins. FALLING = altcoins outperform.",
+      "strategies": [
+        {
+          "id": "BTC-1",
+          "name": "Golden Cross / Death Cross",
+          "source": "Institutional traders \u2014 most followed BTC macro signal",
+          "when_to_use": "Weekly chart only. Identifying major bull or bear cycles.",
+          "indicators": [
+            "EMA 50",
+            "EMA 200"
+          ],
+          "entry_long": "EMA 50 crosses ABOVE EMA 200 \u2014 Golden Cross, major bull signal",
+          "entry_short": "EMA 50 crosses BELOW EMA 200 \u2014 Death Cross, major bear signal",
+          "stop_loss": "Below most recent weekly swing low",
+          "take_profit": "Fibonacci 1.618 extension of previous move",
+          "notes": "Slow high-conviction signal. Do not use on daily \u2014 too many false signals."
+        },
+        {
+          "id": "BTC-2",
+          "name": "EMA 21/55 + RSI Trend Filter",
+          "source": "Raoul Pal, Michael van de Poppe",
+          "when_to_use": "Daily chart. BTC in defined trend and RSI confirms momentum.",
+          "indicators": [
+            "EMA 21",
+            "EMA 55",
+            "RSI 14"
+          ],
+          "entry_long": "EMA 21 crosses ABOVE EMA 55 AND RSI > 50",
+          "entry_short": "EMA 21 crosses BELOW EMA 55 AND RSI < 50",
+          "stop_loss": "Below EMA 55",
+          "take_profit": "Previous resistance or 2:1 reward-to-risk"
+        },
+        {
+          "id": "ALT-1",
+          "name": "MACD + Volume Breakout (Altcoins)",
+          "source": "Professional altcoin day traders",
+          "when_to_use": "BTC dominance flat or falling AND altcoin shows MACD momentum with volume",
+          "indicators": [
+            "MACD (12,26,9)",
+            "Volume (20-period average)"
+          ],
+          "entry_long": "MACD line crosses ABOVE signal line AND volume > 20-period average",
+          "entry_short": "MACD crosses BELOW signal line AND volume spike on red candle",
+          "stop_loss": "Below breakout level or -5% from entry \u2014 whichever is closer",
+          "take_profit": "2:1 to 3:1 reward-to-risk",
+          "risk_note": "Altcoins more volatile than BTC \u2014 use HALF normal position size"
+        }
+      ]
+    }
   },
-
-  "indicators": {
-    "rsi_14": "Momentum filter. Only trade when RSI is between 30–70 (avoid extremes).",
-    "price_momentum": "Compare last close vs previous close. Up = long signal. Down = short signal."
-  },
-
-  "bias_criteria": {
-    "bullish": [
-      "Last 1-min candle closed higher than the one before it",
-      "RSI is between 30 and 70"
+  "section_2_risk_rules": {
+    "position_sizing": {
+      "description": "How much to risk on every trade \u2014 regardless of asset class",
+      "max_risk_per_trade": "1% of total account (beginners) \u2014 2% maximum (experienced)",
+      "crypto_altcoin_max_risk": "0.5-1% only \u2014 higher volatility demands smaller size",
+      "max_portfolio_heat": "6% maximum across ALL open trades simultaneously",
+      "formula": "Position size = (Account x Risk%) / Stop distance",
+      "examples": {
+        "account_1000_risk_1pct": "Risk 0. Stop distance .50 = 4 units",
+        "account_5000_risk_1pct": "Risk 0. Stop distance .50 = 20 units",
+        "account_10000_risk_1pct": "Risk 00. Stop distance .50 = 40 units"
+      }
+    },
+    "stop_loss": {
+      "mandatory": true,
+      "never_move_against_you": true,
+      "never_remove_once_set": true,
+      "placement_by_asset": {
+        "forex": "Below EMA 21 (longs) or above EMA 21 (shorts)",
+        "indices": "2-5% below EMA 50",
+        "gold_silver": "Below EMA 50",
+        "oil": "Below EMA 50",
+        "crypto_btc": "Below EMA 55 or most recent weekly swing low",
+        "crypto_altcoins": "Below EMA 50 or -5% from entry \u2014 whichever is closer"
+      },
+      "trailing_stop_rule": "Once trade reaches +1R profit \u2014 move stop to breakeven. Cannot lose on this trade.",
+      "order_expiry": "Day only \u2014 cancel all unfilled orders end of trading session. No stale orders overnight."
+    },
+    "take_profit": {
+      "minimum_reward_to_risk": "2:1 \u2014 target at least 2x what you risk",
+      "preferred_by_asset": {
+        "forex": "3:1",
+        "indices": "2:1",
+        "commodities": "2:1",
+        "crypto_btc": "2:1 to 3:1",
+        "crypto_altcoins": "2:1 minimum \u2014 altcoins reverse fast, do not be greedy"
+      },
+      "methods": {
+        "fibonacci": "1.618 extension of the prior swing move",
+        "resistance_level": "Exit at nearest significant resistance/support",
+        "rsi_extreme": "Exit when RSI hits 70+ on entry timeframe",
+        "partial_exit": "Take 50% profit at 1:1, move stop to breakeven, let rest run to full target"
+      }
+    },
+    "entry_filters": {
+      "rsi_no_buy_above": 70,
+      "rsi_no_sell_below": 30,
+      "ideal_long_rsi": "40-65",
+      "ideal_short_rsi": "35-60",
+      "candle_confirmation": "EMA crossover must be confirmed by CLOSE of candle \u2014 never enter mid-candle",
+      "higher_timeframe_alignment": "Always check weekly trend before daily signal. Never trade against weekly tide.",
+      "news_blackout": "No entries 30 minutes before or after major news releases"
+    },
+    "news_to_avoid": [
+      "NFP \u2014 Non-Farm Payrolls (first Friday of month, 14:30 Oslo)",
+      "CPI \u2014 Consumer Price Index (monthly, 14:30 Oslo)",
+      "Fed Rate Decision (FOMC 8x per year, 20:00 Oslo)",
+      "ECB Rate Decision (14:15 Oslo on meeting days)",
+      "BOE / BOJ Rate Decisions",
+      "OPEC Meetings (oil only \u2014 can spike 3-5% instantly)",
+      "GDP Data Releases",
+      "Earnings Releases (stocks and indices)"
     ],
-    "bearish": [
-      "Last 1-min candle closed lower than the one before it",
-      "RSI is between 30 and 70"
-    ],
-    "neutral": [
-      "RSI is above 70 (overbought — skip)",
-      "RSI is below 30 (oversold — skip)",
-      "Candle close change is less than 0.05% (chop — skip)"
-    ]
+    "session_times_oslo": {
+      "timezone": "Norway \u2014 CET (UTC+1 winter) / CEST (UTC+2 summer April-October)",
+      "ger40_open": "09:00 Oslo",
+      "ger40_close": "17:30 Oslo",
+      "forex_london_open": "10:00 Oslo \u2014 best forex entry",
+      "forex_ny_open": "15:00 Oslo \u2014 overlap begins",
+      "forex_london_close": "18:00 Oslo \u2014 volatility drops",
+      "us_market_open": "15:30 Oslo",
+      "us_market_close": "22:00 Oslo",
+      "nfp_cpi_release": "14:30 Oslo",
+      "fed_decision": "20:00 Oslo",
+      "weekend_rule": "Markets closed Sat-Sun (except crypto). First trade: Monday 10:00 Oslo."
+    },
+    "trade_management": {
+      "max_losses_before_pause": "Stop after 3 consecutive losses. Review what went wrong.",
+      "daily_loss_limit": "Lose 3% of account in one day \u2014 stop for the day",
+      "weekly_loss_limit": "Lose 5% of account in one week \u2014 stop for the week",
+      "no_revenge_trading": "A loss is a cost of doing business. Never double size to recover.",
+      "no_fomo": "Missing a trade is better than forcing a bad entry. Another setup comes tomorrow.",
+      "journal": "Record every trade: asset, entry, stop, target, result, reason. Review weekly.",
+      "scaling": "Do not increase position size until 10+ consecutive profitable trades."
+    },
+    "psychology_rules": {
+      "think_in_R": "1R = your risk. 2R win = made 2x your risk. Think in R not dollars.",
+      "discipline": "Strategy is only as good as execution. Follow the rules exactly.",
+      "patience": "Most days there is NO good setup. Waiting is a valid action.",
+      "detachment": "Your self-worth is not your P&L. A losing trade does not make you a bad trader."
+    },
+    "risk_reward_ratio": {
+      "description": "Only enter a trade if potential profit is at least 2x the potential loss",
+      "minimum_ratio": "1:2 (risk 1 to gain 2)",
+      "recommended_ratio": "1:3 (risk 1 to gain 3)",
+      "example": "If your stop loss is $2.50 away from entry, your take profit must be at least $5.00 away",
+      "when_to_check": "BEFORE entering any trade — if the ratio is less than 1:2, do NOT enter"
+    },
+    "stop_loss_direction_rule": {
+      "description": "The stop loss may ONLY ever move TOWARD profit — never further away from entry",
+      "rule": "Never move SL further from entry to avoid being stopped out — that is emotional trading and is forbidden",
+      "break_even_trigger": "Once price moves 50% toward take profit, move SL up to at least break-even (entry price)",
+      "example_long": "You buy at $100 with TP at $110. When price reaches $105 (50% toward TP), move SL to $100 (entry price)",
+      "violation": "Moving SL DOWN on a long trade is forbidden — no exceptions"
+    },
+    "stop_loss_placement_support": {
+      "description": "Place SL below real support levels, not at round numbers",
+      "step_1": "Find a real support level on the chart — a price where the asset has bounced before",
+      "step_2": "Place SL just below that support level",
+      "step_3": "Add a buffer of $0.20–$0.50 below the support level to avoid normal price noise triggering the stop",
+      "avoid": "Do NOT place SL at round numbers like $80 or $85",
+      "reason": "Round numbers attract stop hunters who push price down to trigger stops before reversing"
+    },
+    "trailing_stop_loss": {
+      "description": "Automatically lock in profit as price rises without watching the screen constantly",
+      "activation": "Once price has moved 50% of the way toward take profit, activate a trailing stop",
+      "trail_distance_crypto_short_term": "3–5% for short-term trades",
+      "trail_distance_crypto_swing": "5–10% for swing trades",
+      "direction_rule": "Trailing stop only moves UPWARD for long trades — never back down",
+      "purpose": "Locks in profit automatically while letting winners run further"
+    },
+    "short_trade_rules": {
+      "description": "Mirror of LONG rules for SHORT (sell) trades — same logic reversed",
+      "when_to_short": {
+        "trend": "Price is in a clear downtrend — lower highs and lower lows on Daily chart",
+        "entry_level": "Price has bounced up to a resistance level and is starting to fall",
+        "rsi": "RSI above 60 and turning down (overbought)",
+        "entry": "Sell at resistance level where price is starting to drop"
+      },
+      "short_trade_parameters": {
+        "entry": "Sell at resistance level",
+        "stop_loss": "Above entry — if price rises above resistance, exit",
+        "take_profit": "Below entry at next support level",
+        "minimum_risk_reward": "1:2 same as LONG rule",
+        "time_based_exit": "Same 48 hour rule applies"
+      },
+      "short_vs_long_differences": {
+        "order_type": "Sell Limit instead of Buy Limit",
+        "stop_loss_direction": "ABOVE entry (price going up = losing on short)",
+        "take_profit_direction": "BELOW entry (price going down = winning on short)",
+        "alerts": "Entry = Crossing Down, Stop Loss = Crossing Up, Take Profit = Crossing Down"
+      }
+    },
+    "time_based_exit": {
+      "description": "Close trades that are going nowhere — do not let money sit in flat positions",
+      "time_limit": "48 hours with no meaningful movement toward take profit",
+      "meaningful_movement": "Price must have moved at least 30% toward take profit within 48 hours",
+      "action": "If not — consider closing the trade",
+      "reason": "Money stuck in a flat trade is wasted capital that could be used elsewhere",
+      "applies_especially_to": "Crypto trades — these are expected to move quickly"
+    },
+    "watchlist_ranked_by_predictability": {
+      "note": "Ranked by how well price follows technical rules vs random sentiment",
+      "rank_1": {
+        "asset": "EUR/USD",
+        "reason": "Most liquid forex (.8T/day). 60-68% directional accuracy."
+      },
+      "rank_2": {
+        "asset": "GBP/USD",
+        "reason": "Strong technical trends. Clean S/R levels."
+      },
+      "rank_3": {
+        "asset": "USD/JPY",
+        "reason": "Carry trade dynamics. BOJ/Fed policy predictable."
+      },
+      "rank_4": {
+        "asset": "GER40",
+        "reason": "Most liquid European index. Predictable session windows."
+      },
+      "rank_5": {
+        "asset": "US30",
+        "reason": "30 mega-caps, less noise than SPY. Strong trending."
+      },
+      "rank_6": {
+        "asset": "Gold",
+        "reason": "USD inverse + safe-haven formula. Clean trends."
+      },
+      "rank_7": {
+        "asset": "Silver",
+        "reason": "Follows Gold with amplification."
+      },
+      "rank_8": {
+        "asset": "WTI Oil",
+        "reason": "OPEC cycle and seasonal patterns."
+      }
+    }
   },
-
-  "entry_rules": {
-    "long": [
-      "Last close > previous close by at least 0.05%",
-      "RSI between 30 and 70",
-      "Enter market buy immediately"
-    ],
-    "short": [
-      "Last close < previous close by at least 0.05%",
-      "RSI between 30 and 70",
-      "Enter market sell immediately"
-    ]
-  },
-
-  "exit_rules": [
-    "Exit automatically after 10 seconds (next loop tick closes previous position)",
-    "No manual exit management — pure time-based scalp"
-  ],
-
-  "risk_rules": [
-    "Fixed trade size: 1% of portfolio per trade",
-    "Maximum trade size: $3.00",
-    "Maximum 6 trades per 60-second run",
-    "No stop loss — exit is time-based at next tick",
-    "For demo purposes only — minimum BitGet order size may apply"
-  ],
-
-  "notes": "Demo strategy for YouTube video. Runs 6 trades over 60 seconds, one every 10 seconds. Signal is simple price momentum on 1-min candles with RSI sanity check."
+  "disclaimer": "Trading involves significant risk of loss. These rules are for educational purposes. Always do your own research. Never invest more than you can afford to lose.",
+  "scanning_policy": {
+    "description": "What to scan, when to scan it, and how many assets per session. Based on Maria's schedule: desk from 10:00, office until 15:00-16:00, evening until 20:00-21:00 Oslo.",
+    "daily_sessions": {
+      "session_1": {
+        "name": "London Open",
+        "time_oslo": "10:00-11:00",
+        "fixed_assets": [
+          "EURUSD",
+          "GBPUSD",
+          "USDJPY",
+          "XAUUSD",
+          "GER40"
+        ],
+        "note": "Best forex and Gold entry window. Check news for AI/tech pre-market movers."
+      },
+      "session_2": {
+        "name": "New York Open",
+        "time_oslo": "15:30-16:30",
+        "fixed_assets": [
+          "US30",
+          "NAS100",
+          "USOIL",
+          "XAGUSD"
+        ],
+        "note": "Best US equities and Oil window. Check AI stock pre-market gaps."
+      },
+      "session_3": {
+        "name": "Crypto Evening",
+        "time_oslo": "20:00-21:00",
+        "fixed_assets": [
+          "BTCUSD",
+          "ETHUSD",
+          "SOLUSD"
+        ],
+        "note": "Evening crypto volume spike. Check BTC dominance before altcoins."
+      }
+    },
+    "news_scanning_rules": {
+      "description": "Every morning I search news to add dynamic assets to that day's scan",
+      "searches_performed_each_morning": [
+        "biggest stock movers premarket today",
+        "semiconductor AI chip news today",
+        "nuclear energy uranium news today",
+        "copper commodities AI data center news today",
+        "geopolitical market impact news today",
+        "crypto news today"
+      ],
+      "add_to_scan_if": "Asset has moved >2% overnight OR is mentioned in a major catalyst news story",
+      "max_news_additions_per_session": 3,
+      "total_max_assets_per_day": 20
+    },
+    "ai_ecosystem_watchlist": {
+      "description": "Complete AI revolution ecosystem \u2014 from chips to energy to raw materials. Scanned when relevant news appears. Built from Fidelity, BofA, Goldman Sachs research April 2026.",
+      "layer_1_chips_semiconductors": {
+        "description": "The brain of AI \u2014 chips and chip equipment. Highest direct AI exposure.",
+        "assets": [
+          {
+            "ticker": "NVDA",
+            "name": "NVIDIA",
+            "why": "Dominates AI GPU market. H100/H200 are the engine of every AI data center."
+          },
+          {
+            "ticker": "AMD",
+            "name": "AMD",
+            "why": "Main NVIDIA competitor. MI300X GPU gaining ground in AI workloads."
+          },
+          {
+            "ticker": "INTC",
+            "name": "Intel",
+            "why": "Rebuilding chip business. Foundry ambitions for US-made AI chips."
+          },
+          {
+            "ticker": "AVGO",
+            "name": "Broadcom",
+            "why": "Custom ASICs for Google and Meta. $1.6T market cap. Goldman calls it 'AI arms dealer'."
+          },
+          {
+            "ticker": "QCOM",
+            "name": "Qualcomm",
+            "why": "Edge AI chips for mobile and automotive. Growing AI inference market."
+          },
+          {
+            "ticker": "MRVL",
+            "name": "Marvell Technology",
+            "why": "Custom AI chips and optical interconnects. Acquired Celestial AI Feb 2026."
+          },
+          {
+            "ticker": "AMAT",
+            "name": "Applied Materials",
+            "why": "Makes equipment to manufacture chips. Every chip fab needs AMAT tools."
+          },
+          {
+            "ticker": "ASML",
+            "name": "ASML",
+            "why": "Monopoly on EUV lithography machines. No advanced chips without ASML."
+          },
+          {
+            "ticker": "TSM",
+            "name": "TSMC",
+            "why": "Manufactures 90% of world advanced chips. Makes NVIDIA, Apple, AMD chips."
+          },
+          {
+            "ticker": "LRCX",
+            "name": "Lam Research",
+            "why": "Chip etching equipment. Critical for memory and logic chip production."
+          },
+          {
+            "ticker": "KLAC",
+            "name": "KLA Corporation",
+            "why": "Chip inspection equipment. Quality control for every advanced semiconductor fab."
+          },
+          {
+            "ticker": "MU",
+            "name": "Micron Technology",
+            "why": "HBM memory for AI GPUs. Every NVIDIA chip needs Micron HBM3 memory."
+          },
+          {
+            "ticker": "CRDO",
+            "name": "Credo Technology",
+            "why": "High-speed copper links between GPUs. Revenue up 272% YoY in AI data centers."
+          }
+        ]
+      },
+      "layer_2_ai_hyperscalers_software": {
+        "description": "Companies building and running AI infrastructure at massive scale.",
+        "assets": [
+          {
+            "ticker": "MSFT",
+            "name": "Microsoft",
+            "why": "OpenAI partner. Azure AI cloud. Nuclear deal with Constellation Energy."
+          },
+          {
+            "ticker": "GOOGL",
+            "name": "Alphabet/Google",
+            "why": "Gemini AI. TPU chips. Google Cloud AI. Massive data center builder."
+          },
+          {
+            "ticker": "META",
+            "name": "Meta",
+            "why": "Llama AI models. Custom ASIC chips via Broadcom. Largest AI training cluster."
+          },
+          {
+            "ticker": "AMZN",
+            "name": "Amazon",
+            "why": "AWS cloud dominates. Trainium chips. Nuclear deal with Talen Energy."
+          },
+          {
+            "ticker": "ORCL",
+            "name": "Oracle",
+            "why": "AI cloud infrastructure. Signed massive GPU cluster deals with NVIDIA."
+          },
+          {
+            "ticker": "CRWV",
+            "name": "CoreWeave",
+            "why": "Pure-play AI cloud. GPU rental for AI training. IPO 2025. Fast growing."
+          }
+        ]
+      },
+      "layer_3_data_center_infrastructure": {
+        "description": "Physical infrastructure for data centers \u2014 cooling, power, construction.",
+        "assets": [
+          {
+            "ticker": "EQIX",
+            "name": "Equinix",
+            "why": "Largest data center REIT. Hosts AI infrastructure globally."
+          },
+          {
+            "ticker": "DLR",
+            "name": "Digital Realty",
+            "why": "Data center REIT. AI demand driving massive expansion."
+          },
+          {
+            "ticker": "VRT",
+            "name": "Vertiv",
+            "why": "Power and cooling for data centers. Stock up 100%+ on AI demand."
+          },
+          {
+            "ticker": "ETN",
+            "name": "Eaton Corporation",
+            "why": "Electrical systems for data centers. Critical power management."
+          },
+          {
+            "ticker": "FIX",
+            "name": "Comfort Systems",
+            "why": "HVAC and cooling for data centers. Stock up 100%+ YTD."
+          },
+          {
+            "ticker": "STRL",
+            "name": "Sterling Infrastructure",
+            "why": "Site preparation for data centers and chip fabs."
+          },
+          {
+            "ticker": "PWR",
+            "name": "Quanta Services",
+            "why": "Electrical grid and data center construction."
+          }
+        ]
+      },
+      "layer_4_energy_nuclear": {
+        "description": "AI needs enormous power. Nuclear is the preferred solution for 24/7 carbon-free energy.",
+        "note": "Goldman Sachs: data center electricity demand rises 160% by 2030",
+        "assets": [
+          {
+            "ticker": "CEG",
+            "name": "Constellation Energy",
+            "why": "Largest US nuclear operator. 20-year deal with Microsoft. Top nuclear AI play."
+          },
+          {
+            "ticker": "TLN",
+            "name": "Talen Energy",
+            "why": "Nuclear power for Amazon data centers in Pennsylvania."
+          },
+          {
+            "ticker": "BWXT",
+            "name": "BWX Technologies",
+            "why": "Small modular reactors (SMR). Government nuclear contracts. Backlog up 50% YoY."
+          },
+          {
+            "ticker": "GEV",
+            "name": "GE Vernova",
+            "why": "Power turbines and grid equipment. Critical for data center power supply."
+          },
+          {
+            "ticker": "CCJ",
+            "name": "Cameco",
+            "why": "Largest uranium miner. AI driving nuclear = driving uranium demand."
+          },
+          {
+            "ticker": "NXE",
+            "name": "NexGen Energy",
+            "why": "High-grade uranium deposits. Pure uranium mining play."
+          },
+          {
+            "ticker": "UEC",
+            "name": "Uranium Energy Corp",
+            "why": "US uranium mining. Supply constraints driving prices higher."
+          },
+          {
+            "ticker": "D",
+            "name": "Dominion Energy",
+            "why": "Nuclear utility. AI data center power contracts."
+          },
+          {
+            "ticker": "NEE",
+            "name": "NextEra Energy",
+            "why": "Largest renewable + nuclear energy. Powers data centers with clean energy."
+          }
+        ]
+      },
+      "layer_5_raw_materials_resources": {
+        "description": "Physical materials the AI revolution cannot happen without.",
+        "assets": [
+          {
+            "ticker": "COPPER",
+            "name": "Copper (futures)",
+            "why": "Data centers and EVs need massive copper wiring. AI buildout = copper boom."
+          },
+          {
+            "ticker": "FCX",
+            "name": "Freeport-McMoRan",
+            "why": "Largest copper miner. Direct play on AI infrastructure copper demand."
+          },
+          {
+            "ticker": "SCCO",
+            "name": "Southern Copper",
+            "why": "Major copper producer. Fidelity highlights copper as AI infrastructure pick."
+          },
+          {
+            "ticker": "HCC",
+            "name": "Helium (via HCC)",
+            "why": "Helium cools MRI machines and chip fabs. Critical for semiconductor manufacturing."
+          },
+          {
+            "ticker": "MP",
+            "name": "MP Materials",
+            "why": "Rare earth mining. AI motors and chips need rare earth elements."
+          },
+          {
+            "ticker": "UUUU",
+            "name": "Energy Fuels",
+            "why": "Uranium + rare earth processing. US-based supply chain security."
+          }
+        ]
+      },
+      "layer_6_networking_connectivity": {
+        "description": "Moving data at the speed AI requires \u2014 optical and copper interconnects.",
+        "assets": [
+          {
+            "ticker": "CSCO",
+            "name": "Cisco",
+            "why": "Network infrastructure for AI data centers. Ethernet switching."
+          },
+          {
+            "ticker": "ANET",
+            "name": "Arista Networks",
+            "why": "Ethernet switches for AI clusters. Chosen by Meta and Microsoft."
+          },
+          {
+            "ticker": "LITE",
+            "name": "Lumentum",
+            "why": "Optical components for AI data center interconnects."
+          },
+          {
+            "ticker": "COHR",
+            "name": "Coherent Corp",
+            "why": "Optical transceivers connecting AI servers. High demand from hyperscalers."
+          },
+          {
+            "ticker": "ALAB",
+            "name": "Astera Labs",
+            "why": "AI fabric switches. Revenue up 115%. Entering $20B switching market."
+          }
+        ]
+      },
+      "layer_7_crypto_ai_intersection": {
+        "description": "Crypto assets with AI infrastructure or high correlation to tech sentiment.",
+        "assets": [
+          {
+            "ticker": "BTCUSD",
+            "name": "Bitcoin",
+            "why": "Digital gold. Moves with tech risk sentiment. 24/7 tradeable."
+          },
+          {
+            "ticker": "ETHUSD",
+            "name": "Ethereum",
+            "why": "Smart contract platform. AI agent infrastructure building on ETH."
+          },
+          {
+            "ticker": "SOLUSD",
+            "name": "Solana",
+            "why": "Fast blockchain. High volume. Good daily trading liquidity."
+          },
+          {
+            "ticker": "RNDR",
+            "name": "Render Network",
+            "why": "Decentralized GPU rendering. Direct AI/GPU intersection crypto."
+          },
+          {
+            "ticker": "FET",
+            "name": "Fetch.ai",
+            "why": "AI agent blockchain. Pure AI crypto play."
+          }
+        ]
+      }
+    },
+    "scanning_priority_matrix": {
+      "description": "How I decide WHICH assets to scan in morning briefing",
+      "step_1": "Always scan session fixed assets (8 core assets)",
+      "step_2": "Search morning news for AI/tech/geo events",
+      "step_3": "Any news mentioning a layer_1 to layer_7 asset with >2% move \u2014 add to scan",
+      "step_4": "If earnings season (Jan/Apr/Jul/Oct) \u2014 check layer_2 hyperscalers for gaps",
+      "step_5": "Never scan more than 20 assets total per day \u2014 quality over quantity",
+      "step_6": "Pick 1 best trade per session (max 3 trades per day)"
+    }
+  }
 }
