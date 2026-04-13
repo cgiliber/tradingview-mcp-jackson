@@ -1,7 +1,8 @@
 {
-  "version": "4.3",
-  "description": "Trading rules — three sections: TIERS + ENTRY RULES per asset class + RISK RULES universal",
+  "version": "5.0",
+  "description": "Trading rules — three sections: TIERS + ENTRY RULES per asset class + RISK RULES universal. Updated with Ross Cameron (Warrior Trading) strategies.",
   "last_updated": "2026-04-13",
+  "sources": ["Nial Fuller", "Adam Khoo", "Alexander Elder", "John Bollinger", "Ray Dalio", "Raoul Pal", "Van de Poppe", "Ross Cameron (Warrior Trading)"],
   "architecture": "Section 0 = Trade TIERS (scalping vs swing). Section 1 = WHEN to enter (per asset). Section 2 = HOW MUCH to risk and WHEN to exit (all assets).",
   "section_0_tiers": {
     "description": "Two tiers of trades. Tier 1 is for future automation (Bitget scalper). Tier 2 is what Maria places manually now.",
@@ -292,6 +293,83 @@
           "risk_note": "Altcoins more volatile than BTC \u2014 use HALF normal position size"
         }
       ]
+    },
+    "us_stocks_daytrading": {
+      "assets": "US small-cap and mid-cap stocks — selected dynamically each morning via scanners",
+      "character": "Momentum-driven, news-catalyzed, high relative volume, intraday only",
+      "source": "Ross Cameron (Warrior Trading) — $583 to $10M+ verified and audited",
+      "best_timeframe": "1-minute (entries), 5-minute (trend confirmation), Daily (200 EMA/SMA check)",
+      "best_sessions_oslo": {
+        "primary": "15:30-16:30 Oslo (US market open — first hour is where 80%+ of profit comes from)",
+        "secondary": "16:30-18:00 Oslo (mid-morning setups, lower probability)",
+        "avoid": "After 18:00 Oslo (liquidity drops, decision fatigue increases)"
+      },
+      "stock_selection_criteria": {
+        "description": "Five criteria for finding momentum stocks each morning. Grade as A (all 5), B (4/5), C (3/5). Only trade A-quality in cold markets.",
+        "criterion_1": "Gap up 2-10% in premarket",
+        "criterion_2": "Relative Volume 5x or higher vs 50-day average",
+        "criterion_3": "Price between $2 and $20 (sweet spot for percentage returns)",
+        "criterion_4": "Float under 10 million shares (low supply = bigger moves)",
+        "criterion_5": "News catalyst present (earnings, FDA, contract, clinical trial)"
+      },
+      "strategies": [
+        {
+          "id": "STK-1",
+          "name": "Bull Flag / Micro Pullback (Momentum Day Trade)",
+          "source": "Ross Cameron (Warrior Trading)",
+          "when_to_use": "Stock gaps up on news, squeezes on first candles, then pulls back 2-4 candles with decreasing volume",
+          "indicators": ["EMA 9", "EMA 20", "EMA 200", "SMA 200", "MACD 12,26,9", "VWAP", "Volume"],
+          "multi_timeframe": "Daily (check 200 EMA/SMA), 5-min (check extension from 9 EMA), 1-min (MACD + entry), 10-sec (precision entries)",
+          "entry_long": "First candle to make new high after 2-4 candle pullback with decreasing volume. Stock must hold above 50% retracement. MACD must be above signal line (window open). Price above VWAP.",
+          "entry_short": "Not primary — Ross focuses on long momentum trades",
+          "stop_loss": "Low of the pullback candle — set BEFORE entry, never moved against you",
+          "take_profit": "Retest of high of day (most reliable target). Or 2:1 to 3:1 R:R.",
+          "macd_window_rule": "MACD above signal = window OPEN (trades allowed). MACD below signal = window CLOSED (no trades). After MACD crossover down, STOP trading that stock entirely.",
+          "front_side_rule": "Only trade first spike + first 2 pullbacks. Avoid 3rd pullback and beyond — probability drops significantly.",
+          "adding_to_winners": "When trade moves in your favor, double position and move stop to breakeven. Turns $2K winner into $6K with zero additional risk. NEVER add to losers."
+        },
+        {
+          "id": "STK-2",
+          "name": "VWAP Reclaim Reversal",
+          "source": "Ross Cameron (Warrior Trading)",
+          "when_to_use": "Stock sold off below VWAP, then reclaims above VWAP with volume",
+          "indicators": ["VWAP", "EMA 9", "Volume"],
+          "entry_long": "Price crosses back above VWAP with above-average volume. 9 EMA turning up.",
+          "stop_loss": "Below VWAP",
+          "take_profit": "Next resistance level or high of day"
+        },
+        {
+          "id": "STK-3",
+          "name": "Moving Average Bounce (9 EMA Dip Buy)",
+          "source": "Ross Cameron (Warrior Trading)",
+          "when_to_use": "Stock in strong uptrend, pulling back to 9 EMA on 1-min or 5-min chart",
+          "indicators": ["EMA 9", "EMA 20", "MACD 12,26,9"],
+          "entry_long": "Price touches or dips slightly below 9 EMA and bounces. MACD still above signal line. Volume decreasing on pullback.",
+          "stop_loss": "Below 20 EMA — if price breaks both 9 and 20, trend is weakening",
+          "take_profit": "New high or previous resistance level"
+        }
+      ],
+      "candlestick_signals": {
+        "bullish": [
+          "Dragonfly doji at pullback low — buyers overwhelming sellers",
+          "Bottoming tail (long lower wick on red candle) — buyers rallying",
+          "Hammer at 9 EMA support — bounce expected"
+        ],
+        "bearish_exit": [
+          "Large upper wick / shooting star — exhaustion, exit or do not enter",
+          "High-volume red candle — significant selling, tighten stop or exit",
+          "Inverted hammer at resistance — sellers present"
+        ]
+      },
+      "key_indicators_settings": {
+        "ema_9": "Exponential, period 9 — primary intraday support, buy dips here",
+        "ema_20": "Exponential, period 20 — secondary support if 9 breaks",
+        "ema_200": "Exponential, period 200 — major daily support/resistance (professionals use this)",
+        "sma_200": "Simple, period 200 — plot as dotted line on daily chart (beginners/meme traders respect this)",
+        "macd": "12, 26, 9 — NEVER change from default. Use standard so you see same signals as everyone else.",
+        "vwap": "Default volume-weighted average price — intraday only, not available on daily",
+        "volume": "Default — confirm breakouts, spot exhaustion on red candles"
+      }
     }
   },
   "section_2_risk_rules": {
@@ -300,6 +378,21 @@
       "max_risk_per_trade": "1% of total account (beginners) \u2014 2% maximum (experienced)",
       "crypto_altcoin_max_risk": "0.5-1% only \u2014 higher volatility demands smaller size",
       "max_portfolio_heat": "6% maximum across ALL open trades simultaneously",
+      "profit_cushion_system": {
+        "source": "Ross Cameron — produced 76 consecutive green days",
+        "step_1": "Start each day at 1/4 of full position size",
+        "step_2": "Only size up to full position after reaching 1/4 of daily profit goal",
+        "step_3": "If you never reach 1/4 goal, stay at 1/4 size all day",
+        "step_4": "If you give back your cushion after sizing up, drop back to 1/4 or stop entirely",
+        "max_daily_loss": "Equal to daily profit goal (symmetric)"
+      },
+      "adding_to_winners": {
+        "source": "Ross Cameron",
+        "rule": "When trade moves in your favor, double position and move stop to breakeven",
+        "result": "Turns a $2K winner into $6K with zero additional risk",
+        "never_add_to_losers": true,
+        "average_winner_size_vs_loser": "Winners should be larger positions than losers (16K shares avg winner vs 9.5K avg loser)"
+      },
       "formula": "Position size = (Account x Risk%) / Stop distance",
       "examples": {
         "account_1000_risk_1pct": "Risk 0. Stop distance .50 = 4 units",
@@ -317,7 +410,8 @@
         "gold_silver": "Below EMA 50",
         "oil": "Below EMA 50",
         "crypto_btc": "Below EMA 55 or most recent weekly swing low",
-        "crypto_altcoins": "Below EMA 50 or -5% from entry \u2014 whichever is closer"
+        "crypto_altcoins": "Below EMA 50 or -5% from entry — whichever is closer",
+        "us_stocks_daytrading": "Below the low of the pullback candle — set BEFORE entry, never moved against you"
       },
       "trailing_stop_rule": "Once trade reaches +1R profit \u2014 move stop to breakeven. Cannot lose on this trade.",
       "order_expiry": "Day only \u2014 cancel all unfilled orders end of trading session. No stale orders overnight."
@@ -383,7 +477,15 @@
       "think_in_R": "1R = your risk. 2R win = made 2x your risk. Think in R not dollars.",
       "discipline": "Strategy is only as good as execution. Follow the rules exactly.",
       "patience": "Most days there is NO good setup. Waiting is a valid action.",
-      "detachment": "Your self-worth is not your P&L. A losing trade does not make you a bad trader."
+      "detachment": "Your self-worth is not your P&L. A losing trade does not make you a bad trader.",
+      "front_side_only": "Focus on first 20-30 minutes of a move. First spike + first 2 pullbacks = 80%+ of profit. (Ross Cameron)",
+      "inactivity_rule": "If no trade taken in 30 minutes, walk away for the day. (Ross Cameron)",
+      "hot_vs_cold_markets": "Hot days: trade longer and more aggressively. Cold days: walk away early even if below daily goal. Detach from fixed P&L targets. (Ross Cameron)",
+      "consecutive_discipline_days": "Track how many days in a row you follow your rules, not how many days you profit. (Ross Cameron)",
+      "negative_feedback_loop": "Loss → sadness → revenge trading → lower quality setups → more losses. Break it by starting small or walking away. (Ross Cameron)",
+      "decision_fatigue": "The longer you sit, the worse your decisions. Walk away before fatigue sets in. (Ross Cameron)",
+      "standard_indicator_settings": "NEVER use non-standard indicator settings. Use what everyone else uses so you see the same signals. The traffic light analogy. (Ross Cameron)",
+      "recommended_books": ["Quit by Annie Duke (knowing when to walk away)", "Thinking in Bets by Annie Duke", "Trade Mindfully by Gary Dayton", "The Happiness Advantage by Shawn Achor"]
     },
     "risk_reward_ratio": {
       "description": "Only enter a trade if potential profit is at least 2x the potential loss",

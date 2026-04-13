@@ -1,0 +1,48 @@
+{
+  "description": "Strategy learnings extracted from YouTube trader transcripts. Organized by source and asset class. Used to improve rules.json.",
+  "last_updated": "2026-04-13",
+  "sources_processed": [
+    {
+      "channel": "Warrior Trading (@DaytradeWarrior)",
+      "trader": "Ross Cameron",
+      "videos_scraped": 7,
+      "total_chars": 380679,
+      "asset_classes": ["US stocks (small-cap momentum day trading)"],
+      "date_processed": "2026-04-13",
+      "key_strategies_extracted": [
+        "STK-1: Bull Flag / Micro Pullback — momentum day trade on gapping stocks",
+        "STK-2: VWAP Reclaim Reversal — buy when price reclaims VWAP with volume",
+        "STK-3: Moving Average Bounce — 9 EMA dip buy in strong uptrend"
+      ],
+      "key_indicators_learned": [
+        "EMA 9 as primary intraday support (buy dips here)",
+        "VWAP as bull/bear control line (new — not in original rules)",
+        "MACD 12,26,9 as window open/closed binary filter",
+        "Dual 200 EMA + 200 SMA on daily chart (professionals vs beginners)",
+        "10-second chart for precision entries during parabolic moves"
+      ],
+      "key_risk_rules_learned": [
+        "Profit Cushion system: start 1/4 size, scale up after 1/4 daily goal reached",
+        "Adding to winners: double position, move stop to breakeven",
+        "Never add to losers — cut immediately",
+        "Front side only: trade first spike + first 2 pullbacks",
+        "MACD crossover = stop trading that stock entirely"
+      ],
+      "key_psychology_learned": [
+        "Track consecutive discipline days, not consecutive green days",
+        "30-minute inactivity rule — walk away if no setup found",
+        "Hot market: trade longer. Cold market: walk away early",
+        "Decision fatigue awareness — quality drops with time",
+        "Sim trade 90 days minimum before real money"
+      ],
+      "applied_to_rules_json": true,
+      "rules_json_version_after": "5.0"
+    }
+  ],
+  "sources_pending": [
+    { "channel": "Benjamin Cowen", "trader": "Benjamin Cowen", "asset_classes": ["crypto"], "status": "not yet scraped" },
+    { "channel": "Rayner Teo", "trader": "Rayner Teo", "asset_classes": ["forex", "swing trading"], "status": "not yet scraped" },
+    { "channel": "Kitco News", "trader": "Various", "asset_classes": ["gold", "silver", "oil", "commodities"], "status": "not yet scraped" },
+    { "channel": "Coin Bureau", "trader": "Guy Turner", "asset_classes": ["crypto", "AI tokens"], "status": "not yet scraped" }
+  ]
+}
