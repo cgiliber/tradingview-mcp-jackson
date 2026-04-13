@@ -1,10 +1,9 @@
 {
-  "date": "Sunday 13 April 2026",
+  "date": "Monday 13 April 2026",
   "briefing": [
-    "PLTR LONG cancelled — broke below EMA 50 and EMA 200, bearish breakdown, fails IDX-1 rules",
-    "TSM LONG adjusted — stop tightened to 362, target raised to 400, R:R improved to 1:5.3",
-    "XAUUSD LONG active — entry filled at 4,724.54, in profit +$42.57",
-    "USDJPY SHORT active — entry filled at 159.85, in profit +$0.31"
+    "Two trades: PLTR LONG and TSM LONG — NY session limit orders",
+    "PLTR LONG — double volume, Cathie Wood buying, AI gov contracts, earnings May 11",
+    "TSM LONG — strongest AI stock YTD +13.7%, earnings April 16, Strong Buy all 18 analysts"
   ],
   "sessions": {
     "london": "10:00 Oslo",
@@ -12,37 +11,46 @@
   },
   "trades": [
     {
-      "name": "Taiwan Semiconductor (TSM)",
-      "tv_symbol": "TSM",
-      "direction": "LONG",
-      "strategy": "Strongest AI ecosystem stock YTD +13.7%, earnings April 16, Strong Buy all analysts, BofA target $500",
-      "score": "High — unanimous analyst consensus, earnings catalyst in 3 days",
-      "entry": 368.00,
-      "stop": 362.00,
-      "target": 400.00,
-      "stop_dist": 6.00,
-      "risk_reward": "1:5.3",
-      "order_type": "LIMIT",
-      "units": 1,
-      "window": "NY session 15:30 Oslo",
-      "skip_if": "Price drops below 355 before entry — support broken",
-      "status": "WORKING",
-      "alerts": [
-        {"label": "ENTRY",       "condition": "Crossing Down", "price": 368.00, "msg": "Alert 1/3 — ENTRY @ 368.00"},
-        {"label": "STOP LOSS",   "condition": "Crossing Down", "price": 362.00, "msg": "Alert 2/3 — STOP LOSS @ 362.00"},
-        {"label": "TAKE PROFIT", "condition": "Crossing Up",   "price": 400.00, "msg": "Alert 3/3 — TAKE PROFIT @ 400.00"}
-      ]
-    },
-    {
       "name": "Palantir Technologies (PLTR)",
       "tv_symbol": "PLTR",
       "direction": "LONG",
       "strategy": "Double volume day, Cathie Wood buying, AI government contracts, earnings May 11",
+      "score": "High — catalyst-driven momentum with institutional buying",
       "entry": 132.00,
       "stop": 122.00,
       "target": 152.00,
-      "status": "CANCELLED",
-      "cancel_reason": "Broke below EMA 50 (148.79) and EMA 200 (150.62). Michael Burry warning triggered sell-off. Fails IDX-1 entry rules."
+      "stop_dist": 10.00,
+      "risk_reward": "1:2",
+      "order_type": "LIMIT",
+      "units": 0.75,
+      "window": "NY session 15:30 Oslo",
+      "skip_if": "Price drops below 120 before entry — momentum broken",
+      "alerts": [
+        {"label": "ENTRY",       "condition": "Crossing Down", "price": 132.00, "msg": "Alert 1/3 — ENTRY @ 132.00"},
+        {"label": "STOP LOSS",   "condition": "Crossing Down", "price": 122.00, "msg": "Alert 2/3 — STOP LOSS @ 122.00"},
+        {"label": "TAKE PROFIT", "condition": "Crossing Up",   "price": 152.00, "msg": "Alert 3/3 — TAKE PROFIT @ 152.00"}
+      ]
+    },
+    {
+      "name": "Taiwan Semiconductor (TSM)",
+      "tv_symbol": "TSM",
+      "direction": "LONG",
+      "strategy": "Strongest AI ecosystem stock YTD +13.7%, earnings April 16 in 3 days, Strong Buy from all 18 analysts",
+      "score": "High — unanimous analyst consensus, earnings catalyst in 3 days",
+      "entry": 368.00,
+      "stop": 355.00,
+      "target": 390.00,
+      "stop_dist": 13.00,
+      "risk_reward": "1:1.7",
+      "order_type": "LIMIT",
+      "units": 0.27,
+      "window": "NY session 15:30 Oslo",
+      "skip_if": "Price drops below 350 before entry — support broken",
+      "alerts": [
+        {"label": "ENTRY",       "condition": "Crossing Down", "price": 368.00, "msg": "Alert 1/3 — ENTRY @ 368.00"},
+        {"label": "STOP LOSS",   "condition": "Crossing Down", "price": 355.00, "msg": "Alert 2/3 — STOP LOSS @ 355.00"},
+        {"label": "TAKE PROFIT", "condition": "Crossing Up",   "price": 390.00, "msg": "Alert 3/3 — TAKE PROFIT @ 390.00"}
+      ]
     }
   ]
 }
