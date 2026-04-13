@@ -82,6 +82,23 @@ These were emphasized in the videos and must always be followed:
 
 ---
 
+## Project Phases
+
+### Phase 1 — R&D (CURRENT)
+- Find strategies by scraping trading YouTubers' videos and extracting their methodology
+- Test strategies using TradingView paper trading — Claude places orders automatically
+- Collect all results in journal.json — track win rate, R multiples, drawdowns
+- Prove the strategy works over 1-2 months before going live
+- Tools: paper trading orders, morning briefing, Pine Script signals, two-tier system
+
+### Phase 2 — Live Broker Execution (FUTURE — after Phase 1 proves strategy)
+- Connect to Bitget or another broker via API (Lewis Jackson Part 2 video)
+- Automate Tier 1 scalping trades via broker API
+- Deploy to Railway for 24/7 execution
+- Only start Phase 2 when journal shows consistent positive R
+
+---
+
 ## Key Lessons Learned
 
 - **Bitget asset locking**: Newly purchased assets get locked against immediate resale (anti-wash-trading). The sell retry logic with lock-aware error parsing handles this.
