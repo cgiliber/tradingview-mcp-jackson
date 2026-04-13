@@ -1,0 +1,116 @@
+{
+  "description": "Master watchlist for morning briefing. Scan ALL assets at correct session times Oslo time. Always check for BOTH Buy AND Sell opportunities on every single asset. Never skip an asset. Never assume direction — the market decides every day. Always check today.json for open trades before suggesting new ones.",
+
+  "scanning_rules": {
+    "direction": "Always scan for BOTH Buy AND Sell opportunities on every asset — never assume direction",
+    "position_size_usd": 100,
+    "max_open_trades": 4,
+    "min_risk_reward": "1:2 minimum, 1:3 preferred",
+    "open_trades_check": "Always read today.json first to check existing open trades before suggesting new ones"
+  },
+
+  "london_session": {
+    "time_oslo": "10:00",
+    "description": "Forex pairs and commodities — London open. Scan for both Buy and Sell on each asset.",
+    "assets": [
+      { "symbol": "EURUSD", "name": "Euro / US Dollar", "type": "forex" },
+      { "symbol": "GBPUSD", "name": "British Pound / US Dollar", "type": "forex" },
+      { "symbol": "USDJPY", "name": "US Dollar / Japanese Yen", "type": "forex" },
+      { "symbol": "EURGBP", "name": "Euro / British Pound", "type": "forex" },
+      { "symbol": "GBPJPY", "name": "British Pound / Japanese Yen", "type": "forex" },
+      { "symbol": "XAUUSD", "name": "Gold", "type": "commodity" },
+      { "symbol": "XAGUSD", "name": "Silver", "type": "commodity", "note": "AI and solar panel demand driver" },
+      { "symbol": "USOIL", "name": "WTI Crude Oil", "type": "commodity", "note": "key geopolitical driver — Strait of Hormuz" },
+      { "symbol": "UKOUSD", "name": "Brent Crude Oil", "type": "commodity" },
+      { "symbol": "NATGAS", "name": "Natural Gas", "type": "commodity", "note": "AI data center energy driver" },
+      { "symbol": "COPPUSD", "name": "Copper", "type": "commodity", "note": "AI and EV demand — projected 50% demand increase by 2040" }
+    ]
+  },
+
+  "ny_session": {
+    "time_oslo": "15:30",
+    "description": "US stocks — AI ecosystem across 7 layers plus resources and high-news stocks. Scan for both Buy and Sell on each asset.",
+    "assets": [
+      { "symbol": "NVDA", "name": "NVIDIA", "layer": "1 — Chips" },
+      { "symbol": "AMD", "name": "Advanced Micro Devices", "layer": "1 — Chips" },
+      { "symbol": "TSM", "name": "Taiwan Semiconductor", "layer": "1 — Chips" },
+      { "symbol": "AVGO", "name": "Broadcom", "layer": "1 — Chips" },
+      { "symbol": "INTC", "name": "Intel", "layer": "1 — Chips" },
+      { "symbol": "ARM", "name": "ARM Holdings", "layer": "1 — Chips", "note": "AI chip architecture — royalties from NVDA and AMD" },
+      { "symbol": "MSFT", "name": "Microsoft", "layer": "2 — Hyperscalers" },
+      { "symbol": "GOOGL", "name": "Alphabet", "layer": "2 — Hyperscalers" },
+      { "symbol": "AMZN", "name": "Amazon", "layer": "2 — Hyperscalers" },
+      { "symbol": "META", "name": "Meta Platforms", "layer": "2 — Hyperscalers" },
+      { "symbol": "PLTR", "name": "Palantir Technologies", "layer": "3 — AI Software" },
+      { "symbol": "ORCL", "name": "Oracle", "layer": "3 — AI Software" },
+      { "symbol": "NOW", "name": "ServiceNow", "layer": "3 — AI Software" },
+      { "symbol": "DELL", "name": "Dell Technologies", "layer": "4 — Data Centers" },
+      { "symbol": "SMCI", "name": "Super Micro Computer", "layer": "4 — Data Centers" },
+      { "symbol": "CRWV", "name": "CoreWeave", "layer": "4 — Data Centers" },
+      { "symbol": "CEG", "name": "Constellation Energy", "layer": "5 — Nuclear Power" },
+      { "symbol": "VST", "name": "Vistra Corp", "layer": "5 — Nuclear Power" },
+      { "symbol": "NRG", "name": "NRG Energy", "layer": "5 — Nuclear Power" },
+      { "symbol": "CCJ", "name": "Cameco", "layer": "5 — Nuclear Power", "note": "largest uranium mining company" },
+      { "symbol": "FCX", "name": "Freeport-McMoRan", "layer": "6 — Materials", "note": "largest copper producer" },
+      { "symbol": "MP", "name": "MP Materials", "layer": "6 — Materials", "note": "rare earth elements — US domestic supply" },
+      { "symbol": "UUUU", "name": "Energy Fuels", "layer": "6 — Materials", "note": "uranium and rare earths" },
+      { "symbol": "ALB", "name": "Albemarle", "layer": "6 — Materials", "note": "largest lithium producer" },
+      { "symbol": "ANET", "name": "Arista Networks", "layer": "7 — Networking" },
+      { "symbol": "CSCO", "name": "Cisco Systems", "layer": "7 — Networking" },
+      { "symbol": "MRVL", "name": "Marvell Technology", "layer": "7 — Networking" },
+      { "symbol": "TSLA", "name": "Tesla", "layer": "high-news", "note": "Elon Musk effect — moves on any news" },
+      { "symbol": "AAPL", "name": "Apple", "layer": "high-news", "note": "Product launches, supply chain, China exposure" },
+      { "symbol": "NFLX", "name": "Netflix", "layer": "high-news", "note": "Earnings always move big — subscriber numbers" },
+      { "symbol": "COIN", "name": "Coinbase", "layer": "high-news", "note": "Moves with crypto market sentiment" },
+      { "symbol": "MSTR", "name": "MicroStrategy", "layer": "high-news", "note": "Bitcoin proxy — moves with BTC" },
+      { "symbol": "CRWD", "name": "CrowdStrike", "layer": "high-news", "note": "Cybersecurity AI — news driven" },
+      { "symbol": "HOOD", "name": "Robinhood", "layer": "high-news", "note": "Retail trading sentiment indicator" },
+      { "symbol": "RKLB", "name": "Rocket Lab", "layer": "high-news", "note": "Space and defense — news driven" },
+      { "symbol": "BABA", "name": "Alibaba", "layer": "high-news", "note": "China geopolitical risk proxy" },
+      { "symbol": "BIDU", "name": "Baidu", "layer": "high-news", "note": "Chinese AI — geopolitical risk" },
+      { "symbol": "IONQ", "name": "IonQ", "layer": "high-news", "note": "Quantum computing — high news volatility" }
+    ]
+  },
+
+  "crypto_session": {
+    "time_oslo": "20:00",
+    "description": "Crypto majors and AI tokens. Scan for both Buy and Sell on each asset.",
+    "assets": [
+      { "symbol": "BTCUSD", "name": "Bitcoin", "type": "crypto-major" },
+      { "symbol": "ETHUSD", "name": "Ethereum", "type": "crypto-major" },
+      { "symbol": "SOLUSD", "name": "Solana", "type": "crypto-major" },
+      { "symbol": "XRPUSD", "name": "XRP", "type": "crypto-major" },
+      { "symbol": "BNBUSD", "name": "Binance Coin", "type": "crypto-major" },
+      { "symbol": "ADAUSD", "name": "Cardano", "type": "crypto-major" },
+      { "symbol": "AVAXUSD", "name": "Avalanche", "type": "crypto-major" },
+      { "symbol": "LINKUSD", "name": "Chainlink", "type": "crypto-major", "note": "JPMorgan and UBS running live CCIP settlement pilots" },
+      { "symbol": "FETUSD", "name": "FET / Artificial Superintelligence Alliance", "type": "ai-token" },
+      { "symbol": "RENDERUSD", "name": "Render", "type": "ai-token", "note": "GPU rendering network — RenderCon April 16-17" },
+      { "symbol": "TAOUSD", "name": "Bittensor TAO", "type": "ai-token", "note": "decentralised AI network — up 47% YTD" },
+      { "symbol": "ARUSD", "name": "Arweave", "type": "ai-token", "note": "decentralised permanent storage" },
+      { "symbol": "OCEANPUSD", "name": "Ocean Protocol", "type": "ai-token", "note": "AI data marketplace" },
+      { "symbol": "AGIXUSD", "name": "SingularityNET", "type": "ai-token", "note": "AI agents platform" },
+      { "symbol": "VIRTUALSUSD", "name": "Virtuals Protocol", "type": "ai-token", "note": "AI agent deployment — 18000 agents deployed" },
+      { "symbol": "WLDUSD", "name": "Worldcoin", "type": "ai-token", "note": "biometric AI identity" }
+    ]
+  },
+
+  "all_day": {
+    "description": "Monitor these all day — macro sentiment and geopolitical indicators. Always check these before making any trade decision.",
+    "assets": [
+      { "symbol": "SPY", "name": "S&P 500 ETF", "type": "index" },
+      { "symbol": "QQQ", "name": "Nasdaq 100 ETF", "type": "index" },
+      { "symbol": "DXY", "name": "US Dollar Index", "type": "macro", "note": "affects Gold and all USD pairs — watch direction" },
+      { "symbol": "USOIL", "name": "WTI Crude Oil", "type": "commodity", "note": "Strait of Hormuz — key geopolitical risk right now" },
+      { "symbol": "COPPUSD", "name": "Copper", "type": "commodity", "note": "AI and EV demand driver — bellwether for global growth" },
+      { "symbol": "XAGUSD", "name": "Silver", "type": "commodity", "note": "AI solar and industrial demand" },
+      { "symbol": "NATGAS", "name": "Natural Gas", "type": "commodity", "note": "AI data center energy cost driver" }
+    ]
+  },
+
+  "sessions_oslo": {
+    "london": "10:00",
+    "ny": "15:30",
+    "crypto": "20:00"
+  }
+}
