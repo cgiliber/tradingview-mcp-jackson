@@ -92,25 +92,48 @@ ui_evaluate → expression:
 })()
 ```
 
-### Step 6: Set Take Profit and Stop Loss
+### Step 6: Set Take Profit and Stop Loss — MANDATORY, NEVER SKIP
 
-TP and SL are in the "Exits" section. They are checkbox-enabled — the checkboxes must be checked first, then the values set. The inputs are at index 3 (TP) and index 5 (SL) within the order panel.
+**CRITICAL: Every order MUST have TP and SL set. An order without SL is a risk of losing the entire position. NEVER submit an order without completing this step.**
 
-**Important:** After changing the price field (Step 4), the DOM re-renders and the TP/SL inputs may disappear. You may need to re-query them. If inputs are not found by index, try reading all inputs in the order panel first.
+TP and SL are in the "Exits" section. They have checkboxes that must be ENABLED first, then values set. Inputs are: index 2 = TP checkbox, index 3 = TP value, index 4 = SL checkbox, index 5 = SL value.
 
 ```javascript
 ui_evaluate → expression:
 (() => {
   const panel = document.querySelector('[data-name="order-panel"]');
-  if (!panel) return "no panel";
-  const inputs = panel.querySelectorAll('input[type="text"]');
-  const info = [];
-  inputs.forEach((inp, i) => info.push({ i, value: inp.value, id: inp.id }));
-  return JSON.stringify(info);
+  if (!panel) return "ABORT: no panel";
+  const inputs = panel.querySelectorAll('input');
+  
+  // Enable TP checkbox (index 2) if not checked
+  if (!inputs[2].checked) inputs[2].click();
+  
+  // Set TP value (index 3)
+  inputs[3].focus();
+  inputs[3].select();
+  document.execCommand('insertText', false, 'TP_PRICE_HERE');
+  inputs[3].dispatchEvent(new Event('input', { bubbles: true }));
+  
+  // Enable SL checkbox (index 4) if not checked
+  if (!inputs[4].checked) inputs[4].click();
+  
+  // Set SL value (index 5)
+  inputs[5].focus();
+  inputs[5].select();
+  document.execCommand('insertText', false, 'SL_PRICE_HERE');
+  inputs[5].dispatchEvent(new Event('input', { bubbles: true }));
+  
+  // VERIFY before returning
+  return JSON.stringify({
+    tp_enabled: inputs[2].checked,
+    tp_value: inputs[3].value,
+    sl_enabled: inputs[4].checked,
+    sl_value: inputs[5].value
+  });
 })()
 ```
 
-Then set the TP/SL values using the same focus/select/insertText pattern as price.
+**After running this, VERIFY the output shows both `tp_enabled: true` and `sl_enabled: true` with correct values. If not, DO NOT submit the order.**
 
 ### Step 7: Verify the submit button text
 
@@ -276,6 +299,61 @@ ui_evaluate → expression:
 This returns:
 - **Table 1**: Open positions (symbol, side, qty, avg fill, TP, SL, last price, P&L)
 - **Table 2**: Pending/working orders (symbol, side, type, qty, limit price, stop price, status)
+
+---
+
+## MANDATORY Post-Order Verification — NEVER SKIP
+
+After EVERY order submission, run this verification. If any order is missing TP or SL, ALERT Maria immediately and fix it.
+
+```javascript
+ui_evaluate → expression:
+(() => {
+  // Read all working orders and check for missing TP/SL
+  const rows = document.querySelectorAll('tr');
+  const issues = [];
+  const orders = [];
+  
+  rows.forEach(row => {
+    const text = row.textContent || '';
+    if (text.includes('Limit') && text.includes('working')) {
+      const cells = row.querySelectorAll('td');
+      if (cells.length > 4) {
+        const symbol = cells[0].textContent.trim();
+        const price = cells[4].textContent.trim();
+        
+        // Check if this limit order has corresponding SL and TP orders
+        let hasSL = false;
+        let hasTP = false;
+        rows.forEach(r2 => {
+          const t2 = r2.textContent || '';
+          if (t2.includes(symbol.split(':')[1] || symbol)) {
+            if (t2.includes('Stop Loss') && t2.includes('working')) hasSL = true;
+            if (t2.includes('Take Profit') && t2.includes('working')) hasTP = true;
+          }
+        });
+        
+        orders.push({ symbol, price, hasSL, hasTP });
+        if (!hasSL) issues.push("MISSING SL: " + symbol + " @ " + price);
+        if (!hasTP) issues.push("MISSING TP: " + symbol + " @ " + price);
+      }
+    }
+  });
+  
+  return JSON.stringify({ orders, issues, allClear: issues.length === 0 });
+})()
+```
+
+**If `allClear` is false:**
+1. STOP all other work
+2. ALERT Maria: "ORDER SAFETY CHECK FAILED — [issues]"
+3. Fix the missing TP/SL immediately before doing anything else
+
+**Rules:**
+- NEVER place an order without TP and SL
+- NEVER skip this verification after placing an order
+- If TP/SL checkboxes fail to enable, cancel the order and retry
+- This check must run after EVERY order placement, including auto-executed trades
 
 ---
 

@@ -1,5 +1,5 @@
 {
-  "version": "5.4",
+  "version": "5.5",
   "description": "Trading rules — three sections: TIERS + ENTRY RULES per asset class + RISK RULES universal. Updated with Ross Cameron (Warrior Trading) strategies.",
   "last_updated": "2026-04-14",
   "sources": ["Nial Fuller", "Adam Khoo", "Alexander Elder", "John Bollinger", "Ray Dalio", "Raoul Pal", "Van de Poppe", "Ross Cameron (Warrior Trading)"],
@@ -456,7 +456,8 @@
         "step_2": "Check if any standing order has been filled — if yes, update journal and today.json",
         "step_3": "Scan watchlist for any asset that moved >1% since last check — flag as swing alert",
         "step_4": "If a swing alert is found, score it against the trade scoring system",
-        "step_5": "If score qualifies for auto-execute — place the order automatically"
+        "step_5": "If score qualifies for auto-execute — place the order automatically",
+        "step_6": "MANDATORY ORDER SAFETY CHECK: After placing ANY order, verify TP and SL are set. If missing, ALERT Maria and fix immediately. See PAPER_TRADING_ORDERS.md verification section. An order without SL is FORBIDDEN."
       },
       "output_format": "Brief — no full briefing needed. Just a table of changes, alerts, and actions taken.",
       "auto_execute_rules": {
