@@ -1,0 +1,11 @@
+{
+  "description": "Log of all auto-executed trades by the timed briefing system. Separate from journal.json to keep auto-trades distinct from manual trades.",
+  "auto_execute_rules": {
+    "minimum_score": 11,
+    "max_risk_pct": 0.5,
+    "max_per_day": 2,
+    "requires": ["ATR stop", "defined S/R level", "portfolio heat < 5%"]
+  },
+  "trades_today": [],
+  "history": []
+}
