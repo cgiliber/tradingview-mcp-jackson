@@ -3,6 +3,21 @@
 
   "active_provider": "twelve-data",
 
+  "credit_tracking": {
+    "description": "Track API credits to stay within daily limits",
+    "daily_limit": 800,
+    "per_minute_limit": 8,
+    "credits_per_quote": 1,
+    "credit_log_file": "./scanner/credit-log.json",
+    "optimization_rules": {
+      "timed_check": "Use 4-6 priority assets only (4-6 credits). NOT full watchlist.",
+      "session_scan": "Full watchlist 3x per day max at session opens (London/NY/Crypto) = ~200 credits",
+      "penny_gap_scan": "On-demand only, 5-10 credits per scan",
+      "target_daily_usage": "Under 500 credits — leave 300 buffer for ad-hoc queries",
+      "if_approaching_limit": "Switch to TradingView quotes (free, unlimited but slow)"
+    }
+  },
+
   "providers": {
     "twelve-data": {
       "name": "Twelve Data",

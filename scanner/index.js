@@ -14,7 +14,7 @@
  * To switch providers: edit scanner/config.json → active_provider
  */
 
-import { readFileSync } from 'fs';
+import { readFileSync, writeFileSync, existsSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 
@@ -25,6 +25,48 @@ const ROOT = join(__dirname, '..');
 const config = JSON.parse(readFileSync(join(__dirname, 'config.json'), 'utf8'));
 const activeProvider = config.active_provider;
 const providerConfig = config.providers[activeProvider];
+const creditConfig = config.credit_tracking;
+
+// ════════════════════════════════════════
+// CREDIT TRACKER
+// ════════════════════════════════════════
+
+const CREDIT_LOG = join(__dirname, 'credit-log.json');
+
+function loadCreditLog() {
+  try {
+    if (existsSync(CREDIT_LOG)) {
+      const log = JSON.parse(readFileSync(CREDIT_LOG, 'utf8'));
+      const today = new Date().toISOString().split('T')[0];
+      if (log.date === today) return log;
+    }
+  } catch (e) {}
+  // New day or no log
+  return { date: new Date().toISOString().split('T')[0], used: 0, remaining: creditConfig.daily_limit, calls: [] };
+}
+
+function saveCreditLog(log) {
+  writeFileSync(CREDIT_LOG, JSON.stringify(log, null, 2));
+}
+
+function trackCredits(symbolCount, command) {
+  const log = loadCreditLog();
+  log.used += symbolCount;
+  log.remaining = creditConfig.daily_limit - log.used;
+  log.calls.push({
+    time: new Date().toISOString(),
+    command,
+    credits: symbolCount,
+    total_used: log.used
+  });
+  saveCreditLog(log);
+  return log;
+}
+
+function getCreditStatus() {
+  const log = loadCreditLog();
+  return { used: log.used, remaining: log.remaining, limit: creditConfig.daily_limit, pct: ((log.used / creditConfig.daily_limit) * 100).toFixed(1) };
+}
 
 // Load API key from .env
 function loadApiKey() {
@@ -186,12 +228,38 @@ if (!apiKey) {
   process.exit(1);
 }
 
-if (command === 'quote') {
+if (command === 'credits') {
+  // Show credit usage
+  const status = getCreditStatus();
+  console.log(`\n📊 API Credit Usage (${new Date().toISOString().split('T')[0]})`);
+  console.log(`   Used:      ${status.used} / ${status.limit} (${status.pct}%)`);
+  console.log(`   Remaining: ${status.remaining}`);
+  console.log(`   Provider:  ${providerConfig.name}`);
+  const log = loadCreditLog();
+  if (log.calls.length > 0) {
+    console.log(`\n   Last 5 calls:`);
+    log.calls.slice(-5).forEach(c => {
+      console.log(`     ${c.time.split('T')[1].split('.')[0]} — ${c.command} — ${c.credits} credits (total: ${c.total_used})`);
+    });
+  }
+
+} else if (command === 'quote') {
   // node scanner/index.js quote META,AMD,NVDA
   const symbols = args[1]?.split(',') || [];
   if (symbols.length === 0) { console.error('Usage: quote SYMBOL1,SYMBOL2,...'); process.exit(1); }
+
+  // Check if we have enough credits
+  const status = getCreditStatus();
+  if (status.remaining < symbols.length) {
+    console.error(`⚠️  Not enough credits! Need ${symbols.length}, have ${status.remaining}. Limit: ${status.limit}/day.`);
+    console.error(`   Switch to TradingView for quotes (free, unlimited).`);
+    process.exit(1);
+  }
+
   const results = await getQuotes(symbols, apiKey);
+  const creditLog = trackCredits(symbols.length, `quote ${symbols.join(',')}`);
   console.log(JSON.stringify(results, null, 2));
+  console.error(`\n📊 Credits: ${creditLog.used}/${creditConfig.daily_limit} used (${creditLog.remaining} remaining)`);
 
 } else if (command === 'scan') {
   const target = args[1] || 'watchlist';
@@ -199,17 +267,31 @@ if (command === 'quote') {
   if (target === 'watchlist') {
     const assets = loadWatchlist('all');
     const symbols = [...new Set(assets.map(a => a.symbol))];
+    const status = getCreditStatus();
+    if (status.remaining < symbols.length) {
+      console.error(`⚠️  Full watchlist scan needs ${symbols.length} credits, only ${status.remaining} remaining. Use 'scan session' instead.`);
+      process.exit(1);
+    }
     console.log(`Scanning ${symbols.length} assets using ${providerConfig.name}...`);
     const results = await getQuotes(symbols, apiKey);
+    const creditLog = trackCredits(symbols.length, `scan watchlist (${symbols.length} assets)`);
     console.log(JSON.stringify(results, null, 2));
+    console.error(`\n📊 Credits: ${creditLog.used}/${creditConfig.daily_limit} used (${creditLog.remaining} remaining)`);
 
   } else if (target === 'session') {
     const session = args[2] || 'all';
     const assets = loadWatchlist(session);
     const symbols = [...new Set(assets.map(a => a.symbol))];
+    const status = getCreditStatus();
+    if (status.remaining < symbols.length) {
+      console.error(`⚠️  Session scan needs ${symbols.length} credits, only ${status.remaining} remaining.`);
+      process.exit(1);
+    }
     console.log(`Scanning ${session} session: ${symbols.length} assets...`);
     const results = await getQuotes(symbols, apiKey);
+    const creditLog = trackCredits(symbols.length, `scan session ${session} (${symbols.length} assets)`);
     console.log(JSON.stringify(results, null, 2));
+    console.error(`\n📊 Credits: ${creditLog.used}/${creditConfig.daily_limit} used (${creditLog.remaining} remaining)`);
 
   } else if (target === 'penny') {
     console.log('Penny stock scan requires Finviz. Use: node scanner/index.js scan session ny');
@@ -221,7 +303,13 @@ if (command === 'quote') {
   const assets = loadWatchlist('all');
   const symbols = [...new Set(assets.map(a => a.symbol))];
   console.log(`Scanning ${symbols.length} assets for moves >${threshold}%...`);
+  const status = getCreditStatus();
+  if (status.remaining < symbols.length) {
+    console.error(`⚠️  Movers scan needs ${symbols.length} credits, only ${status.remaining} remaining.`);
+    process.exit(1);
+  }
   const results = await getQuotes(symbols, apiKey);
+  const creditLog = trackCredits(symbols.length, `movers >${threshold}% (${symbols.length} assets)`);
   const movers = results.filter(r => r.change_pct && Math.abs(r.change_pct) >= threshold);
   movers.sort((a, b) => Math.abs(b.change_pct) - Math.abs(a.change_pct));
   console.log(`\n🔥 ${movers.length} assets moved >${threshold}%:\n`);
@@ -229,6 +317,7 @@ if (command === 'quote') {
     const dir = m.change_pct > 0 ? '📈' : '📉';
     console.log(`  ${dir} ${m.symbol.padEnd(20)} ${m.price?.toFixed(2).padStart(10)}  ${m.change_pct > 0 ? '+' : ''}${m.change_pct?.toFixed(2)}%  ${m.name || ''}`);
   });
+  console.log(`\n📊 Credits: ${creditLog.used}/${creditConfig.daily_limit} used (${creditLog.remaining} remaining)`);
 
 } else {
   console.log(`
