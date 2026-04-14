@@ -1,5 +1,5 @@
 {
-  "version": "5.6",
+  "version": "6.0",
   "description": "Trading rules — three sections: TIERS + ENTRY RULES per asset class + RISK RULES universal. Updated with Ross Cameron (Warrior Trading) strategies.",
   "last_updated": "2026-04-14",
   "sources": ["Nial Fuller", "Adam Khoo", "Alexander Elder", "John Bollinger", "Ray Dalio", "Raoul Pal", "Van de Poppe", "Ross Cameron (Warrior Trading)"],
@@ -369,6 +369,19 @@
         "vwap": "Default volume-weighted average price — intraday only, not available on daily",
         "volume": "Default — confirm breakouts, spot exhaustion on red candles"
       }
+    },
+    "momentum_runner_strategy": {
+      "id": "MOM-1",
+      "name": "New High Momentum Runner",
+      "description": "Buy stocks hitting new 20-day high with above-average volume. Catches runners like META +20% in 8 days.",
+      "source": "Ross Cameron (STK-1 adapted) + April 14 META lesson",
+      "when_to_use": "BULL market regime only. Stock breaks to new 20-day high with volume >1.5x average.",
+      "indicators": ["20-day high/low", "Volume vs 20-day average", "EMA 8 above EMA 21"],
+      "entry": "Buy when price closes above 20-day high with volume >1.5x average. MARKET order in bull regime, LIMIT 1-2% below in neutral.",
+      "stop_loss": "Below previous day low or 1.5x ATR — whichever gives more room",
+      "take_profit": "3:1 R:R minimum. Trail stop using 8 EMA on daily — exit when daily close below 8 EMA.",
+      "position_sizing": "1% risk per position using proper unit calculation",
+      "applies_to": "All stocks in watchlist ny_session"
     }
   },
   "section_2_risk_rules": {
@@ -465,7 +478,7 @@
         "minimum_score_for_auto": "none — no minimum score threshold. Claude may auto-execute any trade that meets the risk limits below and has a valid strategy match from rules.json. The scoring system is still used to RANK opportunities, but it does not block execution.",
         "auto_execute_risk_limits": {
           "max_risk_per_auto_trade": "0.5% of portfolio (HALF of normal 1% — extra conservative for automated decisions)",
-          "max_auto_trades_per_day": 2,
+          "max_auto_trades_per_day": 5,
           "must_have_atr_stop": true,
           "must_have_defined_support_resistance": "For LIMIT orders: entry must be at a defined S/R level. For MARKET orders in BULL regime: breakout above prev day high with volume is sufficient — no S/R needed.",
           "market_orders_allowed": "In BULL market regime, market orders are allowed for breakouts scoring 8+ with volume above average. This catches runners like META. Use ATR stop immediately after entry.",
@@ -529,10 +542,24 @@
       "step_7": "If yes — recommend which open trade to cancel and why"
     },
     "position_sizing": {
-      "description": "How much to risk on every trade — regardless of asset class",
-      "max_risk_per_trade": "1% of total account (beginners) \u2014 2% maximum (experienced)",
-      "crypto_altcoin_max_risk": "0.5-1% only \u2014 higher volatility demands smaller size",
+      "description": "How much to risk on every trade. THIS IS THE MOST IMPORTANT RULE. Position size must be calculated to risk 1% of portfolio ($1,000 on $100K). Trading 1 unit of everything is WRONG.",
+      "max_risk_per_trade": "1% of total portfolio value. On $100K portfolio = $1,000 risk per trade.",
+      "position_size_calculation": {
+        "formula": "Units = (Portfolio × Risk%) ÷ (Entry Price - Stop Loss Price)",
+        "example_usdjpy": "Portfolio $100K, risk 1% = $1,000. Entry 159.85, SL 160.35, distance = 0.50. Units = $1,000 ÷ 0.50 = 2,000 units. NOT 112 units.",
+        "example_gold": "Portfolio $100K, risk 1% = $1,000. Entry 4,720, SL 4,680, distance = $40. Units = $1,000 ÷ $40 = 25 units. NOT 1 unit.",
+        "example_meta": "Portfolio $100K, risk 1% = $1,000. Entry 645, SL 630, distance = $15. Units = $1,000 ÷ $15 = 66 units. NOT 1 unit.",
+        "example_eth": "Portfolio $100K, risk 1% = $1,000. Entry 2,300, SL 2,200, distance = $100. Units = $1,000 ÷ $100 = 10 units. NOT 1 unit."
+      },
+      "critical_rule": "ALWAYS calculate proper units using the formula above. NEVER default to 1 unit. The old approach of trading 1 unit made $1 per trade on a $100K account — that is wrong.",
+      "crypto_altcoin_max_risk": "0.5% only ($500 on $100K) — higher volatility demands smaller risk percentage but still proper unit calculation",
       "max_portfolio_heat": "6% maximum across ALL open trades simultaneously",
+      "target_active_trades": {
+        "bull_market": "5-8 active trades — be aggressive, bull markets reward being invested",
+        "bear_market": "2-4 active trades — be defensive, cash is a position",
+        "neutral": "3-5 active trades",
+        "lesson": "April 13-14: only 2 active trades out of 50 watchlist assets. Portfolio barely moved. Need more exposure."
+      },
       "profit_cushion_system": {
         "source": "Ross Cameron — produced 76 consecutive green days",
         "step_1": "Start each day at 1/4 of full position size",
