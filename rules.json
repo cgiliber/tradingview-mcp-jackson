@@ -1,5 +1,5 @@
 {
-  "version": "5.2",
+  "version": "5.3",
   "description": "Trading rules — three sections: TIERS + ENTRY RULES per asset class + RISK RULES universal. Updated with Ross Cameron (Warrior Trading) strategies.",
   "last_updated": "2026-04-14",
   "sources": ["Nial Fuller", "Adam Khoo", "Alexander Elder", "John Bollinger", "Ray Dalio", "Raoul Pal", "Van de Poppe", "Ross Cameron (Warrior Trading)"],
@@ -393,7 +393,37 @@
       },
       "max_score": 14,
       "minimum_score_to_trade": 6,
-      "ranking": "Present ALL opportunities ranked by score — highest first"
+      "ranking": "Present ALL opportunities ranked by score — highest first",
+      "swing_opportunity_bonus": {
+        "description": "Extra scoring points for swing trade setups — added on top of base score",
+        "support_resistance_bounce": "+2 points if trade has a clear support or resistance bounce",
+        "overnight_move_gt_1pct": "+2 points if overnight move was greater than 1%",
+        "volume_confirmation": "+1 point if volume confirms the move",
+        "comparison_rule": "Always compare swing opportunity score against open trades — if higher, recommend swapping the weakest open trade"
+      }
+    },
+    "swing_trade_monitoring": {
+      "description": "Track swing levels for every watchlist asset. Never let a major swing go unnoticed — catching these swings is a priority.",
+      "tracking_rules": {
+        "for_every_asset": "Track key swing levels: strong support, strong resistance, last major swing high, last major swing low",
+        "overnight_monitoring": "During morning briefing, check what happened overnight for every asset",
+        "flag_threshold": "If an asset moved more than 1% overnight, flag it immediately as a SWING ALERT"
+      },
+      "briefing_swing_alert_section": {
+        "description": "Every morning briefing must include a SWING ALERT section for each flagged asset",
+        "show_overnight_range": "The overnight price range (high to low)",
+        "show_significant_swing": "Any significant swing that occurred overnight",
+        "show_next_opportunity": "The next swing opportunity — entry, stop loss, take profit, risk/reward",
+        "compare_vs_open": "Whether this swing is better than any currently open trade"
+      },
+      "key_swing_levels_gold": {
+        "asset": "XAUUSD",
+        "strong_support": [4644, 4700],
+        "strong_resistance": [4750, 4800, 4858],
+        "support_rule": "Buy every time price touches $4,644 or $4,700 support",
+        "resistance_break_rule": "If price breaks above $4,750, $4,800, or $4,858 resistance — Buy continuation opportunity",
+        "drop_to_support": "If price drops to support → immediate Buy opportunity"
+      }
     },
     "briefing_rules": {
       "description": "Rules for the morning briefing output",
