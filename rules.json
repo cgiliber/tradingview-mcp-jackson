@@ -478,7 +478,7 @@
         "minimum_score_for_auto": "none — no minimum score threshold. Claude may auto-execute any trade that meets the risk limits below and has a valid strategy match from rules.json. The scoring system is still used to RANK opportunities, but it does not block execution.",
         "auto_execute_risk_limits": {
           "max_risk_per_auto_trade": "0.5% of portfolio (HALF of normal 1% — extra conservative for automated decisions)",
-          "max_auto_trades_per_day": 5,
+          "max_auto_trades_per_day": "No limit — trade as many as portfolio risk allows. Only constraint is total portfolio heat must stay below 5%.",
           "must_have_atr_stop": true,
           "must_have_defined_support_resistance": "For LIMIT orders: entry must be at a defined S/R level. For MARKET orders in BULL regime: breakout above prev day high with volume is sufficient — no S/R needed.",
           "market_orders_allowed": "In BULL market regime, market orders are allowed for breakouts scoring 8+ with volume above average. This catches runners like META. Use ATR stop immediately after entry.",
