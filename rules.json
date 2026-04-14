@@ -1,5 +1,5 @@
 {
-  "version": "5.1",
+  "version": "5.2",
   "description": "Trading rules — three sections: TIERS + ENTRY RULES per asset class + RISK RULES universal. Updated with Ross Cameron (Warrior Trading) strategies.",
   "last_updated": "2026-04-14",
   "sources": ["Nial Fuller", "Adam Khoo", "Alexander Elder", "John Bollinger", "Ray Dalio", "Raoul Pal", "Van de Poppe", "Ross Cameron (Warrior Trading)"],
@@ -425,7 +425,18 @@
         "never_add_to_losers": true,
         "average_winner_size_vs_loser": "Winners should be larger positions than losers (16K shares avg winner vs 9.5K avg loser)"
       },
-      "formula": "Position size = (Account x Risk%) / Stop distance",
+      "performance_based_sizing": {
+        "description": "Adjust position SIZE based on recent performance — never adjust stop DISTANCE. The stop always respects ATR. What changes is how much money you risk.",
+        "rules": {
+          "winning_streak": "Last 3 trades net R is positive → risk 1% per trade (full size)",
+          "neutral": "Last 3 trades net R is flat → risk 0.75% per trade",
+          "losing_streak": "Last 3 trades net R is negative → risk 0.5% per trade (half size)",
+          "heavy_losing": "Last 5 trades net R is negative → risk 0.25% per trade (quarter size) or stop trading and review strategy"
+        },
+        "rationale": "This is Ross Cameron's Profit Cushion applied to swing trading. Don't tighten stops when losing — tighten POSITION SIZE. Tight stops on volatile assets convert winners into losers. Smaller positions with proper stops protect capital while keeping win rate high.",
+        "current_status": "Check journal.json last 3-5 trades to determine current sizing tier before every briefing"
+      },
+      "formula": "Position size = (Account x Risk%) / Stop distance (where stop distance = 1.5x ATR14 minimum)",
       "examples": {
         "account_1000_risk_1pct": "Risk 0. Stop distance .50 = 4 units",
         "account_5000_risk_1pct": "Risk 0. Stop distance .50 = 20 units",
@@ -436,17 +447,33 @@
       "mandatory": true,
       "never_move_against_you": true,
       "never_remove_once_set": true,
+      "never_exit_manually_before_stop": "NEVER close a trade manually before the stop loss is hit. If you set a stop, let it work. Manual exits above the stop convert potential winners into guaranteed losers. (Lesson: SOL trade was right direction but manual exit at 82.26 lost $1.73 — price reached 86.83 two days later.)",
+      "atr_based_stops": {
+        "description": "Stop loss distance must respect the asset's natural volatility. Use ATR (Average True Range, 14-period) to calculate minimum stop distance. A stop tighter than 1x ATR will be hit by normal noise.",
+        "rule": "Minimum stop distance = 1.5x ATR(14) on the entry timeframe",
+        "formula": "Stop price (long) = Entry - (1.5 × ATR14). Stop price (short) = Entry + (1.5 × ATR14)",
+        "position_size_adjustment": "When ATR requires a wider stop, REDUCE position size to maintain 1% risk. Position = (Portfolio × Risk%) ÷ (1.5 × ATR14)",
+        "typical_atr_by_asset": {
+          "forex_majors": "50-100 pips on daily — stop minimum 75-150 pips",
+          "gold_xauusd": "$40-80 on daily — stop minimum $60-120",
+          "oil_wti": "$3-7 on daily — stop minimum $5-10 (NOT $2.80 like WTI trade #9)",
+          "crypto_btc": "$1500-3000 on daily — stop minimum $2000-4500",
+          "crypto_altcoins": "3-8% on daily — stop minimum 5-12%",
+          "us_stocks": "$2-8 on daily — stop minimum $3-12 depending on stock price"
+        },
+        "lesson": "WTI trade #9 had a $2.80 stop on an asset with $10+ daily range. Stop was hit by normal noise even though direction was correct. With a $7 stop and smaller position, same 1% risk but trade would have survived."
+      },
       "placement_by_asset": {
-        "forex": "Below EMA 21 (longs) or above EMA 21 (shorts)",
-        "indices": "2-5% below EMA 50",
-        "gold_silver": "Below EMA 50",
-        "oil": "Below EMA 50",
-        "crypto_btc": "Below EMA 55 or most recent weekly swing low",
-        "crypto_altcoins": "Below EMA 50 or -5% from entry — whichever is closer",
+        "forex": "Below EMA 21 (longs) or above EMA 21 (shorts) — but never tighter than 1.5x ATR14",
+        "indices": "2-5% below EMA 50 — but never tighter than 1.5x ATR14",
+        "gold_silver": "Below EMA 50 — minimum $60 distance on daily",
+        "oil": "Below EMA 50 — minimum $5 distance on daily (oil is extremely volatile)",
+        "crypto_btc": "Below EMA 55 or most recent weekly swing low — minimum $2000 distance",
+        "crypto_altcoins": "Below EMA 50 or -5% from entry — whichever gives MORE room (not less)",
         "us_stocks_daytrading": "Below the low of the pullback candle — set BEFORE entry, never moved against you"
       },
-      "trailing_stop_rule": "Once trade reaches +1R profit \u2014 move stop to breakeven. Cannot lose on this trade.",
-      "order_expiry": "Day only \u2014 cancel all unfilled orders end of trading session. No stale orders overnight."
+      "trailing_stop_rule": "Once trade reaches +1R profit — move stop to breakeven. Cannot lose on this trade. NOTE: breakeven stop is an EXIT strategy, not an ENTRY strategy. Set initial stop at proper ATR distance first.",
+      "order_expiry": "Day only — cancel all unfilled orders end of trading session. No stale orders overnight."
     },
     "take_profit": {
       "minimum_reward_to_risk": "2:1 \u2014 target at least 2x what you risk",
@@ -517,6 +544,8 @@
       "negative_feedback_loop": "Loss → sadness → revenge trading → lower quality setups → more losses. Break it by starting small or walking away. (Ross Cameron)",
       "decision_fatigue": "The longer you sit, the worse your decisions. Walk away before fatigue sets in. (Ross Cameron)",
       "standard_indicator_settings": "NEVER use non-standard indicator settings. Use what everyone else uses so you see the same signals. The traffic light analogy. (Ross Cameron)",
+      "never_exit_before_stop": "NEVER close a trade manually before the stop loss is hit. If you set a stop at a level, trust it. Manual exits above the stop convert potential winners into guaranteed losses. (Lesson: SOL trade — exited at 82.26 for -$1.73, price reached 86.83 two days later = would have been +$5 win.)",
+      "trust_the_atr_stop": "When your stop is set at 1.5x ATR from entry, the price WILL fluctuate toward it. This is normal. Do not panic. The stop is designed to only get hit if the trend truly reverses, not by noise. (Lesson: WTI $2.80 stop on $10/day asset = noise kill.)",
       "recommended_books": ["Quit by Annie Duke (knowing when to walk away)", "Thinking in Bets by Annie Duke", "Trade Mindfully by Gary Dayton", "The Happiness Advantage by Shawn Achor"]
     },
     "risk_reward_ratio": {
