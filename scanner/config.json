@@ -1,0 +1,61 @@
+{
+  "description": "Scanner configuration — change the provider to switch data sources. The scanner module reads this file to know which provider to use.",
+
+  "active_provider": "twelve-data",
+
+  "providers": {
+    "twelve-data": {
+      "name": "Twelve Data",
+      "module": "./providers/twelve-data.js",
+      "env_key": "TWELVE_DATA_API_KEY",
+      "env_file": "/Users/mariashchekanenko/claude-trading-broker/.env",
+      "base_url": "https://api.twelvedata.com",
+      "rate_limit": "8 requests per minute (free), 800/min (paid)",
+      "supports": ["stocks", "forex", "crypto", "commodities"],
+      "limitations": "WTI/USD requires Grow plan. Free tier: 800 API credits/day.",
+      "batch_endpoint": "/quote?symbol={symbols}&apikey={key}",
+      "max_symbols_per_request": 12
+    },
+    "polygon": {
+      "name": "Polygon.io",
+      "module": "./providers/polygon.js",
+      "env_key": "POLYGON_API_KEY",
+      "base_url": "https://api.polygon.io",
+      "rate_limit": "5 requests per minute (free)",
+      "supports": ["stocks", "forex", "crypto"],
+      "limitations": "No direct commodities (XAUUSD, WTI). Use ETFs instead (GLD, USO).",
+      "note": "Not implemented yet — switch active_provider to 'polygon' and create providers/polygon.js"
+    },
+    "alpha-vantage": {
+      "name": "Alpha Vantage",
+      "module": "./providers/alpha-vantage.js",
+      "env_key": "ALPHA_VANTAGE_API_KEY",
+      "base_url": "https://www.alphavantage.co",
+      "rate_limit": "5 requests per minute (free), 75/min (paid)",
+      "supports": ["stocks", "forex", "crypto", "commodities"],
+      "limitations": "Slow. 5 calls/min free. 15 min delay on free tier.",
+      "note": "Not implemented yet"
+    }
+  },
+
+  "symbol_mapping": {
+    "description": "Maps our internal symbols to provider-specific formats. Each provider may use different symbol formats.",
+    "twelve-data": {
+      "OANDA:XAUUSD": "XAU/USD",
+      "OANDA:XAGUSD": "XAG/USD",
+      "OANDA:WTICOUSD": "WTI/USD",
+      "OANDA:USDJPY": "USD/JPY",
+      "BITSTAMP:EURUSD": "EUR/USD",
+      "COINBASE:BTCUSD": "BTC/USD",
+      "COINBASE:ETHUSD": "ETH/USD",
+      "COINBASE:SOLUSD": "SOL/USD",
+      "COINBASE:RENDERUSD": "RENDER/USD",
+      "BATS:META": "META",
+      "BATS:AMD": "AMD",
+      "BATS:TSM": "TSM",
+      "BATS:NVDA": "NVDA",
+      "NASDAQ:TSLA": "TSLA",
+      "NASDAQ:AAPL": "AAPL"
+    }
+  }
+}
