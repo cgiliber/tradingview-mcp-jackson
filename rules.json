@@ -390,6 +390,13 @@
       "read_balance": "At the start of every morning briefing, read total portfolio value from TradingView paper trading account balance",
       "max_risk_per_trade": "1% of total portfolio value",
       "max_total_risk": "5% of total portfolio value across ALL open trades at any time",
+      "portfolio_limit_stretch": {
+        "description": "If portfolio heat is near 5% limit AND a high-quality opportunity appears, ALERT Maria. She may approve stretching the limit based on recent performance.",
+        "when_to_alert": "Portfolio heat at 4%+ and new opportunity scores 7+ with clear catalyst",
+        "stretch_criteria": "If last 5 closed trades show net positive R → Maria may approve stretching to 7%",
+        "never_stretch_above": "10% — absolute maximum regardless of performance",
+        "action": "Do NOT auto-stretch. ALERT Maria with: current heat %, the opportunity, recent performance, and proposed new limit."
+      },
       "position_size_formula": "Position size = (portfolio value × 1%) ÷ (entry price - stop loss price)",
       "no_fixed_trade_limit": "Never use a fixed number of trades as the limit — use portfolio % only",
       "remaining_capacity": "If total risk across open trades is below 5%, new trades can be added",
