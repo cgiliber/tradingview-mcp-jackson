@@ -1,5 +1,5 @@
 {
-  "version": "5.3",
+  "version": "5.4",
   "description": "Trading rules — three sections: TIERS + ENTRY RULES per asset class + RISK RULES universal. Updated with Ross Cameron (Warrior Trading) strategies.",
   "last_updated": "2026-04-14",
   "sources": ["Nial Fuller", "Adam Khoo", "Alexander Elder", "John Bollinger", "Ray Dalio", "Raoul Pal", "Van de Poppe", "Ross Cameron (Warrior Trading)"],
@@ -423,6 +423,67 @@
         "support_rule": "Buy every time price touches $4,644 or $4,700 support",
         "resistance_break_rule": "If price breaks above $4,750, $4,800, or $4,858 resistance — Buy continuation opportunity",
         "drop_to_support": "If price drops to support → immediate Buy opportunity"
+      },
+      "tiered_limit_orders": {
+        "description": "Place multiple limit orders at each defined support level instead of a single limit. This ensures we catch the swing even if price drops deeper than expected.",
+        "rule": "For any asset with defined support levels, place a limit order at EACH support level — not just the closest one",
+        "example_gold": {
+          "limit_1": "Buy limit at $4,700 (first support) — smallest position",
+          "limit_2": "Buy limit at $4,650 (between supports) — medium position",
+          "limit_3": "Buy limit at $4,644 (deepest support) — largest position",
+          "total_risk": "Combined risk across all tiers must not exceed 1% of portfolio"
+        },
+        "rationale": "The Gold swing to $4,644 on April 13 was missed because our single limit at $4,720 was above the bounce point. Tiered limits at $4,700 and $4,644 would have caught it.",
+        "applies_to": "Any asset with defined support/resistance levels in this file or in watchlist.json"
+      },
+      "standing_orders": {
+        "description": "Always keep standing limit orders at the strongest defined support/resistance levels — do not wait for the morning briefing to place them.",
+        "rule": "At the end of every morning briefing, ensure standing orders exist at all key support levels for high-priority assets (Gold, Oil, BTC)",
+        "check_daily": "If a standing order was filled or expired, replace it immediately during the next briefing",
+        "priority_assets": ["XAUUSD", "WTICOUSD", "BTCUSD"]
+      }
+    },
+    "timed_briefing": {
+      "description": "A lightweight market check that runs every 15 minutes during active trading sessions. Catches swings and opportunities that the morning briefing would miss.",
+      "frequency": "Every 15 minutes during active sessions",
+      "active_sessions": {
+        "london": "10:00-18:00 Oslo",
+        "ny": "15:30-22:00 Oslo",
+        "crypto": "24/7 but check frequency can drop to 30min outside peak hours"
+      },
+      "what_to_check": {
+        "step_1": "Get quote for all open positions — check if any stop or target is about to be hit",
+        "step_2": "Check if any standing order has been filled — if yes, update journal and today.json",
+        "step_3": "Scan watchlist for any asset that moved >1% since last check — flag as swing alert",
+        "step_4": "If a swing alert is found, score it against the trade scoring system",
+        "step_5": "If score qualifies for auto-execute — place the order automatically"
+      },
+      "output_format": "Brief — no full briefing needed. Just a table of changes, alerts, and actions taken.",
+      "auto_execute_rules": {
+        "description": "If a trade opportunity scores exceptionally high, Claude may execute it automatically without waiting for Maria's confirmation. Stricter risk limits apply.",
+        "minimum_score_for_auto": 11,
+        "minimum_score_explanation": "11 out of 14 base score + swing bonuses means: R:R 1:3+ (2pts) + major catalyst (2pts) + clear trend (2pts) + optimal session (2pts) + strategy match (2pts) + support bounce (+2) = very high conviction",
+        "auto_execute_risk_limits": {
+          "max_risk_per_auto_trade": "0.5% of portfolio (HALF of normal 1% — extra conservative for automated decisions)",
+          "max_auto_trades_per_day": 2,
+          "must_have_atr_stop": true,
+          "must_have_defined_support_resistance": "Entry must be at a defined support or resistance level from rules.json — no random entries",
+          "must_check_portfolio_heat": "Total portfolio risk including this trade must stay below 5%",
+          "must_log_everything": "Log the full decision in journal.json with reason, score breakdown, and tag as AUTO-EXECUTED"
+        },
+        "what_qualifies": [
+          "Price touches a defined strong support level (e.g., Gold $4,644) with >1% drop — instant buy",
+          "Price breaks above defined resistance with high volume — continuation buy",
+          "A clear strategy signal (FX-1, CMD-2, BTC-1, etc.) fires at optimal session time with all confirmations aligned"
+        ],
+        "what_does_NOT_qualify": [
+          "Score below 11 — wait for Maria's confirmation",
+          "No defined support/resistance — too speculative for auto-execution",
+          "During news blackout (30 min before/after major releases)",
+          "Portfolio already at 4%+ risk — no room for auto-trades",
+          "Weekend for non-crypto assets"
+        ],
+        "notification": "After auto-executing, immediately notify Maria with: asset, direction, entry, stop, target, score, and reason for auto-execution"
       }
     },
     "briefing_rules": {
