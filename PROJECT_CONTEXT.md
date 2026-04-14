@@ -99,8 +99,13 @@ These were emphasized in the videos and must always be followed:
 
 ---
 
-## Key Lessons Learned
+## Key Lessons Learned (Updated April 14)
 
+- **Orders MUST have TP and SL**: On April 14, Gold/AMD/ETH orders were placed without TP/SL. Fixed with mandatory verification step in PAPER_TRADING_ORDERS.md.
+- **Scan watchlist.json, not today.json**: Timed briefing was only checking today.json — missed META +20% rally. Fixed: now scans watchlist directly with breakout/gap detection.
+- **ATR-based stops**: WTI Oil had a $2.80 stop on an asset with $10/day range — got stopped by noise. Fixed: minimum 1.5x ATR(14) stop distance.
+- **Don't exit manually before stop**: SOL trade was right direction but manual exit at 82.26 lost $1.73 — price reached 86.83 two days later.
+- **Tier conflict resolution**: When 5-min signal conflicts with daily trade, check higher timeframe. 5-min BUY on USDJPY while daily is SHORT = just noise.
 - **Bitget asset locking**: Newly purchased assets get locked against immediate resale (anti-wash-trading). The sell retry logic with lock-aware error parsing handles this.
 - **Context management matters**: Chart data can easily blow up context windows. Always use `summary: true` on OHLCV, `study_filter` on pine tools.
 - **Pine Script is the strongest AI use case**: The compile → error → fix loop is where Claude provides the most value.
