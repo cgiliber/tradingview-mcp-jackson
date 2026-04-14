@@ -467,18 +467,20 @@
           "max_risk_per_auto_trade": "0.5% of portfolio (HALF of normal 1% — extra conservative for automated decisions)",
           "max_auto_trades_per_day": 2,
           "must_have_atr_stop": true,
-          "must_have_defined_support_resistance": "Entry must be at a defined support or resistance level from rules.json — no random entries",
+          "must_have_defined_support_resistance": "For LIMIT orders: entry must be at a defined S/R level. For MARKET orders in BULL regime: breakout above prev day high with volume is sufficient — no S/R needed.",
+          "market_orders_allowed": "In BULL market regime, market orders are allowed for breakouts scoring 8+ with volume above average. This catches runners like META. Use ATR stop immediately after entry.",
           "must_check_portfolio_heat": "Total portfolio risk including this trade must stay below 5%",
           "must_log_everything": "Log the full decision in journal.json with reason, score breakdown, and tag as AUTO-EXECUTED"
         },
         "what_qualifies": [
-          "Price touches a defined strong support level (e.g., Gold $4,644) with >1% drop — instant buy",
-          "Price breaks above defined resistance with high volume — continuation buy",
-          "A clear strategy signal (FX-1, CMD-2, BTC-1, etc.) fires at optimal session time with all confirmations aligned"
+          "Price touches a defined strong support level (e.g., Gold $4,644) with >1% drop — instant buy (LIMIT)",
+          "Price breaks above defined resistance with high volume — continuation buy (LIMIT or MARKET in bull regime)",
+          "Price breaks above previous day high with >2x average volume in BULL regime — MARKET order breakout entry",
+          "Price gaps >2% from previous close in direction of trend — MARKET order gap continuation",
+          "A clear strategy signal (FX-1, CMD-2, BTC-1, STK-1, etc.) fires at optimal session time with all confirmations aligned"
         ],
         "what_does_NOT_qualify": [
-          "Score below 11 — wait for Maria's confirmation",
-          "No defined support/resistance — too speculative for auto-execution",
+          "No valid strategy match from rules.json",
           "During news blackout (30 min before/after major releases)",
           "Portfolio already at 4%+ risk — no room for auto-trades",
           "Weekend for non-crypto assets"
