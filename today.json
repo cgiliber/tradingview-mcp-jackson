@@ -1,56 +1,148 @@
 {
-  "date": "Monday 13 April 2026",
-  "briefing": [
-    "Two trades: PLTR LONG and TSM LONG — NY session limit orders",
-    "PLTR LONG — double volume, Cathie Wood buying, AI gov contracts, earnings May 11",
-    "TSM LONG — strongest AI stock YTD +13.7%, earnings April 16, Strong Buy all 18 analysts"
-  ],
-  "sessions": {
-    "london": "10:00 Oslo",
-    "new_york": "15:30 Oslo"
-  },
-  "trades": [
+  "date": "Tuesday 14 April 2026",
+  "portfolio_value": 100008,
+  "max_risk_per_trade_pct": 1,
+  "max_total_risk_pct": 5,
+  "total_risk_currently_pct": 0.4,
+  "remaining_risk_capacity_pct": 4.6,
+
+  "open_trades": [
     {
-      "name": "Palantir Technologies (PLTR)",
-      "tv_symbol": "PLTR",
-      "direction": "LONG",
-      "strategy": "Double volume day, Cathie Wood buying, AI government contracts, earnings May 11",
-      "score": "High — catalyst-driven momentum with institutional buying",
-      "entry": 132.00,
-      "stop": 122.00,
-      "target": 152.00,
-      "stop_dist": 10.00,
-      "risk_reward": "1:2",
-      "order_type": "LIMIT",
-      "units": 0.75,
-      "window": "NY session 15:30 Oslo",
-      "skip_if": "Price drops below 120 before entry — momentum broken",
-      "alerts": [
-        {"label": "ENTRY",       "condition": "Crossing Down", "price": 132.00, "msg": "Alert 1/3 — ENTRY @ 132.00"},
-        {"label": "STOP LOSS",   "condition": "Crossing Down", "price": 122.00, "msg": "Alert 2/3 — STOP LOSS @ 122.00"},
-        {"label": "TAKE PROFIT", "condition": "Crossing Up",   "price": 152.00, "msg": "Alert 3/3 — TAKE PROFIT @ 152.00"}
-      ]
+      "name": "EUR/USD",
+      "tv_symbol": "EURUSD",
+      "direction": "SHORT",
+      "entry": 1.17336,
+      "stop": 1.17800,
+      "target": 1.15500,
+      "risk_reward": "1:3.8",
+      "units": 100,
+      "status": "OPEN",
+      "score": 2,
+      "note": "Weakest trade today — dollar uncertain ahead of PPI data. Monitor closely. Consider replacing with Gold or AMD if PPI comes in soft."
     },
     {
-      "name": "Taiwan Semiconductor (TSM)",
+      "name": "RENDER",
+      "tv_symbol": "RENDERUSD",
+      "direction": "LONG",
+      "entry": 1.880,
+      "stop": 1.700,
+      "target": 2.450,
+      "risk_reward": "1:3.2",
+      "units": 51,
+      "status": "OPEN",
+      "score": 5,
+      "note": "Strongest open trade — RenderCon Hollywood April 16-17 tomorrow. Hold."
+    },
+    {
+      "name": "USD/JPY",
+      "tv_symbol": "USDJPY",
+      "direction": "SHORT",
+      "entry": 159.850,
+      "stop": 160.350,
+      "target": 158.500,
+      "risk_reward": "1:2.7",
+      "units": 112,
+      "status": "OPEN",
+      "score": 4,
+      "note": "Moving in direction. BOJ rate decision April 28 supports Yen strength. Hold."
+    },
+    {
+      "name": "WTI Oil",
+      "tv_symbol": "OANDA:WTICOUSD",
+      "direction": "LONG",
+      "entry": 99.303,
+      "stop": 97.000,
+      "target": 112.000,
+      "risk_reward": "1:5.5",
+      "units": 1,
+      "status": "STOPPED OUT",
+      "score": 4,
+      "note": "Stopped out overnight at 96.44. Loss -$2.86."
+    }
+  ],
+
+  "new_opportunities": [
+    {
+      "name": "TSM — Taiwan Semiconductor",
       "tv_symbol": "TSM",
       "direction": "LONG",
-      "strategy": "Strongest AI ecosystem stock YTD +13.7%, earnings April 16 in 3 days, Strong Buy from all 18 analysts",
-      "score": "High — unanimous analyst consensus, earnings catalyst in 3 days",
       "entry": 368.00,
       "stop": 355.00,
       "target": 390.00,
-      "stop_dist": 13.00,
       "risk_reward": "1:1.7",
       "order_type": "LIMIT",
       "units": 0.27,
-      "window": "NY session 15:30 Oslo",
-      "skip_if": "Price drops below 350 before entry — support broken",
+      "session": "NY 15:30 Oslo",
+      "score": 5,
+      "tier": "TIER 2 — PLACE MANUALLY",
+      "catalyst": "Earnings April 16 — 55% EPS growth expected. All 18 analysts Strong Buy.",
       "alerts": [
-        {"label": "ENTRY",       "condition": "Crossing Down", "price": 368.00, "msg": "Alert 1/3 — ENTRY @ 368.00"},
-        {"label": "STOP LOSS",   "condition": "Crossing Down", "price": 355.00, "msg": "Alert 2/3 — STOP LOSS @ 355.00"},
-        {"label": "TAKE PROFIT", "condition": "Crossing Up",   "price": 390.00, "msg": "Alert 3/3 — TAKE PROFIT @ 390.00"}
+        { "name": "ENTRY", "condition": "Crossing Down", "price": 368.00, "message": "Alert 1/3 — ENTRY @ 368.00" },
+        { "name": "Stop Loss", "condition": "Crossing Down", "price": 355.00, "message": "Alert 2/3 — STOP LOSS @ 355.00" },
+        { "name": "Take Profit", "condition": "Crossing Up", "price": 390.00, "message": "Alert 3/3 — TAKE PROFIT @ 390.00" }
+      ]
+    },
+    {
+      "name": "Gold",
+      "tv_symbol": "OANDA:XAUUSD",
+      "direction": "LONG",
+      "entry": 4720.00,
+      "stop": 4680.00,
+      "target": 4820.00,
+      "risk_reward": "1:2.5",
+      "order_type": "LIMIT",
+      "units": 0.02,
+      "session": "London 10:00 Oslo",
+      "score": 4,
+      "tier": "TIER 2 — PLACE MANUALLY",
+      "catalyst": "Gold recovering — bullish trend intact. Geopolitical safe haven demand.",
+      "alerts": [
+        { "name": "ENTRY", "condition": "Crossing Down", "price": 4720.00, "message": "Alert 1/3 — ENTRY @ 4720" },
+        { "name": "Stop Loss", "condition": "Crossing Down", "price": 4680.00, "message": "Alert 2/3 — STOP LOSS @ 4680" },
+        { "name": "Take Profit", "condition": "Crossing Up", "price": 4820.00, "message": "Alert 3/3 — TAKE PROFIT @ 4820" }
+      ]
+    },
+    {
+      "name": "AMD",
+      "tv_symbol": "AMD",
+      "direction": "LONG",
+      "entry": 242.00,
+      "stop": 230.00,
+      "target": 266.00,
+      "risk_reward": "1:2",
+      "order_type": "LIMIT",
+      "units": 0.41,
+      "session": "NY 15:30 Oslo",
+      "score": 3,
+      "tier": "TIER 2 — PLACE MANUALLY",
+      "catalyst": "Strong momentum +3.55% yesterday. Gaining AI chip market share from NVDA.",
+      "alerts": [
+        { "name": "ENTRY", "condition": "Crossing Down", "price": 242.00, "message": "Alert 1/3 — ENTRY @ 242.00" },
+        { "name": "Stop Loss", "condition": "Crossing Down", "price": 230.00, "message": "Alert 2/3 — STOP LOSS @ 230.00" },
+        { "name": "Take Profit", "condition": "Crossing Up", "price": 266.00, "message": "Alert 3/3 — TAKE PROFIT @ 266.00" }
+      ]
+    },
+    {
+      "name": "ETH",
+      "tv_symbol": "ETHUSD",
+      "direction": "LONG",
+      "entry": 2100.00,
+      "stop": 1950.00,
+      "target": 2450.00,
+      "risk_reward": "1:2.3",
+      "order_type": "LIMIT",
+      "units": 0.047,
+      "session": "Crypto 20:00 Oslo",
+      "score": 3,
+      "tier": "TIER 2 — PLACE MANUALLY",
+      "catalyst": "Glamsterdam upgrade targeting June 2026 — ETH historically rallies 20-40% in 6-8 weeks before major upgrades.",
+      "alerts": [
+        { "name": "ENTRY", "condition": "Crossing Down", "price": 2100.00, "message": "Alert 1/3 — ENTRY @ 2100" },
+        { "name": "Stop Loss", "condition": "Crossing Down", "price": 1950.00, "message": "Alert 2/3 — STOP LOSS @ 1950" },
+        { "name": "Take Profit", "condition": "Crossing Up", "price": 2450.00, "message": "Alert 3/3 — TAKE PROFIT @ 2450" }
       ]
     }
-  ]
+  ],
+
+  "recommendation": "You have 0.4% portfolio at risk across 3 open trades (WTI stopped out overnight). Remaining capacity is 4.6%. EUR/USD Short is your weakest trade — score 2. Consider replacing it with TSM (score 5) which has earnings tomorrow. RENDER and USD/JPY are your strongest open trades — hold both. WTI Oil is volatile — watch the stop loss carefully this morning."
 }
