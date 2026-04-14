@@ -589,6 +589,14 @@
       "ideal_short_rsi": "35-60",
       "candle_confirmation": "EMA crossover must be confirmed by CLOSE of candle \u2014 never enter mid-candle",
       "higher_timeframe_alignment": "Always check weekly trend before daily signal. Never trade against weekly tide.",
+      "tier_conflict_resolution": {
+        "description": "When a Tier 1 signal conflicts with an existing Tier 2 trade on the same asset, use higher timeframes to decide who is right.",
+        "step_1": "Check the 1H and Daily trend direction",
+        "step_2_higher_agrees_with_tier2": "If higher timeframes AGREE with the Tier 2 direction → the Tier 1 signal is just noise/bounce, IGNORE it. Do NOT open a Tier 1 trade against the Tier 2.",
+        "step_3_higher_agrees_with_tier1": "If higher timeframes AGREE with the Tier 1 direction → the Tier 2 trade may be WRONG. FLAG for review. Consider closing the Tier 2 trade and reversing.",
+        "step_4_mixed_signals": "If higher timeframes are mixed/unclear → do NOTHING. Wait for clarity. Do not add conflicting positions.",
+        "lesson": "USDJPY April 14: 5-min showed BUY while Tier 2 was SHORT. Daily confirmed bearish trend → 5-min was just a bounce. Correct action: ignore Tier 1 BUY, hold Tier 2 SHORT."
+      },
       "news_blackout": "No entries 30 minutes before or after major news releases"
     },
     "news_to_avoid": [
