@@ -1,0 +1,22 @@
+{
+  "strategy": "CRYPTO-MOMENTUM",
+  "description": "Crypto majors and AI tokens. Majors = Tier 1 scalping. AI tokens = Tier 2 swing.",
+  "assets": [
+    { "symbol": "BTCUSD", "name": "Bitcoin", "tier": "TIER 1" },
+    { "symbol": "ETHUSD", "name": "Ethereum", "tier": "TIER 1" },
+    { "symbol": "SOLUSD", "name": "Solana", "tier": "TIER 2" },
+    { "symbol": "XRPUSD", "name": "XRP", "tier": "TIER 2" },
+    { "symbol": "BNBUSD", "name": "Binance Coin", "tier": "TIER 2" },
+    { "symbol": "ADAUSD", "name": "Cardano", "tier": "TIER 2" },
+    { "symbol": "AVAXUSD", "name": "Avalanche", "tier": "TIER 2" },
+    { "symbol": "LINKUSD", "name": "Chainlink", "tier": "TIER 2" },
+    { "symbol": "FETUSD", "name": "FET / ASI Alliance", "tier": "TIER 2", "note": "AI agent blockchain" },
+    { "symbol": "RENDERUSD", "name": "Render", "tier": "TIER 2", "note": "GPU rendering — RenderCon April 16-17" },
+    { "symbol": "TAOUSD", "name": "Bittensor TAO", "tier": "TIER 2", "note": "Decentralised AI network" },
+    { "symbol": "ARUSD", "name": "Arweave", "tier": "TIER 2", "note": "Permanent storage" },
+    { "symbol": "OCEANPUSD", "name": "Ocean Protocol", "tier": "TIER 2", "note": "AI data marketplace" },
+    { "symbol": "AGIXUSD", "name": "SingularityNET", "tier": "TIER 2", "note": "AI agents platform" },
+    { "symbol": "VIRTUALSUSD", "name": "Virtuals Protocol", "tier": "TIER 2", "note": "AI agent deployment" },
+    { "symbol": "WLDUSD", "name": "Worldcoin", "tier": "TIER 2", "note": "Biometric AI identity" }
+  ]
+}

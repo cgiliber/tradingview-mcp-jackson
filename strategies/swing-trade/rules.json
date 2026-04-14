@@ -1,0 +1,21 @@
+{
+  "strategy": "SWING-TRADE",
+  "tier": "TIER 2 — place manually",
+  "session": "London 10:00 Oslo and NY 15:30 Oslo",
+  "timeframe": "1 hour to Daily chart",
+  "direction": "BOTH Buy AND Sell",
+
+  "rules": {
+    "risk_reward": "Minimum 1:2 — preferred 1:3",
+    "entry": "At clear support or resistance level",
+    "stop_loss": "Below real support or above real resistance — add buffer. Never move Stop Loss against trade direction.",
+    "trailing_stop": "Activate trailing stop at 50% toward Take Profit",
+    "time_exit": "Close if no meaningful movement after 48 hours",
+    "position_size": "1% of portfolio per trade — calculate units properly",
+    "max_portfolio_risk": "5% total across ALL open trades at any time",
+    "scoring": "Score every trade before placing on: catalyst strength, trend clarity, session timing, risk/reward",
+    "replacement_rule": "If a new trade scores higher than an existing open trade — recommend cancelling the weaker one and replacing it"
+  },
+
+  "watchlist_reference": "Uses the full watchlist.json in project root — all sessions (London, NY, Crypto)"
+}

@@ -1,0 +1,20 @@
+{
+  "strategy": "RESOURCE-COMMODITY",
+  "description": "Commodities and resource stocks. London for Gold/Oil, NY for resource stocks.",
+  "assets": [
+    { "symbol": "OANDA:XAUUSD", "name": "Gold", "session": "London + 24/7" },
+    { "symbol": "OANDA:XAGUSD", "name": "Silver", "session": "London + 24/7" },
+    { "symbol": "OANDA:WTICOUSD", "name": "WTI Crude Oil", "session": "London + NY" },
+    { "symbol": "OANDA:BCOUSD", "name": "Brent Crude Oil", "session": "London" },
+    { "symbol": "COPPUSD", "name": "Copper", "session": "London + NY", "note": "AI and EV demand" },
+    { "symbol": "NATGAS", "name": "Natural Gas", "session": "NY", "note": "AI data center energy" },
+    { "symbol": "CCJ", "name": "Cameco", "session": "NY", "note": "Largest uranium miner" },
+    { "symbol": "FCX", "name": "Freeport-McMoRan", "session": "NY", "note": "Largest copper producer" },
+    { "symbol": "MP", "name": "MP Materials", "session": "NY", "note": "Rare earth — US domestic supply" },
+    { "symbol": "UUUU", "name": "Energy Fuels", "session": "NY", "note": "Uranium and rare earths" },
+    { "symbol": "ALB", "name": "Albemarle", "session": "NY", "note": "Largest lithium producer" },
+    { "symbol": "CEG", "name": "Constellation Energy", "session": "NY", "note": "Nuclear power for AI" },
+    { "symbol": "VST", "name": "Vistra Corp", "session": "NY", "note": "Nuclear power" },
+    { "symbol": "NRG", "name": "NRG Energy", "session": "NY", "note": "Nuclear power" }
+  ]
+}

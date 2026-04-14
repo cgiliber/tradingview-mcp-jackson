@@ -1,0 +1,15 @@
+{
+  "strategy": "OVERNIGHT-SWING",
+  "description": "Assets suitable for overnight holds — must have 24/7 or near-24/7 liquidity and clear overnight catalysts.",
+  "assets": [
+    { "symbol": "OANDA:XAUUSD", "name": "Gold", "note": "Best overnight mover — geopolitical safe haven" },
+    { "symbol": "OANDA:XAGUSD", "name": "Silver" },
+    { "symbol": "OANDA:WTICOUSD", "name": "WTI Crude Oil", "note": "Strait of Hormuz — overnight geopolitical risk" },
+    { "symbol": "OANDA:BCOUSD", "name": "Brent Crude Oil" },
+    { "symbol": "EURUSD", "name": "Euro / US Dollar" },
+    { "symbol": "GBPUSD", "name": "British Pound / US Dollar" },
+    { "symbol": "USDJPY", "name": "US Dollar / Japanese Yen", "note": "Yen strengthens during Asian session" },
+    { "symbol": "BTCUSD", "name": "Bitcoin", "note": "24/7 crypto — no overnight gap risk" },
+    { "symbol": "ETHUSD", "name": "Ethereum" }
+  ]
+}

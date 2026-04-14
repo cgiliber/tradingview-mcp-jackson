@@ -1,0 +1,25 @@
+{
+  "strategy": "RESOURCE-COMMODITY",
+  "tier": "TIER 2 — place manually",
+  "session": "London open for Gold and Oil — NY session for resource stocks",
+  "timeframe": "4 hour to Daily",
+  "direction": "BOTH Buy AND Sell",
+
+  "rules": {
+    "geopolitical_check": "Always check geopolitical news before trading commodities — Strait of Hormuz, OPEC decisions, war news",
+    "gold": {
+      "key_support": [4644, 4700],
+      "key_resistance": [4800, 4858],
+      "support_rule": "Buy on touch of $4,644 or $4,700 support",
+      "resistance_rule": "Buy continuation on breakout above $4,800 or $4,858"
+    },
+    "oil": "Driven by Strait of Hormuz and OPEC — buy on supply disruption news",
+    "copper": "AI and EV demand driver — buy on dips during AI infrastructure buildout",
+    "silver": "Inflation hedge and AI solar demand — buy when CPI data comes in hot",
+    "uranium": "CCJ and UUUU — buy on nuclear energy policy news",
+    "rare_earth": "MP — buy on China export restriction news",
+    "risk_reward": "Minimum 1:2",
+    "position_size": "1% of portfolio per trade — calculate units properly",
+    "swing_alert": "Always include a SWING ALERT if overnight move was greater than 1%"
+  }
+}

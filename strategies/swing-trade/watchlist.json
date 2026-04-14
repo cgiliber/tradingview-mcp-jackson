@@ -1,0 +1,6 @@
+{
+  "strategy": "SWING-TRADE",
+  "description": "Uses the full master watchlist from the project root. All London, NY, and Crypto session assets.",
+  "reference": "../watchlist.json",
+  "note": "Read the root watchlist.json for the complete asset list organized by session."
+}

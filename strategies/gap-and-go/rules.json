@@ -1,0 +1,25 @@
+{
+  "strategy": "GAP-AND-GO",
+  "tier": "TIER 1 — scalping — automation preferred but can be done manually",
+  "session": "NY open only — 15:30–16:00 Oslo (9:30–10:00 AM ET)",
+  "timeframe": "1 minute chart",
+  "direction": "LONG only — buy stocks gapping UP with catalyst",
+
+  "rules": {
+    "gap_minimum": "Stock must be gapping more than 4% pre-market",
+    "catalyst_required": "Every gap must have a confirmed catalyst: earnings, news, PR, FDA approval. No catalyst = skip — do not trade.",
+    "float": "Only trade low float stocks: under 20 million shares preferred",
+    "volume_signal": "If more than 10% of float has traded pre-market = high priority",
+    "pre_market_high": "Mark pre-market high before market opens",
+    "entry_primary": "Buy break of pre-market high OR high of first 1-minute candle at open",
+    "entry_alternative": "Red to Green move — stock dips then recovers above previous close",
+    "stop_loss": "Low of the first 1-minute candle — very tight",
+    "take_profit": "Sell into the first spike — do not hold more than 30 minutes",
+    "risk_reward": "Minimum 1:2",
+    "position_size": "1% of portfolio per trade — calculate units properly",
+    "max_trades_per_session": 3,
+    "timeout": "If stock does not break pre-market high within first 5 minutes = skip"
+  },
+
+  "earnings_rule": "Check earnings calendar every morning — any stock reporting earnings that day is a Gap-and-Go candidate regardless of watchlist"
+}

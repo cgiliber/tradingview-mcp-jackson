@@ -1,0 +1,27 @@
+{
+  "strategy": "CRYPTO-MOMENTUM",
+  "tier": "TIER 1 for BTC and ETH — TIER 2 for AI tokens",
+  "session": "Crypto session 20:00 Oslo — but crypto trades 24/7",
+  "timeframe": "15 minutes for Tier 1 — 4 hour to Daily for Tier 2",
+  "direction": "BOTH Buy AND Sell",
+
+  "rules": {
+    "catalyst_required": "Only trade crypto with a confirmed catalyst: protocol upgrade, major listing, governance vote, macro event",
+    "ai_token_catalysts": "RenderCon, TAO network updates, FET alliance news are high priority catalysts",
+    "tier_1_btc_eth": {
+      "stop_loss": "Tight — 2 to 3% from entry",
+      "take_profit": "2x the stop loss minimum",
+      "assets": ["BTCUSD", "ETHUSD"]
+    },
+    "tier_2_ai_tokens": {
+      "stop_loss": "Wider — 10 to 15% from entry to account for volatility",
+      "take_profit": "2x the stop loss minimum",
+      "assets": ["SOLUSD", "FETUSD", "RENDERUSD", "TAOUSD", "ARUSD", "OCEANPUSD", "AGIXUSD", "VIRTUALSUSD", "WLDUSD"]
+    },
+    "never_trade_without_stop": true,
+    "fear_and_greed_rules": {
+      "below_20": "Extreme caution — reduce position size by 50%",
+      "above_80": "Consider taking profits on existing positions"
+    }
+  }
+}

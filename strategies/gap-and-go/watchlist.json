@@ -1,0 +1,26 @@
+{
+  "strategy": "GAP-AND-GO",
+  "description": "US stocks to scan for pre-market gaps >4% with catalyst. Also check earnings calendar daily.",
+  "assets": [
+    { "symbol": "NVDA", "name": "NVIDIA" },
+    { "symbol": "AMD", "name": "Advanced Micro Devices" },
+    { "symbol": "TSM", "name": "Taiwan Semiconductor" },
+    { "symbol": "AVGO", "name": "Broadcom" },
+    { "symbol": "PLTR", "name": "Palantir Technologies" },
+    { "symbol": "ORCL", "name": "Oracle" },
+    { "symbol": "NOW", "name": "ServiceNow" },
+    { "symbol": "TSLA", "name": "Tesla" },
+    { "symbol": "AAPL", "name": "Apple" },
+    { "symbol": "NFLX", "name": "Netflix" },
+    { "symbol": "CRWD", "name": "CrowdStrike" },
+    { "symbol": "RKLB", "name": "Rocket Lab" },
+    { "symbol": "COIN", "name": "Coinbase" },
+    { "symbol": "MSTR", "name": "MicroStrategy" },
+    { "symbol": "IONQ", "name": "IonQ" },
+    { "symbol": "BABA", "name": "Alibaba" },
+    { "symbol": "BIDU", "name": "Baidu" },
+    { "symbol": "SMCI", "name": "Super Micro Computer" },
+    { "symbol": "CRWV", "name": "CoreWeave" }
+  ],
+  "dynamic_additions": "Any stock reporting earnings today is automatically added to this watchlist"
+}

@@ -1,0 +1,18 @@
+{
+  "strategy": "OVERNIGHT-SWING",
+  "tier": "TIER 2 — place manually before market close",
+  "session": "Place at NY close 22:00 Oslo — hold overnight — exit at London open 10:00 Oslo",
+  "timeframe": "4 hour to Daily chart",
+  "direction": "BOTH Buy AND Sell",
+
+  "rules": {
+    "catalyst_required": "Only trade assets with a clear overnight catalyst: geopolitical event, earnings next day, major data release",
+    "entry": "At key support or resistance level",
+    "stop_loss": "Must account for overnight gap risk — wider than normal. Never hold overnight unprotected.",
+    "take_profit": "At next key resistance or support",
+    "risk_reward": "Minimum 1:2",
+    "position_size": "0.5% of portfolio only — reduced size for overnight gap risk",
+    "exit_rule": "Close position at London open 10:00 Oslo unless strong reason to hold",
+    "best_assets": "Gold, Oil, major forex pairs, BTC — these have the most overnight catalysts and liquidity"
+  }
+}
