@@ -73,6 +73,14 @@ This project follows **Lewis Jackson's YouTube video series** on connecting Clau
 - Crypto Fear & Greed API: WORKS via WebFetch (value 21, Extreme Fear)
 - Yahoo earnings calendar: check daily
 
+**Market Scanner** (built April 15):
+- Provider-agnostic — swap by changing `scanner/config.json` → `active_provider`
+- Current: Twelve Data (tested — stocks, forex, crypto, gold all work in one call)
+- Prepared: Polygon.io, Alpha Vantage (stubs ready, switch when needed)
+- Commands: `node scanner/index.js quote META,AMD` / `scan session ny` / `movers 1`
+- API key in `/Users/mariashchekanenko/claude-trading-broker/.env` as `TWELVE_DATA_API_KEY`
+- 68 assets scanned in seconds vs 12+ minutes switching TradingView charts one by one
+
 See `session-briefing.md` and `scanner-sources.json` for details.
 
 ---
@@ -95,6 +103,8 @@ See `session-briefing.md` and `scanner-sources.json` for details.
 | `scripts/maria_universal_strategy.pine` | Pine Script — auto-detects asset type |
 | `strategies/` | 6 strategy subfolders with own rules.json and watchlist.json |
 | `scanner-sources.json` | External scanner URLs (Finviz, Warrior Trading, Yahoo, Fear&Greed API) |
+| `scanner/config.json` | Scanner provider config — swap Twelve Data for Polygon/Alpha Vantage here |
+| `scanner/index.js` | Market scanner script — batch quotes for all watchlist assets in seconds |
 
 ---
 
