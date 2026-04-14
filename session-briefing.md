@@ -9,12 +9,19 @@ Triggered by the word **"briefing"** at ANY time of day. Claude auto-detects Osl
 | Command | Action |
 |---------|--------|
 | `"briefing"` | Auto-detect Oslo time → run relevant strategies for current session |
-| `"full briefing"` | Run ALL 5 strategies regardless of time |
+| `"full briefing"` | Run ALL 6 strategies regardless of time |
 | `"run GAP-AND-GO"` | Read `/strategies/gap-and-go/` rules and watchlist only |
 | `"run SWING-TRADE"` | Read `/strategies/swing-trade/` rules and watchlist only |
 | `"run OVERNIGHT-SWING"` | Read `/strategies/overnight-swing/` rules and watchlist only |
 | `"run CRYPTO-MOMENTUM"` | Read `/strategies/crypto-momentum/` rules and watchlist only |
 | `"run RESOURCE-COMMODITY"` | Read `/strategies/resource-commodity/` rules and watchlist only |
+| `"run PENNY-STOCK-MOMENTUM"` | Scan Finviz + Warrior Trading (Apify) → return top 3-5 candidates with scores |
+| `"penny scan"` | Shortcut → run PENNY-STOCK-MOMENTUM scanner immediately |
+| `"gap scan"` | Shortcut → run GAP-AND-GO scanner immediately |
+| `"crypto scan"` | Shortcut → run CRYPTO-MOMENTUM scanner immediately |
+| `"resource scan"` | Shortcut → run RESOURCE-COMMODITY scanner immediately |
+| `"swing scan"` | Shortcut → run SWING-TRADE scanner immediately |
+| `"overnight scan"` | Shortcut → run OVERNIGHT-SWING scanner immediately |
 
 ---
 
@@ -32,6 +39,7 @@ Triggered by the word **"briefing"** at ANY time of day. Claude auto-detects Osl
 
 ### NY SESSION (15:30–22:00 Oslo)
 - **GAP-AND-GO** — execute if pre-market gapper found with catalyst
+- **PENNY-STOCK-MOMENTUM** — scan Finviz screener + Warrior Trading page (Apify) for penny stocks gapping >4% with catalyst. Show top 3-5 with scores out of 9. Only trade if score 5+.
 - **SWING-TRADE** — scan all NY assets: full AI ecosystem watchlist
 - **RESOURCE-COMMODITY** — Oil and Copper
 
@@ -115,6 +123,7 @@ Better than open trade? Yes/No — if yes, which one to replace
 | OVERNIGHT-SWING | `/strategies/overnight-swing/rules.json` | `/strategies/overnight-swing/watchlist.json` |
 | CRYPTO-MOMENTUM | `/strategies/crypto-momentum/rules.json` | `/strategies/crypto-momentum/watchlist.json` |
 | RESOURCE-COMMODITY | `/strategies/resource-commodity/rules.json` | `/strategies/resource-commodity/watchlist.json` |
+| PENNY-STOCK-MOMENTUM | `/strategies/penny-stock-momentum/rules.json` | `/strategies/penny-stock-momentum/watchlist.json` (dynamic) |
 
 Root `rules.json` and `watchlist.json` remain the master reference. Strategy files are used when a specific strategy is called.
 

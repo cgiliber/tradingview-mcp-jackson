@@ -1,0 +1,9 @@
+{
+  "strategy": "PENNY-STOCK-MOMENTUM",
+  "description": "DYNAMIC watchlist — changes every day based on scanner results. No fixed symbols. Run scanner every morning before 15:30 Oslo to build fresh list of 3-5 stocks.",
+  "watchlist_type": "dynamic",
+  "how_to_build": "Run Finviz screener + check Warrior Trading penny stocks page + check Yahoo earnings calendar. Pick top 3-5 that score 5+ out of 9.",
+  "scanner_url": "https://finviz.com/screener.ashx?v=111&f=gap_u4,sh_float_u20,sh_price_1to20,sh_relvol_o2&ft=4",
+  "save_daily_to": "today.json under penny_stock_watchlist section",
+  "todays_candidates": []
+}

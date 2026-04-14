@@ -1,0 +1,37 @@
+{
+  "description": "Scanner sources for finding trading opportunities — use Apify or WebFetch to scrape these daily",
+  "penny_stock_scanner": {
+    "warrior_trading": {
+      "url": "https://www.warriortrading.com/penny-stocks/",
+      "description": "Warrior Trading top 5 most active penny stocks — 15 minute delay on free version",
+      "access": "BLOCKED by direct WebFetch (403) — must use Apify to scrape",
+      "data_to_extract": ["symbol", "price", "gap_percent", "volume", "float", "catalyst"],
+      "trigger": "penny scan"
+    },
+    "finviz": {
+      "url": "https://finviz.com/screener.ashx?v=111&f=gap_u4,sh_float_u20,sh_price_1to20,sh_relvol_o2&ft=4",
+      "description": "Finviz screener — stocks gapping up >4%, float under 20M, price $1-$20, relative volume >2x",
+      "access": "WORKS with WebFetch directly — tested April 15, returned 110 results",
+      "trigger": "penny scan"
+    }
+  },
+  "gap_scanner": {
+    "finviz": {
+      "url": "https://finviz.com/screener.ashx?v=111&f=gap_u4,sh_float_u20,sh_price_1to20,sh_relvol_o2&ft=4",
+      "description": "Same as penny stock scanner — also used for Gap-and-Go strategy",
+      "access": "WORKS with WebFetch",
+      "trigger": "gap scan"
+    }
+  },
+  "earnings_calendar": {
+    "url": "https://finance.yahoo.com/calendar/earnings",
+    "description": "Yahoo Finance earnings calendar — check every morning for stocks reporting earnings today — these are Gap-and-Go and Penny Stock candidates",
+    "trigger": "briefing"
+  },
+  "crypto_fear_greed": {
+    "url": "https://api.alternative.me/fng/",
+    "description": "Crypto Fear and Greed Index API — check before every crypto session briefing",
+    "access": "WORKS with WebFetch directly — tested April 15, returned value 21 (Extreme Fear)",
+    "trigger": "crypto scan"
+  }
+}

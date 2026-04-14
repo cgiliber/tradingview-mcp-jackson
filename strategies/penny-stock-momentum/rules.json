@@ -1,0 +1,100 @@
+{
+  "strategy": "PENNY-STOCK-MOMENTUM",
+  "tier": "TIER 1 — very fast execution — automation preferred",
+  "session": "NY session only — 15:30–17:00 Oslo (9:30–11:00 AM ET)",
+  "timeframe": "1 minute and 5 minute charts only",
+  "direction": "LONG only — buy momentum — never short penny stocks as a beginner",
+  "source": "Ross Cameron — Warrior Trading — turned $583 into $10M+",
+
+  "what_is_penny_stock": {
+    "price_range": "Between $1.00 and $20.00 — NOT below $1.00",
+    "below_1_dollar": "Too risky — skip ALWAYS",
+    "exchange": "NYSE and NASDAQ listed ONLY — NO OTC or Pink Sheet stocks — skip ALWAYS",
+    "float": "Under 20 million shares is ideal — under 100 million acceptable",
+    "type": "Small cap stocks — not large caps like NVDA or TSLA"
+  },
+
+  "why_this_works": {
+    "explanation": "Low float + high volume + catalyst = explosive moves",
+    "float_turnover": "If 10% of float traded pre-market → entire float may trade during the day",
+    "potential": "These stocks can move 50 to 100% or more in a single day",
+    "daily_count": "Only 5 to 10 stocks are in play each day out of thousands — scanner finds them"
+  },
+
+  "scanner_criteria": {
+    "description": "ALL criteria must match simultaneously",
+    "1_price": "Between $1.00 and $20.00",
+    "2_gap": "Up more than 4% pre-market",
+    "3_volume": "Relative volume 2x or higher than average — 3x is ideal",
+    "4_float": "Under 100 million shares — under 20 million is high priority",
+    "5_catalyst": "Confirmed news in last 24 hours — earnings, FDA approval, partnership, contract, PR",
+    "6_exchange": "NYSE or NASDAQ only — no OTC or Pink Sheet"
+  },
+
+  "scanner_tools": {
+    "finviz": {
+      "url": "https://finviz.com/screener.ashx?v=111&f=gap_u4,sh_float_u20,sh_price_1to20,sh_relvol_o2&ft=4",
+      "access": "FREE — use WebFetch directly, works",
+      "when": "Pre-market scan before 15:30 Oslo"
+    },
+    "warrior_trading": {
+      "url": "https://www.warriortrading.com/penny-stocks/",
+      "access": "BLOCKED by direct fetch (403) — use Apify to scrape",
+      "data": "Top 5 most active penny stocks — 15 min delay on free version"
+    },
+    "earnings_calendar": {
+      "url": "https://finance.yahoo.com/calendar/earnings",
+      "access": "Check every morning for stocks reporting earnings today"
+    }
+  },
+
+  "entry_rules": {
+    "entry_1": "Buy break of pre-market high — as soon as market opens and stock breaks above pre-market high",
+    "entry_2": "Opening Range Breakout — buy high of first 1-minute candle after 9:30 AM ET (15:30 Oslo)",
+    "entry_3": "Red to Green move — stock dips after open then recovers above previous day close",
+    "entry_4": "First pullback after initial spike — stock surges, pulls back to VWAP or 9 EMA, then bounces",
+    "timeout": "If stock does not break pre-market high within first 5 minutes = skip — do not chase"
+  },
+
+  "exit_rules": {
+    "sell_half": "Sell half position at first profit target — when up 2x the risk amount",
+    "move_stop": "Move stop to breakeven on remaining position after selling half",
+    "sell_remaining": "Sell remaining if first 1-minute candle closes red after selling half",
+    "max_hold_time": "Never hold penny stock momentum trade more than 30 minutes",
+    "hard_stop": "If stock drops 10% from entry = exit immediately no exceptions"
+  },
+
+  "stop_loss_rules": {
+    "placement": "Low of the first 1-minute candle — very tight",
+    "risk_limit": "Never risk more than 1% of portfolio on a single penny stock trade",
+    "wide_stop_fix": "If stop is too wide relative to 1% risk → reduce position size — do not widen stop"
+  },
+
+  "scoring": {
+    "description": "Add points for each criteria met. Only trade if score is 5 or above.",
+    "gap_above_10_pct": "+2 points",
+    "float_under_20m": "+2 points",
+    "relative_volume_above_3x": "+1 point",
+    "clear_news_catalyst": "+2 points",
+    "nyse_or_nasdaq": "+1 point",
+    "price_2_to_10_sweet_spot": "+1 point",
+    "max_score": 9,
+    "minimum_to_trade": 5
+  },
+
+  "what_to_avoid": [
+    "Stocks below $1.00 — too manipulated",
+    "OTC and Pink Sheet stocks — pump and dump risk",
+    "Stocks with no confirmed catalyst — gaps without news fade fast",
+    "Stocks with float above 100 million shares — too much supply",
+    "Stocks that are halted for regulatory reasons — too dangerous",
+    "Stocks promoted by newsletters or social media without real catalyst"
+  ],
+
+  "position_sizing": {
+    "risk": "Exactly 1% of portfolio per trade",
+    "formula": "Shares = (portfolio × 1%) ÷ (entry price - stop price)"
+  },
+
+  "watchlist_note": "This watchlist is DYNAMIC — changes every day based on the scanner. No fixed symbols. Every morning before 15:30 Oslo run the scanner and build a fresh watchlist of 3 to 5 stocks."
+}
