@@ -4,19 +4,21 @@ When Maria says "morning briefing" or "morning brief", execute this workflow exa
 
 ---
 
-## Step 1: Read Project Files
+## Step 1: Read Files & Calculate Risk
 
-Read these files first:
-- `watchlist.json` — master list of all assets to scan, organized by session
-- `rules.json` — entry strategies, risk rules, session times, position sizing, tier definitions
-- `today.json` — check for any existing open trades (never duplicate)
-- `journal.json` — check recent trade history and pending trades
+Before doing anything else:
+1. Read `watchlist.json` — full asset list by session
+2. Read `rules.json` — trading rules, scoring system, tier definitions, ATR stops
+3. Read `today.json` — existing open trades and their status
+4. Read `journal.json` — recent trade history, check last 3-5 trades for performance-based sizing
+5. Note the current portfolio value from TradingView paper trading account
+6. Calculate total % currently at risk across all open trades
 
 ---
 
-## Step 2: Research Market News
+## Step 2: Macro Overview
 
-Search the web for news that could affect the watchlist assets. Searches to perform:
+Search the web for news affecting the watchlist. Searches to perform:
 
 1. "biggest stock movers premarket today"
 2. "semiconductor AI chip news today"
@@ -29,108 +31,88 @@ Search the web for news that could affect the watchlist assets. Searches to perf
 9. "earnings reports this week"
 10. "Federal Reserve ECB BOJ news today"
 
-Note any asset from the watchlist that:
-- Moved >2% overnight
-- Has a major catalyst (earnings, news, policy change)
-- Has geopolitical exposure that changed
+Then present ONE PARAGRAPH covering:
+- Key geopolitical events affecting markets today
+- Major economic data releases today (PPI, CPI, NFP, Fed decisions, earnings)
+- Overall market sentiment (Fear & Greed index direction)
+- Dollar direction (DXY) — affects all USD pairs and Gold
+- Any asset from the watchlist that moved >2% overnight or has a major catalyst
 
 ---
 
-## Step 3: Scan Watchlist by Session
+## Step 3: Open Trades Status
 
-Scan ALL assets in `watchlist.json` at the correct session. Never skip an asset. Always check for BOTH Buy AND Sell opportunities — never assume direction.
-
-### London Session (10:00 Oslo)
-- Scan: All `london_session` assets (forex pairs + commodities)
-- Plus: `all_day` macro indicators (SPY, QQQ, DXY, Oil, Copper, Silver, NatGas)
-- Apply: FX-1, FX-2, FX-3 strategies for forex; CMD-1, CMD-2, CMD-3 for commodities
-- Check for BOTH Tier 1 (scalping) and Tier 2 (swing) setups
-
-### New York Session (15:30 Oslo)
-- Scan: All `ny_session` assets (AI ecosystem layers 1-7 + high-news stocks)
-- Apply: IDX-1, IDX-2 for indices; individual stock analysis for AI ecosystem
-- Check: Earnings calendar — any watchlist stock reporting this week?
-- Check for BOTH Tier 1 (scalping) and Tier 2 (swing) setups
-
-### Crypto Session (20:00 Oslo)
-- Scan: All `crypto_session` assets (majors + AI tokens)
-- Apply: BTC-1, BTC-2 for Bitcoin; ALT-1 for altcoins
-- Check: BTC dominance — rising = avoid altcoins, falling = altcoins outperform
-- Crypto Tier 1: BTC, ETH only (1m-15m charts) — automation only
-- Crypto Tier 2: BTC, ETH, SOL, FET, RENDER, TAO (4H-Daily charts) — place manually
-
----
-
-## Step 4: Rank and Select Trades
-
-For each potential trade found, assign a tier and score it:
-
-### Tier Assignment
-- **Tier 1 (Scalping)**: 1m to 15m timeframe, tight stops, quick targets — FOR AUTOMATION ONLY
-- **Tier 2 (Swing)**: 1H to Daily timeframe, S/R-based stops, R:R min 1:2 — FOR MANUAL PLACEMENT
-
-### Selection Rules (Tier 2 only — these are the ones Maria places)
-- Maximum 4 open Tier 2 trades at any time (check today.json for current count)
-- Position size: $100 per trade
-- Never enter if R:R is below 1:2
-- Never trade against the weekly trend
-- Never trade 30 min before/after major news releases
-- Pick the BEST 1-3 Tier 2 trades for the day — quality over quantity
-
-### Scoring Criteria
-1. **Strategy match** — Does it cleanly match a strategy from rules.json?
-2. **Risk/reward** — Minimum 1:2, preferred 1:3
-3. **Catalyst strength** — Earnings, news, macro event driving the move?
-4. **Technical alignment** — Higher timeframe trend agrees with entry timeframe?
-5. **Session timing** — Is the best entry window during Maria's available hours?
-
----
-
-## Step 5: Present Briefing to Maria
-
-Every morning briefing MUST follow this exact 4-section structure:
-
-### Section 1: MARKET OVERVIEW
-
-Quick summary of macro conditions and news affecting the watchlist.
-
-```
-## MARKET OVERVIEW
-- [2-4 bullet points on macro conditions, key news, DXY direction, risk sentiment]
-```
-
-### Section 2: OPEN TRADES STATUS
-
-One line per existing open trade from today.json and the broker.
+For each open trade in today.json show:
 
 ```
 ## OPEN TRADES STATUS
-| Asset | Direction | Entry | Current | P&L | Stop | Target | Status |
+
+| Asset | Direction | Entry | Current | P&L | Dist to SL | Dist to TP | Score | Recommendation |
 ```
 
-### Section 3: TIER 2 TRADES — PLACE MANUALLY
+- **Dist to SL**: how far price is from stop loss (in $ and %)
+- **Dist to TP**: how far price is from take profit (in $ and %)
+- **Score**: trade score out of 14 (from rules.json scoring system)
+- **Recommendation**: one word — Hold / Watch / Consider closing
+- Add one line of context per trade explaining the recommendation
 
-Full trade cards for swing trades Maria will place. This is the main output.
+---
+
+## Step 4: Swing Alerts
+
+**NEVER skip this section — catching swings is a priority.**
+
+For EVERY asset in `watchlist.json`, scan the overnight price action and flag any that moved >1%.
+
+For each flagged asset show:
 
 ```
-## TIER 2 TRADES — PLACE MANUALLY
+## SWING ALERTS
 
-### RANK #1 — TIER 2 — PLACE MANUALLY — [ASSET NAME] ([SYMBOL])
+### ⚡ SWING ALERT — [Asset Name]
+- Overnight move: from [low] to [high] = [%] move
+- Current price: [price]
+- Next swing opportunity: [Buy/Sell] at [level]
+- Entry: [price] | Stop Loss: [price] | Take Profit: [price]
+- Risk/Reward: [ratio]
+- Score: [x/14] (including swing bonus points)
+- Better than open trade? [Yes/No — which one to replace]
+```
+
+Gold-specific levels to always check:
+- Strong support: $4,644 and $4,700 — Buy on touch
+- Strong resistance: $4,750, $4,800, $4,858 — Buy on breakout above
+
+---
+
+## Step 5: London Session Opportunities (10:00 Oslo)
+
+Scan ALL `london_session` assets from watchlist.json:
+EURUSD, GBPUSD, USDJPY, EURGBP, GBPJPY, XAUUSD, XAGUSD, USOIL, UKOUSD, NATGAS, COPPUSD
+
+Apply: FX-1, FX-2, FX-3 strategies for forex; CMD-1, CMD-2, CMD-3 for commodities.
+Check for BOTH Buy AND Sell on every asset. Check for BOTH Tier 1 and Tier 2 setups.
+
+For each asset show one line: **price, % change, signal (Buy/Sell/Neutral)**
+
+Show full TIER 2 trade card only for assets with clear setups and score 6+ out of 14:
+
+```
+### RANK #[n] — TIER 2 — PLACE MANUALLY — [ASSET NAME] ([SYMBOL])
 Direction: LONG / SHORT
 Timeframe: [1H / 4H / Daily]
-Session: London / NY / Crypto
+Session: London 10:00 Oslo
 Strategy: [Which strategy from rules.json]
 Why: [1-2 sentence catalyst/reason]
 
 Entry: [price]
-Stop Loss: [price] — [where: below support / above resistance / below EMA]
+Stop Loss: [price] — [placement: below support / above resistance / 1.5x ATR]
 Take Profit: [price]
 Risk/Reward: [ratio]
-Position Size: $100
-Units: [calculated from position size and entry price]
+Position Size: (portfolio × risk%) ÷ stop distance
+Units: [calculated]
 
 Order Type: LIMIT / MARKET
-Window: [session time Oslo]
 Skip If: [condition that invalidates the trade]
 
 Alerts to Set:
@@ -139,79 +121,126 @@ Alerts to Set:
   TAKE PROFIT — [condition] @ [price]
 ```
 
-### Section 4: TIER 1 TRADES — AUTOMATION ONLY
+---
 
-Brief overview only. No full trade cards needed. These are for awareness and future automation.
+## Step 6: NY Session Opportunities (15:30 Oslo)
 
-```
-## TIER 1 TRADES — AUTOMATION ONLY (do not place manually)
+Scan ALL `ny_session` assets from watchlist.json:
+- Layer 1 Chips: NVDA, AMD, TSM, AVGO, INTC, ARM
+- Layer 2 Hyperscalers: MSFT, GOOGL, AMZN, META
+- Layer 3 AI Software: PLTR, ORCL, NOW
+- Layer 4 Data Centers: DELL, SMCI, CRWV
+- Layer 5 Nuclear: CEG, VST, NRG, CCJ
+- Layer 6 Materials: FCX, MP, UUUU, ALB
+- Layer 7 Networking: ANET, CSCO, MRVL
+- High News: TSLA, AAPL, NFLX, COIN, MSTR, CRWD, HOOD, RKLB, BABA, BIDU, IONQ
 
-| Asset | Direction | Timeframe | Entry Zone | Stop | Target | Signal |
-```
+Apply: IDX-1, IDX-2 for indices; STK-1, STK-2, STK-3 for US stocks.
+Check: Earnings calendar — any watchlist stock reporting this week?
 
-Label every Tier 1 trade: **"TIER 1 — AUTOMATION ONLY — do not place manually"**
+For each asset show one line: **price, % change, signal (Buy/Sell/Neutral)**
+Show full trade card only for assets with clear setups and score 6+ out of 14.
 
 ---
 
-## Step 6: Update today.json
+## Step 7: Crypto Session Opportunities (20:00 Oslo)
 
-After Maria confirms the Tier 2 trades, update `today.json` with the exact format. Only include Tier 2 trades in today.json (Tier 1 trades are not placed manually).
+Scan ALL `crypto_session` assets from watchlist.json:
+- Majors: BTCUSD, ETHUSD, SOLUSD, XRPUSD, BNBUSD, ADAUSD, AVAXUSD, LINKUSD
+- AI tokens: FETUSD, RENDERUSD, TAOUSD, ARUSD, OCEANPUSD, AGIXUSD, VIRTUALSUSD, WLDUSD
+
+Apply: BTC-1, BTC-2 for Bitcoin; ALT-1 for altcoins.
+Check: BTC dominance — rising = avoid altcoins, falling = altcoins outperform.
+- Crypto Tier 1: BTC, ETH only (1m-15m charts) — automation only
+- Crypto Tier 2: BTC, ETH, SOL, FET, RENDER, TAO (4H-Daily charts) — place manually
+
+For each asset show one line: **price, % change, signal (Buy/Sell/Neutral)**
+Show full trade card only for clear setups.
+
+---
+
+## Step 8: All Day Macro Check
+
+Check these macro indicators and flag any significant moves affecting other trades:
+
+| Indicator | What to check |
+|-----------|--------------|
+| SPY | S&P 500 direction — overall risk sentiment |
+| QQQ | Nasdaq 100 — tech/AI sector health |
+| DXY | Dollar strength — affects Gold and all USD pairs |
+| USOIL | Oil — geopolitical risk gauge (Strait of Hormuz) |
+| COPPUSD | Copper — AI/EV demand bellwether, global growth |
+| XAGUSD | Silver — AI solar and industrial demand |
+| NATGAS | Natural Gas — AI data center energy cost |
+
+---
+
+## Step 9: Trade Recommendations Ranked
+
+Show ALL new opportunities (from Steps 4-7) ranked by score — highest first.
+
+For each clearly state:
+- Score out of 14 (including swing bonus points if applicable)
+- Is this better than any existing open trade? **Yes or No**
+- If Yes — which open trade to cancel and why
+- Portfolio % risk this trade would add
+
+```
+## RANKED RECOMMENDATIONS
+
+| Rank | Asset | Direction | Entry | R:R | Score /14 | Better than open? | Action |
+```
+
+---
+
+## Step 10: Portfolio Risk Summary
+
+```
+## PORTFOLIO RISK SUMMARY
+- Total portfolio value: [from TradingView account]
+- Total % currently at risk: [calculated across all open trades]
+- Remaining risk capacity: [5% max - current risk]
+- Performance-based sizing tier: [1% / 0.75% / 0.5% / 0.25% based on last 3-5 trades]
+- Recommendation: Add more trades / Hold current / Reduce exposure
+```
+
+---
+
+## Step 11: Update today.json
+
+After Maria confirms the Tier 2 trades, update `today.json`. Only include Tier 2 trades (Tier 1 are not placed manually).
 
 ```json
 {
   "date": "Day DD Month YYYY",
-  "briefing": [
-    "Summary line 1",
-    "Summary line 2"
-  ],
-  "sessions": {
-    "london": "10:00 Oslo",
-    "new_york": "15:30 Oslo"
-  },
-  "trades": [
-    {
-      "name": "Asset Name (SYMBOL)",
-      "tv_symbol": "SYMBOL",
-      "tier": "TIER 2",
-      "direction": "LONG or SHORT",
-      "timeframe": "1H / 4H / Daily",
-      "strategy": "Why this trade",
-      "score": "High/Medium — reason",
-      "entry": 0.00,
-      "stop": 0.00,
-      "target": 0.00,
-      "stop_dist": 0.00,
-      "risk_reward": "1:X",
-      "order_type": "LIMIT",
-      "units": 0.00,
-      "window": "Session time Oslo",
-      "skip_if": "Condition that kills the trade",
-      "alerts": [
-        {"label": "ENTRY", "condition": "Crossing Up/Down", "price": 0.00, "msg": "Alert 1/3 — ENTRY @ price"},
-        {"label": "STOP LOSS", "condition": "Crossing Up/Down", "price": 0.00, "msg": "Alert 2/3 — STOP LOSS @ price"},
-        {"label": "TAKE PROFIT", "condition": "Crossing Up/Down", "price": 0.00, "msg": "Alert 3/3 — TAKE PROFIT @ price"}
-      ]
-    }
-  ]
+  "portfolio_value": 0,
+  "max_risk_per_trade_pct": 1,
+  "max_total_risk_pct": 5,
+  "total_risk_currently_pct": 0,
+  "remaining_risk_capacity_pct": 0,
+  "open_trades": [],
+  "new_opportunities": [],
+  "recommendation": ""
 }
 ```
 
 ---
 
-## Step 7: Update Journal
+## Step 12: Update Journal
 
 Add each new Tier 2 trade to `journal.json` with result set to "PENDING". Do NOT add Tier 1 trades to the journal — they are not executed yet.
 
 ---
 
-## Step 8: Set Alerts on TradingView
+## Step 13: Place Orders on TradingView
 
-For each confirmed Tier 2 trade, use the MCP tools to:
+For each confirmed Tier 2 trade, place the order on TradingView paper trading:
 1. `chart_set_symbol` — switch to the asset
-2. `alert_create` — create ENTRY, STOP LOSS, and TAKE PROFIT alerts
-3. Confirm all alerts are active with `alert_list`
+2. Open order ticket, set Limit price, quantity, TP, SL
+3. Submit order (see PAPER_TRADING_ORDERS.md for detailed steps)
+4. Verify order appears in Orders tab
 
-Do NOT set alerts for Tier 1 trades — they are automation-only.
+Do NOT place orders for Tier 1 trades — they are automation-only.
 
 ---
 
@@ -219,13 +248,15 @@ Do NOT set alerts for Tier 1 trades — they are automation-only.
 
 - **Never assume direction** — always check both Buy and Sell
 - **Never skip an asset** — scan every single one in the watchlist
-- **Always read watchlist.json and rules.json first** — before starting any briefing
-- **Always check today.json first** — don't duplicate existing trades
-- **Maximum 4 open Tier 2 trades** — if already at 4, don't add more
-- **$100 position size** — calculate units from this
+- **Never skip Swing Alerts** — this is where the biggest wins are
+- **Always read watchlist.json, rules.json, today.json first** — before starting any briefing
+- **Always rank new opportunities against existing open trades** — swap if better
+- **Portfolio % risk management** — no fixed trade count, use 5% max total risk
+- **Performance-based sizing** — check last 3-5 trades to determine risk tier (1% / 0.75% / 0.5% / 0.25%)
+- **ATR-based stops** — stop distance = 1.5x ATR(14) minimum, reduce position size for wider stops
 - **News blackout** — no trades 30 min before/after major releases
 - **Weekend rule** — no forex/stock trades Sat-Sun (crypto only)
-- **Stop loss is mandatory** — never enter without one
+- **Stop loss is mandatory** — never enter without one, never exit manually before stop is hit
 - **Think in R** — 1R = planned risk, present results in R multiples
 - **Tier 1 = AUTOMATION ONLY** — never place manually, label clearly
-- **Tier 2 = PLACE MANUALLY** — full trade cards, alerts, journal entries
+- **Tier 2 = PLACE MANUALLY** — full trade cards, orders, journal entries
