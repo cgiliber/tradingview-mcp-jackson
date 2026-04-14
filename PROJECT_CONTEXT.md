@@ -59,13 +59,21 @@ This project follows **Lewis Jackson's YouTube video series** on connecting Clau
 | **Overnight Swing** | OVERNIGHT-SWING | Tier 2 | NY close → London open | Buy + Sell |
 | **Crypto Momentum** | CRYPTO-MOMENTUM | Tier 1 (BTC/ETH) + Tier 2 (AI tokens) | 20:00+ | Buy + Sell |
 | **Resource Commodity** | RESOURCE-COMMODITY | Tier 2 | London + NY | Buy + Sell |
+| **Penny Stock Momentum** | PENNY-STOCK-MOMENTUM | Tier 1 | NY 15:30-17:00 | LONG only |
 
 **Trigger words:**
 - `"briefing"` → auto-detect Oslo time → run relevant strategies
-- `"full briefing"` → run ALL strategies
+- `"full briefing"` → run ALL 6 strategies
 - `"run [STRATEGY-LABEL]"` → run only that strategy
+- `"penny scan"` / `"gap scan"` / `"crypto scan"` / `"resource scan"` / `"swing scan"` / `"overnight scan"` → shortcuts
 
-See `session-briefing.md` for full session detection logic.
+**Scanner sources** (tested April 15):
+- Finviz screener: WORKS via WebFetch — penny stocks + gap scanner
+- Warrior Trading penny stocks: needs Apify (403 on direct)
+- Crypto Fear & Greed API: WORKS via WebFetch (value 21, Extreme Fear)
+- Yahoo earnings calendar: check daily
+
+See `session-briefing.md` and `scanner-sources.json` for details.
 
 ---
 
@@ -85,7 +93,8 @@ See `session-briefing.md` for full session detection logic.
 | `auto-trades.json` | Log for auto-executed trades |
 | `strategy-learnings.json` | YouTuber strategy extractions |
 | `scripts/maria_universal_strategy.pine` | Pine Script — auto-detects asset type |
-| `strategies/` | 5 strategy subfolders with own rules.json and watchlist.json |
+| `strategies/` | 6 strategy subfolders with own rules.json and watchlist.json |
+| `scanner-sources.json` | External scanner URLs (Finviz, Warrior Trading, Yahoo, Fear&Greed API) |
 
 ---
 
@@ -116,6 +125,11 @@ Key features:
 - ETH LONG — 10 units @ 2,300, TP 2,500, SL 2,200 ($36 from market)
 - AMD LONG — 83 units @ 250, TP 274, SL 238 (market closed)
 - META LONG — 66 units @ 655, TP 700, SL 640 (market closed)
+
+### Tomorrow's Priority: ARAI (Arrive AI)
+- Penny stock scan found ARAI scoring **8/9** — patent news + earnings Apr 15 before open
+- At 14:00 Oslo: check pre-market price and mark pre-market high
+- At 15:30 Oslo: if breaks pre-market high → auto-execute penny stock momentum entry
 
 ### Account
 - Balance: ~$100,005
