@@ -1,5 +1,5 @@
 {
-  "version": "5.5",
+  "version": "5.6",
   "description": "Trading rules — three sections: TIERS + ENTRY RULES per asset class + RISK RULES universal. Updated with Ross Cameron (Warrior Trading) strategies.",
   "last_updated": "2026-04-14",
   "sources": ["Nial Fuller", "Adam Khoo", "Alexander Elder", "John Bollinger", "Ray Dalio", "Raoul Pal", "Van de Poppe", "Ross Cameron (Warrior Trading)"],
@@ -486,8 +486,38 @@
         "notification": "After auto-executing, immediately notify Maria with: asset, direction, entry, stop, target, score, and reason for auto-execution"
       }
     },
+    "market_regime_detection": {
+      "description": "At the start of every day, determine if the market is BULL, BEAR, or NEUTRAL. This changes how we enter trades.",
+      "how_to_detect": {
+        "check_1": "SPY and QQQ — above 20 EMA on daily = BULL, below = BEAR",
+        "check_2": "DXY — falling = risk-on (BULL for stocks/crypto/gold), rising = risk-off (BEAR)",
+        "check_3": "BTC — above 200 EMA = BULL crypto, below = BEAR crypto",
+        "check_4": "VIX or Fear & Greed — greed = BULL, fear = BEAR",
+        "check_5": "Count how many watchlist assets are above their 20 EMA — >60% = BULL, <40% = BEAR"
+      },
+      "bull_market_rules": {
+        "limit_distance": "Place limits 1-2% below current price — NOT 5-10%. In bull markets, pullbacks are shallow.",
+        "market_orders": "For breakouts scoring 8+ with volume, enter at MARKET. Don't wait for pullback that won't come.",
+        "position_count": "Be aggressive — aim for 5-8 active trades. Bull markets reward being invested.",
+        "bias": "Default to LONG. Only short if there's a very clear bearish setup on that specific asset."
+      },
+      "bear_market_rules": {
+        "limit_distance": "Place limits at defined support levels — further from market is fine. Price comes to us in bear markets.",
+        "market_orders": "Avoid market orders — wait for support bounces.",
+        "position_count": "Be defensive — 2-4 active trades maximum. Cash is a position.",
+        "bias": "Default to SHORT or CASH. Only long if there's a very clear support bounce."
+      },
+      "neutral_market_rules": {
+        "limit_distance": "Place limits 2-3% below current price.",
+        "market_orders": "Only for very high conviction setups (score 10+).",
+        "position_count": "3-5 active trades.",
+        "bias": "No default — check each asset individually."
+      },
+      "lesson": "April 14 was a BULL day (risk-on, BTC +5%, META +4%, US-Iran ceasefire). Our limits were 5-10% below market. None filled. In a bull market, we should have been closer to market or using market orders for breakouts."
+    },
     "briefing_rules": {
-      "description": "Rules for the morning briefing output",
+      "description": "Rules for the morning briefing output. FIRST determine market regime (bull/bear/neutral), THEN apply the matching rules.",
+      "step_0": "DETERMINE MARKET REGIME: Check SPY, QQQ, DXY, BTC vs their 20 EMA. Bull/Bear/Neutral. This determines limit distances and entry aggressiveness.",
       "step_1": "Read watchlist.json for the full asset list",
       "step_2": "Read today.json to check existing open trades and their current risk",
       "step_3": "Calculate total portfolio % currently at risk across all open trades",
