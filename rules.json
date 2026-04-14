@@ -462,8 +462,7 @@
       "output_format": "Brief — no full briefing needed. Just a table of changes, alerts, and actions taken.",
       "auto_execute_rules": {
         "description": "If a trade opportunity scores exceptionally high, Claude may execute it automatically without waiting for Maria's confirmation. Stricter risk limits apply.",
-        "minimum_score_for_auto": 11,
-        "minimum_score_explanation": "11 out of 14 base score + swing bonuses means: R:R 1:3+ (2pts) + major catalyst (2pts) + clear trend (2pts) + optimal session (2pts) + strategy match (2pts) + support bounce (+2) = very high conviction",
+        "minimum_score_for_auto": "none — no minimum score threshold. Claude may auto-execute any trade that meets the risk limits below and has a valid strategy match from rules.json. The scoring system is still used to RANK opportunities, but it does not block execution.",
         "auto_execute_risk_limits": {
           "max_risk_per_auto_trade": "0.5% of portfolio (HALF of normal 1% — extra conservative for automated decisions)",
           "max_auto_trades_per_day": 2,

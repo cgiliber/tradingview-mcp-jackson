@@ -36,7 +36,7 @@ This runs every 15 minutes during active trading sessions. It is SEPARATE from t
 
 ### Step 5: Auto-Execute or Alert
 
-**IF score >= 11 AND all auto-execute conditions met:**
+**IF all auto-execute conditions met (no score threshold):**
 - Place the order automatically on TradingView paper trading
 - Use 0.5% risk (half of normal)
 - Must have ATR-based stop at defined S/R level
@@ -44,8 +44,8 @@ This runs every 15 minutes during active trading sessions. It is SEPARATE from t
 - Update journal.json with tag "AUTO-EXECUTED"
 - Notify Maria immediately
 
-**IF score >= 6 but < 11:**
-- Show the opportunity to Maria
+**IF conditions not fully met (missing S/R level, news blackout, etc):**
+- Show the opportunity to Maria but do NOT auto-execute
 - Do NOT auto-execute — wait for confirmation
 
 **IF score < 6:**
@@ -79,11 +79,11 @@ Keep it brief — this is a quick check, not a full briefing.
 
 | Criteria | Value |
 |----------|-------|
-| Minimum score | 11/14 |
+| Minimum score | None — no threshold, use ranking to prioritize |
 | Max risk | 0.5% of portfolio |
 | Max auto-trades/day | 2 |
 | Required | ATR stop + defined S/R level + portfolio heat <5% |
-| Forbidden | News blackout, weekend non-crypto, score <11 |
+| Forbidden | News blackout, weekend non-crypto |
 | After execution | Notify Maria, log to auto-trades.json and journal.json |
 
 ---
