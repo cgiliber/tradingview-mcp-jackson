@@ -1,7 +1,7 @@
 {
-  "version": "5.0",
+  "version": "5.1",
   "description": "Trading rules — three sections: TIERS + ENTRY RULES per asset class + RISK RULES universal. Updated with Ross Cameron (Warrior Trading) strategies.",
-  "last_updated": "2026-04-13",
+  "last_updated": "2026-04-14",
   "sources": ["Nial Fuller", "Adam Khoo", "Alexander Elder", "John Bollinger", "Ray Dalio", "Raoul Pal", "Van de Poppe", "Ross Cameron (Warrior Trading)"],
   "architecture": "Section 0 = Trade TIERS (scalping vs swing). Section 1 = WHEN to enter (per asset). Section 2 = HOW MUCH to risk and WHEN to exit (all assets).",
   "section_0_tiers": {
@@ -28,8 +28,7 @@
       "stop_loss": "Medium — based on clear support/resistance levels",
       "target": "Risk/Reward minimum 1:2, preferred 1:3",
       "execution": "Manual — Maria places limit orders with stop and target",
-      "max_open_trades": 4,
-      "position_size_usd": 100,
+      "position_sizing": "Portfolio % based — see section_2_risk_rules.portfolio_risk_management",
       "eligible_assets": {
         "forex": "All forex pairs in watchlist",
         "commodities": "All commodities in watchlist",
@@ -373,8 +372,41 @@
     }
   },
   "section_2_risk_rules": {
+    "portfolio_risk_management": {
+      "description": "Portfolio-based risk management — replaces fixed trade count limits",
+      "read_balance": "At the start of every morning briefing, read total portfolio value from TradingView paper trading account balance",
+      "max_risk_per_trade": "1% of total portfolio value",
+      "max_total_risk": "5% of total portfolio value across ALL open trades at any time",
+      "position_size_formula": "Position size = (portfolio value × 1%) ÷ (entry price - stop loss price)",
+      "no_fixed_trade_limit": "Never use a fixed number of trades as the limit — use portfolio % only",
+      "remaining_capacity": "If total risk across open trades is below 5%, new trades can be added",
+      "trade_replacement": "If a new trade opportunity scores higher than an existing open trade, recommend cancelling the weaker trade and replacing it with the stronger one"
+    },
+    "trade_scoring": {
+      "description": "Rank every trade opportunity on these 5 criteria. Always show ranking in briefing.",
+      "criteria": {
+        "1_risk_reward": "Risk/Reward ratio — higher is better, minimum 1:2. Score: 1:2=1pt, 1:3=2pts, 1:4+=3pts",
+        "2_catalyst_strength": "Earnings, geopolitical event, major news = high score. Score: none=0pts, minor=1pt, major=2pts, earnings/FOMC=3pts",
+        "3_trend_clarity": "Is the direction obvious on the daily chart? Score: choppy=0pts, weak trend=1pt, clear trend=2pts, strong trend=3pts",
+        "4_session_timing": "Is this the right time of day for this asset? Score: wrong session=0pts, ok=1pt, optimal session=2pts",
+        "5_strategy_match": "Does it cleanly match a strategy from rules.json? Score: partial=1pt, clean match=2pts"
+      },
+      "max_score": 14,
+      "minimum_score_to_trade": 6,
+      "ranking": "Present ALL opportunities ranked by score — highest first"
+    },
+    "briefing_rules": {
+      "description": "Rules for the morning briefing output",
+      "step_1": "Read watchlist.json for the full asset list",
+      "step_2": "Read today.json to check existing open trades and their current risk",
+      "step_3": "Calculate total portfolio % currently at risk across all open trades",
+      "step_4": "Show remaining risk capacity (5% - current risk %) before suggesting new trades",
+      "step_5": "Present ALL new opportunities ranked by trade score — highest first",
+      "step_6": "For each new opportunity, clearly state if it scores higher than any existing open trade",
+      "step_7": "If yes — recommend which open trade to cancel and why"
+    },
     "position_sizing": {
-      "description": "How much to risk on every trade \u2014 regardless of asset class",
+      "description": "How much to risk on every trade — regardless of asset class",
       "max_risk_per_trade": "1% of total account (beginners) \u2014 2% maximum (experienced)",
       "crypto_altcoin_max_risk": "0.5-1% only \u2014 higher volatility demands smaller size",
       "max_portfolio_heat": "6% maximum across ALL open trades simultaneously",
