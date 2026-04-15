@@ -2,7 +2,18 @@
   "description": "Active profit-locking rules. Applied to ALL open positions via the Position Monitor loop. Never give back a profit to become a loss.",
   "version": "1.0",
   "created": "2026-04-15",
-  "lesson": "Gold was +$1,494 unrealized, gave back $1,588 to end at -$95. With these rules, minimum +$500 locked.",
+  "lesson": "Gold was +$1,494 unrealized, gave back $1,588 to end at -$293. With these rules, minimum +$500 locked.",
+
+  "tight_stop_rule": {
+    "description": "With v6.0 sizing (25+ units), wide stops = huge losses. Stop distance must be proportional to position size.",
+    "rule": "Max stop distance = Risk Budget ÷ Units. For $500 risk on 25 units = $20 max stop. NOT $40.",
+    "lesson": "Gold 25 units with $40 stop = $1,000 max loss. Should have been $20 stop = $500 max loss or $10 stop with smaller target.",
+    "recommended_stops": {
+      "scalp_tier1": "$5-10 stop — for quick in-and-out",
+      "swing_small": "$15-20 stop — for 4H-Daily holds with proper sizing",
+      "swing_wide": "$30-40 stop — ONLY with reduced units (5-10 not 25)"
+    }
+  },
 
   "profit_lock_tiers": {
     "tier_1_breakeven": {
