@@ -7,27 +7,28 @@
     "target": 3000,
     "trading_days_per_month": 20,
     "daily_target": 150,
-    "max_daily_loss": -75,
-    "max_single_trade_loss": -25,
-    "stop_trading_if": "Daily loss reaches -$75. Walk away. Tomorrow is a new day."
+    "max_daily_loss": -50,
+    "max_single_trade_loss": -10,
+    "stop_trading_if": "Daily loss reaches -$50. Walk away. Tomorrow is a new day.",
+    "math": "$10 risk × 1:2 R:R = $20 profit per win. 8 wins/day = $160. Even with 3 losses (-$30), net +$130. Constant small cash."
   },
 
-  "core_principle": "Small targets, tiny stops, many trades. Take profit GREEDILY. Never let a winner become a loser. $3,000/month = 60 trades at +$50 or 30 trades at +$100. NOT 1 trade at +$3,000.",
+  "core_principle": "TINY stops, TINY targets, MANY trades. Play CONSERVATIVE. $10 max loss per trade. Take profit FAST. Never wait for the big move. $3,000/month = 150 trades at +$20. Constant small cash, not big swings.",
 
   "position_sizing_by_goal": {
-    "description": "Size every trade so that max loss is EXACTLY $25. Calculate units precisely.",
-    "formula": "Units = FLOOR($25 ÷ stop_distance_per_unit). Always round DOWN. Never round up.",
+    "description": "Size every trade so that max loss is EXACTLY $10. Tight stops, small risk, constant wins.",
+    "formula": "Units = FLOOR($10 ÷ stop_distance_per_unit). Always round DOWN. Never round up.",
     "pre_submit_checklist": {
-      "1_verify_risk": "Units × stop_distance MUST be ≤ $25. If not, reduce units.",
+      "1_verify_risk": "Units × stop_distance MUST be ≤ $10. If not, reduce units.",
       "2_verify_rr": "R:R MUST be ≥ 1:2 BEFORE submitting. If not, don't place the trade.",
       "3_verify_tp_sl": "Both TP and SL must be set. Verify after submission.",
       "4_verify_sl_saved": "After modifying any SL, re-read the position to CONFIRM it actually changed. TradingView sometimes doesn't save."
     },
     "examples": {
-      "gold": "Stop $8/unit → units = $25 ÷ $8 = 3 units. Target $25/unit = +$75 profit.",
-      "usdjpy": "Stop 0.15/unit → units = $25 ÷ 0.15 = 166 units. Target 0.30 = +$50.",
-      "meta": "Stop $3/unit → units = $25 ÷ $3 = 8 units. Target $6 = +$48.",
-      "eth": "Stop $20/unit → units = $25 ÷ $20 = 1.25 units. Target $40 = +$50.",
+      "gold": "Stop $5/unit → units = $10 ÷ $5 = 2 units. Target $10/unit = +$20 profit.",
+      "usdjpy": "Stop 0.10/unit → units = $10 ÷ 0.10 = 100 units. Target 0.20 = +$20.",
+      "meta": "Stop $1/unit → units = $10 ÷ $1 = 10 units. Target $2 = +$20.",
+      "eth": "Stop $10/unit → units = $10 ÷ $10 = 1 unit. Target $20 = +$20.",
       "penny_stock": "Stop $0.20/unit → units = $25 ÷ $0.20 = 125 shares. Target $0.40 = +$50."
     }
   },
@@ -101,14 +102,14 @@
   },
 
   "profit_taking_rules": {
-    "description": "BE GREEDY WITH PROFITS. Take them fast. Never let a winner become a loser.",
-    "rule_1": "As soon as profit reaches +$25 → move SL to breakeven. ZERO exceptions.",
-    "rule_2": "At +$50 → take HALF the position. Lock +$25 minimum.",
-    "rule_3": "At +$75 → move SL to lock +$50 on remaining half.",
-    "rule_4": "At +$100 → close entire position. Take the money. Move to next trade.",
-    "rule_5": "NEVER hold a trade hoping for more after +$100. Close and find next setup.",
-    "rule_6": "If trade hasn't reached +$25 within 2 hours → close at whatever P&L. Capital is better used elsewhere.",
-    "golden_rule": "A $50 profit taken is ALWAYS better than a $1,494 profit given back. ALWAYS.",
+    "description": "TAKE PROFITS FAST. Small constant wins. Never wait for the big move.",
+    "rule_1": "As soon as profit reaches +$10 → move SL to breakeven. ZERO exceptions.",
+    "rule_2": "At +$20 → CLOSE the position. Take the $20. Move to next trade.",
+    "rule_3": "NEVER hold hoping for more after +$20 on a $10-risk trade. Close and find next.",
+    "rule_4": "If trade reaches +$30 somehow → that's a bonus. Close immediately.",
+    "rule_5": "If trade hasn't reached +$10 within 1 hour → close at whatever P&L. Move on.",
+    "rule_6": "NEVER let a winner become a loser. The moment it's +$10, lock breakeven.",
+    "golden_rule": "A $20 profit taken is ALWAYS better than waiting for $50 and getting stopped out for -$10. ALWAYS. Lesson: Gold +$1,494 given back. AVGO -$27.80 on a $55 target.",
     "time_limit": "CLOSE ALL TRADES BY END OF SESSION. No overnight holds. Maximum trade duration = 1 day.",
     "session_close_times": {
       "forex_commodities": "Close by 22:00 Oslo (NY close) — no holding forex/gold/oil overnight",

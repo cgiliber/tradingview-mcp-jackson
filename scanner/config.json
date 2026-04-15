@@ -1,134 +1,39 @@
 {
-  "description": "Scanner configuration — change the provider to switch data sources. The scanner module reads this file to know which provider to use.",
+  "description": "Scanner configuration. Primary scanner is Finviz (free). Twelve Data kept as backup for forex/crypto quotes.",
 
-  "active_provider": "twelve-data",
-
-  "credit_tracking": {
-    "description": "Track API credits to stay within daily limits. Spend MORE credits during high-liquidity hours, LESS overnight.",
-    "daily_limit": 800,
-    "per_minute_limit": 8,
-    "max_symbols_per_batch": 6,
-    "batch_note": "Never send more than 6 symbols per request. 8/min limit means 6 is safe with margin. Batches of 8+ sometimes return empty but still count credits.",
-    "credits_per_quote": 1,
-    "credit_log_file": "./scanner/credit-log.json",
-
-    "credit_budget_by_session": {
-      "overnight_low_liquidity": {
-        "time_oslo": "22:00-07:00",
-        "budget": 100,
-        "why": "Low liquidity — forex and crypto only, stocks closed, prices move slowly",
-        "schedule": {
-          "priority_assets": "ETH, Gold, USDJPY (assets near trigger) — every 15 min = 3 credits × 12 = 36",
-          "full_overnight_scan": "8 assets every 1 hour = 8 × 9 hours = 72",
-          "total": "~100 credits"
-        }
-      },
-      "pre_london": {
-        "time_oslo": "07:00-10:00",
-        "budget": 80,
-        "why": "Medium liquidity — preparing for London open, check overnight results",
-        "schedule": {
-          "overnight_results": "Full overnight watchlist scan = 8 credits",
-          "pre_market_gaps": "Check Finviz (FREE) + quote top 5 gappers = 5 credits",
-          "priority_monitoring": "4 assets every 15 min × 12 checks = 48 credits",
-          "total": "~80 credits"
-        }
-      },
-      "london_session": {
-        "time_oslo": "10:00-15:30",
-        "budget": 150,
-        "why": "High liquidity — London forex + commodities active",
-        "schedule": {
-          "london_open_scan": "Full London + resource watchlist (25 assets) = 25 credits",
-          "priority_monitoring": "6 assets every 15 min × 22 checks = 132 credits",
-          "total": "~150 credits"
-        }
-      },
-      "ny_session": {
-        "time_oslo": "15:30-20:00",
-        "budget": 300,
-        "why": "HIGHEST liquidity — NY + London overlap, ALL markets active, most opportunities",
-        "schedule": {
-          "ny_open_scan": "Full NY watchlist (38 assets) = 38 credits",
-          "gap_penny_scan": "Finviz (FREE) + quote top 5 = 5 credits",
-          "priority_monitoring": "8 assets every 15 min × 18 checks = 144 credits",
-          "hourly_full_scan": "20 assets × 4 hours = 80 credits",
-          "ad_hoc": "~33 credits buffer",
-          "total": "~300 credits"
-        }
-      },
-      "crypto_session": {
-        "time_oslo": "20:00-22:00",
-        "budget": 170,
-        "why": "High liquidity — crypto session peak + late NY",
-        "schedule": {
-          "crypto_open_scan": "Full crypto watchlist (16 assets) = 16 credits",
-          "priority_monitoring": "6 assets every 15 min × 8 checks = 48 credits",
-          "hourly_full_scan": "16 assets × 2 = 32 credits",
-          "ad_hoc": "~74 credits buffer",
-          "total": "~170 credits"
-        }
-      }
-    },
-
-    "near_trigger_rule": "If an asset is within 1% of TP/SL/limit fill → scan every 15 min regardless of session. If within 0.5% → scan every 5 min.",
-    "fallback": "If credits exhausted → switch to TradingView quotes (free, unlimited but slow)",
-    "exceptions": "Major overnight events (geopolitical, BOJ, emergency) → override budget and scan more"
+  "primary_scanner": {
+    "stocks": "Finviz (free, unlimited) — trader-scan.js",
+    "crypto": "CoinGecko (free, unlimited)",
+    "charts": "TradingView MCP (free, unlimited)"
   },
+
+  "backup_provider": "twelve-data",
 
   "providers": {
     "twelve-data": {
       "name": "Twelve Data",
-      "module": "./providers/twelve-data.js",
       "env_key": "TWELVE_DATA_API_KEY",
       "env_file": "/Users/mariashchekanenko/claude-trading-broker/.env",
       "base_url": "https://api.twelvedata.com",
-      "rate_limit": "8 requests per minute (free), 800/min (paid)",
-      "supports": ["stocks", "forex", "crypto", "commodities"],
-      "limitations": "WTI/USD requires Grow plan. Free tier: 800 API credits/day.",
-      "batch_endpoint": "/quote?symbol={symbols}&apikey={key}",
-      "max_symbols_per_request": 12
-    },
-    "polygon": {
-      "name": "Polygon.io",
-      "module": "./providers/polygon.js",
-      "env_key": "POLYGON_API_KEY",
-      "base_url": "https://api.polygon.io",
-      "rate_limit": "5 requests per minute (free)",
-      "supports": ["stocks", "forex", "crypto"],
-      "limitations": "No direct commodities (XAUUSD, WTI). Use ETFs instead (GLD, USO).",
-      "note": "Not implemented yet — switch active_provider to 'polygon' and create providers/polygon.js"
-    },
-    "alpha-vantage": {
-      "name": "Alpha Vantage",
-      "module": "./providers/alpha-vantage.js",
-      "env_key": "ALPHA_VANTAGE_API_KEY",
-      "base_url": "https://www.alphavantage.co",
-      "rate_limit": "5 requests per minute (free), 75/min (paid)",
-      "supports": ["stocks", "forex", "crypto", "commodities"],
-      "limitations": "Slow. 5 calls/min free. 15 min delay on free tier.",
-      "note": "Not implemented yet"
+      "rate_limit": "8 requests per minute (free)",
+      "note": "Backup only — use Finviz/CoinGecko/TradingView instead"
     }
   },
 
   "symbol_mapping": {
-    "description": "Maps our internal symbols to provider-specific formats. Each provider may use different symbol formats.",
+    "description": "Maps internal symbols to Twelve Data format. Only needed for backup quotes.",
     "twelve-data": {
-      "OANDA:XAUUSD": "XAU/USD",
-      "OANDA:XAGUSD": "XAG/USD",
-      "OANDA:WTICOUSD": "WTI/USD",
-      "OANDA:USDJPY": "USD/JPY",
-      "BITSTAMP:EURUSD": "EUR/USD",
-      "COINBASE:BTCUSD": "BTC/USD",
-      "COINBASE:ETHUSD": "ETH/USD",
-      "COINBASE:SOLUSD": "SOL/USD",
-      "COINBASE:RENDERUSD": "RENDER/USD",
-      "BATS:META": "META",
-      "BATS:AMD": "AMD",
-      "BATS:TSM": "TSM",
-      "BATS:NVDA": "NVDA",
-      "NASDAQ:TSLA": "TSLA",
-      "NASDAQ:AAPL": "AAPL"
+      "XAUUSD": "XAU/USD",
+      "XAGUSD": "XAG/USD",
+      "USDJPY": "USD/JPY",
+      "EURUSD": "EUR/USD",
+      "GBPUSD": "GBP/USD",
+      "BTCUSD": "BTC/USD",
+      "ETHUSD": "ETH/USD",
+      "SOLUSD": "SOL/USD",
+      "RENDERUSD": "RENDER/USD",
+      "FETUSD": "FET/USD",
+      "TAOUSD": "TAO/USD"
     }
   }
 }
