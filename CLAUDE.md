@@ -1,5 +1,18 @@
 # TradingView MCP — Claude Instructions
 
+## AUTO-START: Set up trading crons at session start
+
+Read `PROJECT_CONTEXT.md` first, then create these 4 recurring crons:
+
+1. **NY POWER HOUR** (`*/5 15-16 * * 1-5`): Run `node scanner/trader-scan.js --top 10`. Open charts for top 10 gainers + losers. $10 max loss, $20 target. Follow TRADER_WORKFLOW.md.
+2. **REGULAR SESSION** (`*/15 17-19 * * 1-5`): Same workflow, every 15 min. Close all stocks by 22:00 Oslo.
+3. **CRYPTO EVENING** (`*/15 20-23 * * *`): Run `node scanner/trader-scan.js --crypto --top 10`. Same rules.
+4. **OVERNIGHT CRYPTO** (`*/30 0-6 * * *`): Crypto scan every 30 min. Same rules.
+
+Do this automatically at session start. Don't wait for Maria to ask.
+
+---
+
 68 tools for reading and controlling a live TradingView Desktop chart via CDP (port 9222).
 
 ## Decision Tree — Which Tool When
