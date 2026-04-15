@@ -1,6 +1,15 @@
 {
-  "version": "6.0",
-  "description": "Trading rules — three sections: TIERS + ENTRY RULES per asset class + RISK RULES universal. Updated with Ross Cameron (Warrior Trading) strategies.",
+  "version": "7.0",
+  "description": "GOAL-BASED trading rules. Monthly target: $3,000. Max loss per trade: $25. See strategies/goal-based-rules.json for full framework.",
+  "goal_based_override": {
+    "description": "ALL previous stop/target rules are OVERRIDDEN by goal-based-rules.json. Every trade must be sized for $25 max loss and $50-$100 target.",
+    "monthly_target": 3000,
+    "daily_target": 150,
+    "max_loss_per_trade": 25,
+    "target_per_trade": "50-100",
+    "profit_taking": "+$25→breakeven, +$50→sell half, +$75→lock $50, +$100→close everything",
+    "golden_rule": "A $50 profit taken is ALWAYS better than a $1,494 profit given back."
+  },
   "last_updated": "2026-04-14",
   "sources": ["Nial Fuller", "Adam Khoo", "Alexander Elder", "John Bollinger", "Ray Dalio", "Raoul Pal", "Van de Poppe", "Ross Cameron (Warrior Trading)"],
   "architecture": "Section 0 = Trade TIERS (scalping vs swing). Section 1 = WHEN to enter (per asset). Section 2 = HOW MUCH to risk and WHEN to exit (all assets).",

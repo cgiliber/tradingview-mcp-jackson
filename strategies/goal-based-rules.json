@@ -1,0 +1,125 @@
+{
+  "description": "GOAL-BASED TRADING RULES — replaces all previous stop/target logic. Every trade is sized and managed to achieve $3,000/month with minimal losses.",
+  "version": "1.0",
+  "created": "2026-04-15",
+
+  "monthly_goal": {
+    "target": 3000,
+    "trading_days_per_month": 20,
+    "daily_target": 150,
+    "max_daily_loss": -75,
+    "max_single_trade_loss": -25,
+    "stop_trading_if": "Daily loss reaches -$75. Walk away. Tomorrow is a new day."
+  },
+
+  "core_principle": "Small targets, tiny stops, many trades. Take profit GREEDILY. Never let a winner become a loser. $3,000/month = 60 trades at +$50 or 30 trades at +$100. NOT 1 trade at +$3,000.",
+
+  "position_sizing_by_goal": {
+    "description": "Size every trade so that max loss is $25. Calculate units from this.",
+    "formula": "Units = $25 ÷ stop_distance_per_unit",
+    "examples": {
+      "gold": "Stop $8/unit → units = $25 ÷ $8 = 3 units. Target $25/unit = +$75 profit.",
+      "usdjpy": "Stop 0.15/unit → units = $25 ÷ 0.15 = 166 units. Target 0.30 = +$50.",
+      "meta": "Stop $3/unit → units = $25 ÷ $3 = 8 units. Target $6 = +$48.",
+      "eth": "Stop $20/unit → units = $25 ÷ $20 = 1.25 units. Target $40 = +$50.",
+      "penny_stock": "Stop $0.20/unit → units = $25 ÷ $0.20 = 125 shares. Target $0.40 = +$50."
+    }
+  },
+
+  "stop_loss_by_strategy": {
+    "gap_and_go": {
+      "stop": "Low of first 1-minute candle — usually $0.10-$0.50 from entry",
+      "target": "First spike — take profit within 5-15 minutes",
+      "max_loss": "$25",
+      "typical_profit": "$50-$200",
+      "hold_time": "5-30 minutes max"
+    },
+    "penny_stock_momentum": {
+      "stop": "Low of first 1-minute candle — very tight $0.10-$0.30",
+      "target": "First spike or +2x risk amount — sell into strength",
+      "max_loss": "$25",
+      "typical_profit": "$50-$150",
+      "hold_time": "5-30 minutes max"
+    },
+    "swing_trade_forex": {
+      "stop": "15-20 pips max — tighter than ATR for goal-based sizing",
+      "target": "30-50 pips — take at first resistance/support",
+      "max_loss": "$25",
+      "typical_profit": "$50-$100",
+      "hold_time": "1-48 hours"
+    },
+    "swing_trade_stocks": {
+      "stop": "$2-$5 from entry — tight, based on recent candle low/high",
+      "target": "$4-$10 — take at first resistance",
+      "max_loss": "$25",
+      "typical_profit": "$50-$100",
+      "hold_time": "1-48 hours"
+    },
+    "resource_commodity_gold": {
+      "stop": "$5-$10 from entry — NOT $40 like before",
+      "target": "$15-$30 — Gold moves $80/day, capture a fraction",
+      "max_loss": "$25",
+      "units": "2-5 units (NOT 25)",
+      "typical_profit": "$50-$100",
+      "hold_time": "1-8 hours"
+    },
+    "resource_commodity_oil": {
+      "stop": "$1-$2 from entry",
+      "target": "$3-$5",
+      "max_loss": "$25",
+      "typical_profit": "$50-$100",
+      "hold_time": "1-8 hours"
+    },
+    "crypto_momentum_btc": {
+      "stop": "$300-$500 from entry",
+      "target": "$800-$1500",
+      "max_loss": "$25",
+      "units": "0.05-0.08 BTC",
+      "typical_profit": "$50-$100",
+      "hold_time": "1-24 hours"
+    },
+    "crypto_momentum_altcoins": {
+      "stop": "3-5% from entry",
+      "target": "6-10% from entry",
+      "max_loss": "$25",
+      "typical_profit": "$50-$100",
+      "hold_time": "1-48 hours"
+    },
+    "overnight_swing": {
+      "stop": "Wider but TINY position — max loss still $25",
+      "target": "Overnight gap capture — $50-$150",
+      "max_loss": "$25",
+      "typical_profit": "$50-$150",
+      "hold_time": "8-12 hours"
+    }
+  },
+
+  "profit_taking_rules": {
+    "description": "BE GREEDY WITH PROFITS. Take them fast. Never let a winner become a loser.",
+    "rule_1": "As soon as profit reaches +$25 → move SL to breakeven. ZERO exceptions.",
+    "rule_2": "At +$50 → take HALF the position. Lock +$25 minimum.",
+    "rule_3": "At +$75 → move SL to lock +$50 on remaining half.",
+    "rule_4": "At +$100 → close entire position. Take the money. Move to next trade.",
+    "rule_5": "NEVER hold a trade hoping for more after +$100. Close and find next setup.",
+    "rule_6": "If trade hasn't reached +$25 within 2 hours → close at whatever P&L. Capital is better used elsewhere.",
+    "golden_rule": "A $50 profit taken is ALWAYS better than a $1,494 profit given back. ALWAYS."
+  },
+
+  "daily_routine": {
+    "morning": "Check journal — how much of daily $150 target achieved. How many trades left.",
+    "each_trade": "Before placing: will this make me +$50-$100? Is the max loss $25? If not → don't trade.",
+    "end_of_day": "Log total daily P&L. If +$150 reached → stop trading. If -$75 reached → stop trading.",
+    "weekly_review": "Am I on track for $3,000/month? Adjust number of trades, not trade size."
+  },
+
+  "what_changed_from_before": {
+    "old_max_loss": "$1,000 per trade (1% of $100K)",
+    "new_max_loss": "$25 per trade",
+    "old_target": "$2,254 (Gold TP at 4,900)",
+    "new_target": "$50-$100 per trade",
+    "old_units_gold": "25 units",
+    "new_units_gold": "3 units",
+    "old_approach": "Big position, wide stop, hope for home run",
+    "new_approach": "Small position, tight stop, many quick wins"
+  }
+}
