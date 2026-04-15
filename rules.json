@@ -394,7 +394,8 @@
         "description": "If portfolio heat is near 5% limit AND a high-quality opportunity appears, ALERT Maria. She may approve stretching the limit based on recent performance.",
         "when_to_alert": "Portfolio heat at 4%+ and new opportunity scores 7+ with clear catalyst",
         "stretch_criteria": "If last 5 closed trades show net positive R → Maria may approve stretching to 7%",
-        "never_stretch_above": "10% — absolute maximum regardless of performance",
+        "never_stretch_above": "10% — Maria has approved this as the absolute maximum (April 15)",
+      "approved_max_allocation": "10% of portfolio — full permission granted by Maria. No need to ask.",
         "action": "Do NOT auto-stretch. ALERT Maria with: current heat %, the opportunity, recent performance, and proposed new limit."
       },
       "position_size_formula": "Position size = (portfolio value × 1%) ÷ (entry price - stop loss price)",

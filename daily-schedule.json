@@ -1,0 +1,121 @@
+{
+  "description": "Automated daily trading schedule. Claude has FULL permission to trade — no asking. Max portfolio allocation 10%.",
+  "version": "1.0",
+  "last_updated": "2026-04-15",
+
+  "permissions": {
+    "auto_trade": true,
+    "ask_permission": false,
+    "max_portfolio_allocation": "10%",
+    "max_risk_per_trade": "1% of portfolio",
+    "position_sizing": "Units = (Portfolio × Risk%) ÷ (Entry - SL). NEVER default to 1 unit.",
+    "market_orders_allowed": "In BULL regime for breakouts with volume",
+    "no_daily_trade_limit": true
+  },
+
+  "credit_budget": {
+    "daily_total": 800,
+    "overnight": 45,
+    "pre_london": 45,
+    "london": 205,
+    "ny": 323,
+    "crypto": 68,
+    "buffer": 114
+  },
+
+  "schedule": {
+    "overnight": {
+      "time": "22:00-07:00 Oslo",
+      "strategy": "OVERNIGHT-SWING",
+      "checks": [
+        { "time": "22:00", "type": "full", "assets": 8, "credits": 8 },
+        { "time": "23:00", "type": "full", "assets": 8, "credits": 8 },
+        { "time": "00:00", "type": "priority", "assets": 3, "credits": 3 },
+        { "time": "01:00", "type": "full", "assets": 8, "credits": 8 },
+        { "time": "02:00-06:00", "type": "priority_hourly", "assets": 3, "credits_per": 3, "total": 15 },
+        { "time": "06:30", "type": "full", "assets": 8, "credits": 8 }
+      ],
+      "total_credits": 45
+    },
+
+    "pre_london": {
+      "time": "07:00-10:00 Oslo",
+      "strategies": ["OVERNIGHT-SWING", "SWING-TRADE", "PENNY-STOCK-MOMENTUM"],
+      "checks": [
+        { "time": "07:00", "action": "Overnight results — scan overnight assets", "assets": 8, "credits": 8 },
+        { "time": "08:00", "action": "EU pre-market gap check — scan ALL 21 EU stocks for overnight gaps >2%", "assets": 21, "credits": 21 },
+        { "time": "09:00", "action": "London forex pre-scan", "assets": 11, "credits": 11 },
+        { "time": "09:30", "action": "Finviz penny scan + Fear & Greed API", "assets": 0, "credits": 0, "note": "FREE" },
+        { "time": "09:45", "action": "Quote top 5 EU gappers from 08:00 scan", "assets": 5, "credits": 5 }
+      ],
+      "total_credits": 45
+    },
+
+    "london": {
+      "time": "10:00-15:30 Oslo",
+      "strategies": ["SWING-TRADE", "RESOURCE-COMMODITY", "GAP-AND-GO prep"],
+      "checks": [
+        { "time": "10:00", "action": "LONDON OPEN FULL SCAN — forex + EU + macro", "assets": 39, "credits": 39 },
+        { "time": "10:15-10:45", "action": "Priority monitoring × 3", "assets": 6, "credits": 18 },
+        { "time": "11:00", "action": "Hourly EU scan", "assets": 21, "credits": 21 },
+        { "time": "11:15-11:45", "action": "Priority × 3", "assets": 6, "credits": 18 },
+        { "time": "12:00", "action": "Hourly full scan", "assets": 32, "credits": 32 },
+        { "time": "12:15-12:45", "action": "Priority × 3", "assets": 6, "credits": 18 },
+        { "time": "13:00", "action": "EU scan", "assets": 21, "credits": 21 },
+        { "time": "13:15-13:45", "action": "Priority × 3", "assets": 6, "credits": 18 },
+        { "time": "14:00", "action": "PRE-NY: Finviz FREE scan + quote top 5 gappers + Yahoo earnings", "assets": 5, "credits": 5 },
+        { "time": "14:15", "action": "Penny stock pre-market check", "assets": 5, "credits": 5 },
+        { "time": "14:30", "action": "News blackout check", "assets": 3, "credits": 3 },
+        { "time": "15:00", "action": "Pre-NY macro scan", "assets": 7, "credits": 7 }
+      ],
+      "total_credits": 205
+    },
+
+    "ny": {
+      "time": "15:30-20:00 Oslo",
+      "strategies": ["GAP-AND-GO", "PENNY-STOCK-MOMENTUM", "SWING-TRADE", "RESOURCE-COMMODITY"],
+      "checks": [
+        { "time": "15:30", "action": "NY OPEN FULL SCAN — all NY + penny candidates", "assets": 43, "credits": 43 },
+        { "time": "15:35", "action": "Penny stock execution check", "assets": 3, "credits": 3 },
+        { "time": "15:45", "action": "Priority", "assets": 8, "credits": 8 },
+        { "time": "16:00", "action": "Post-open full scan NY + EU", "assets": 59, "credits": 59 },
+        { "time": "16:15-16:45", "action": "Priority × 3", "assets": 8, "credits": 24 },
+        { "time": "17:00", "action": "Hourly NY scan", "assets": 38, "credits": 38 },
+        { "time": "17:15-17:45", "action": "Priority × 3", "assets": 8, "credits": 24 },
+        { "time": "18:00", "action": "Hourly NY scan", "assets": 38, "credits": 38 },
+        { "time": "18:15-18:45", "action": "Priority × 3", "assets": 8, "credits": 24 },
+        { "time": "19:00", "action": "Hourly NY scan", "assets": 38, "credits": 38 },
+        { "time": "19:15-19:45", "action": "Priority × 3", "assets": 8, "credits": 24 }
+      ],
+      "total_credits": 323
+    },
+
+    "crypto": {
+      "time": "20:00-22:00 Oslo",
+      "strategies": ["CRYPTO-MOMENTUM"],
+      "checks": [
+        { "time": "20:00", "action": "CRYPTO OPEN — full scan + Fear & Greed FREE", "assets": 16, "credits": 16 },
+        { "time": "20:15-20:45", "action": "Priority × 3", "assets": 6, "credits": 18 },
+        { "time": "21:00", "action": "Full crypto scan", "assets": 16, "credits": 16 },
+        { "time": "21:15-21:45", "action": "Priority × 3", "assets": 6, "credits": 18 }
+      ],
+      "total_credits": 68
+    }
+  },
+
+  "free_sources": {
+    "finviz": { "url": "https://finviz.com/screener.ashx?v=111&f=gap_u4,sh_float_u20,sh_price_1to20,sh_relvol_o2&ft=4", "when": "09:30 + 14:00" },
+    "fear_greed": { "url": "https://api.alternative.me/fng/", "when": "09:30 + 20:00" },
+    "yahoo_earnings": { "url": "https://finance.yahoo.com/calendar/earnings", "when": "09:30" }
+  },
+
+  "priority_assets_rule": "Assets within 1% of TP/SL/limit fill are always in the priority scan list regardless of schedule",
+
+  "never_miss": [
+    "08:00 — EU overnight gap scan (21 stocks)",
+    "10:00 — London open full scan (39 assets)",
+    "14:00 — Finviz FREE penny scan + earnings check",
+    "15:30 — NY open full scan (43 assets) — MOST IMPORTANT",
+    "20:00 — Crypto full scan (16 assets)"
+  ]
+}
