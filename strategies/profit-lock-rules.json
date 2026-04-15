@@ -1,0 +1,72 @@
+{
+  "description": "Active profit-locking rules. Applied to ALL open positions via the Position Monitor loop. Never give back a profit to become a loss.",
+  "version": "1.0",
+  "created": "2026-04-15",
+  "lesson": "Gold was +$1,494 unrealized, gave back $1,588 to end at -$95. With these rules, minimum +$500 locked.",
+
+  "profit_lock_tiers": {
+    "tier_1_breakeven": {
+      "trigger": "Position profit exceeds $50",
+      "action": "Move SL to entry price (breakeven). Can no longer lose on this trade.",
+      "how": "Modify the stop loss order on TradingView to entry price."
+    },
+    "tier_2_lock_50": {
+      "trigger": "Position profit exceeds $100",
+      "action": "Move SL to lock in $50 profit (entry + $50/units = new SL).",
+      "how": "Modify stop loss to entry + ($50 ÷ units)."
+    },
+    "tier_3_lock_100": {
+      "trigger": "Position profit exceeds $200",
+      "action": "Move SL to lock in $100 profit.",
+      "how": "Modify stop loss to entry + ($100 ÷ units)."
+    },
+    "tier_4_sell_half": {
+      "trigger": "Position profit exceeds $500",
+      "action": "Sell HALF the position at market. Move SL to lock $250 on remaining half.",
+      "how": "Close half position, modify SL on rest."
+    },
+    "tier_5_lock_500": {
+      "trigger": "Position profit exceeds $1,000",
+      "action": "Move SL to lock in $500 on remaining position.",
+      "how": "Modify stop loss."
+    },
+    "tier_6_trail": {
+      "trigger": "Position profit exceeds $1,500",
+      "action": "Trail SL by 1x ATR(14) on the entry timeframe. Lock in progressively more.",
+      "how": "Recalculate SL each check based on current price minus ATR."
+    }
+  },
+
+  "position_monitor": {
+    "description": "Separate from market scanner. Uses TradingView MCP quotes (free, unlimited). Does NOT use Twelve Data credits.",
+    "data_source": "TradingView MCP quote_get — switch chart to each position, get quote",
+    "frequency": {
+      "in_profit": "Every 5 minutes — profits need protection",
+      "at_breakeven": "Every 10 minutes",
+      "in_loss": "Every 15 minutes — SL handles the exit",
+      "near_sl_or_tp": "Every 2 minutes — within 1% of SL or TP"
+    },
+    "actions_per_check": [
+      "Get current price for each open position",
+      "Calculate current P&L",
+      "Check if any profit-lock tier triggered",
+      "If triggered: modify SL on TradingView immediately",
+      "If tier 4 triggered: sell half position",
+      "Log all SL modifications to journal.json"
+    ]
+  },
+
+  "examples": {
+    "gold_25_units": {
+      "entry": 4809.82,
+      "tier_1_breakeven_at": "4811.82 (+$50 = $2/unit above entry)",
+      "tier_2_lock_50_at": "4813.82 (+$100 = $4/unit)",
+      "tier_3_lock_100_at": "4817.82 (+$200 = $8/unit)",
+      "tier_4_sell_half_at": "4829.82 (+$500 = $20/unit)",
+      "tier_5_lock_500_at": "4849.82 (+$1000 = $40/unit)",
+      "tier_6_trail_at": "4869.82 (+$1500 = $60/unit)"
+    }
+  },
+
+  "critical_rule": "Once a SL is moved UP to lock profit, it NEVER moves back down. Profit locks are one-way only."
+}

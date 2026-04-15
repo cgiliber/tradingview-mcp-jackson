@@ -631,6 +631,13 @@
         "us_stocks_daytrading": "Below the low of the pullback candle — set BEFORE entry, never moved against you"
       },
       "trailing_stop_rule": "Once trade reaches +1R profit — move stop to breakeven. Cannot lose on this trade. NOTE: breakeven stop is an EXIT strategy, not an ENTRY strategy. Set initial stop at proper ATR distance first.",
+      "active_profit_locking": {
+        "description": "MANDATORY for v6.0 sized trades. Never give back a profit. See strategies/profit-lock-rules.json for full tiers.",
+        "rule": "Monitor open positions every 5 min (via TradingView FREE, not Twelve Data). When profit exceeds tier threshold, move SL up to lock profit. One-way only — SL never moves back down.",
+        "tiers_summary": "+$50→breakeven, +$100→lock$50, +$200→lock$100, +$500→sell half, +$1000→lock$500, +$1500→trail ATR",
+        "lesson": "Gold April 15: was +$1,494, gave back $1,588 to end -$95. With profit locking would have locked +$500 minimum.",
+        "monitor_source": "TradingView MCP quotes — FREE, unlimited. NOT Twelve Data credits."
+      },
       "order_expiry": "Day only — cancel all unfilled orders end of trading session. No stale orders overnight."
     },
     "take_profit": {
