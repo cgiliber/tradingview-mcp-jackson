@@ -43,10 +43,10 @@
       "strategies": ["OVERNIGHT-SWING", "SWING-TRADE", "PENNY-STOCK-MOMENTUM"],
       "checks": [
         { "time": "07:00", "action": "Overnight results — scan overnight assets", "assets": 8, "credits": 8 },
-        { "time": "08:00", "action": "EU pre-market gap check — scan ALL 21 EU stocks for overnight gaps >2%", "assets": 21, "credits": 21 },
+        { "time": "08:00", "action": "Check overnight forex + commodities only — EU stocks not trading yet (US ADRs open at 15:30)", "assets": 8, "credits": 8 },
         { "time": "09:00", "action": "London forex pre-scan", "assets": 11, "credits": 11 },
         { "time": "09:30", "action": "Finviz penny scan + Fear & Greed API", "assets": 0, "credits": 0, "note": "FREE" },
-        { "time": "09:45", "action": "Quote top 5 EU gappers from 08:00 scan", "assets": 5, "credits": 5 }
+        { "time": "09:45", "action": "London forex priority check before open", "assets": 5, "credits": 5 }
       ],
       "total_credits": 45
     },
@@ -55,16 +55,17 @@
       "time": "10:00-15:30 Oslo",
       "strategies": ["SWING-TRADE", "RESOURCE-COMMODITY", "GAP-AND-GO prep"],
       "checks": [
-        { "time": "10:00", "action": "LONDON OPEN FULL SCAN — forex + EU + macro", "assets": 39, "credits": 39 },
+        { "time": "10:00", "action": "LONDON OPEN — forex + commodities + macro ONLY (no EU stocks — they open at 15:30 NY)", "assets": 18, "credits": 18 },
         { "time": "10:15-10:45", "action": "Priority monitoring × 3", "assets": 6, "credits": 18 },
-        { "time": "11:00", "action": "Hourly EU scan", "assets": 21, "credits": 21 },
+        { "time": "11:00", "action": "Hourly London forex + commodities scan", "assets": 18, "credits": 18 },
         { "time": "11:15-11:45", "action": "Priority × 3", "assets": 6, "credits": 18 },
-        { "time": "12:00", "action": "Hourly full scan", "assets": 32, "credits": 32 },
+        { "time": "12:00", "action": "Hourly London scan", "assets": 18, "credits": 18 },
         { "time": "12:15-12:45", "action": "Priority × 3", "assets": 6, "credits": 18 },
-        { "time": "13:00", "action": "EU scan", "assets": 21, "credits": 21 },
+        { "time": "13:00", "action": "London scan + check US pre-market opening", "assets": 18, "credits": 18 },
         { "time": "13:15-13:45", "action": "Priority × 3", "assets": 6, "credits": 18 },
-        { "time": "14:00", "action": "PRE-NY: Finviz FREE scan + quote top 5 gappers + Yahoo earnings", "assets": 5, "credits": 5 },
-        { "time": "14:15", "action": "Penny stock pre-market check", "assets": 5, "credits": 5 },
+        { "time": "14:00", "action": "PRE-NY: Finviz FREE scan + Yahoo earnings + quote top 5 gappers", "assets": 5, "credits": 5 },
+        { "time": "14:15", "action": "EU ADR pre-market gap scan — check ALL 21 EU stocks for overnight gaps >2%", "assets": 21, "credits": 21 },
+        { "time": "14:30", "action": "Penny stock pre-market check", "assets": 5, "credits": 5 },
         { "time": "14:30", "action": "News blackout check", "assets": 3, "credits": 3 },
         { "time": "15:00", "action": "Pre-NY macro scan", "assets": 7, "credits": 7 }
       ],
@@ -75,10 +76,10 @@
       "time": "15:30-20:00 Oslo",
       "strategies": ["GAP-AND-GO", "PENNY-STOCK-MOMENTUM", "SWING-TRADE", "RESOURCE-COMMODITY"],
       "checks": [
-        { "time": "15:30", "action": "NY OPEN FULL SCAN — all NY + penny candidates", "assets": 43, "credits": 43 },
+        { "time": "15:30", "action": "NY OPEN FULL SCAN — 38 NY stocks + 21 EU ADRs + 5 penny candidates", "assets": 64, "credits": 64 },
         { "time": "15:35", "action": "Penny stock execution check", "assets": 3, "credits": 3 },
         { "time": "15:45", "action": "Priority", "assets": 8, "credits": 8 },
-        { "time": "16:00", "action": "Post-open full scan NY + EU", "assets": 59, "credits": 59 },
+        { "time": "16:00", "action": "Post-open full scan — 38 NY + 21 EU ADRs", "assets": 59, "credits": 59 },
         { "time": "16:15-16:45", "action": "Priority × 3", "assets": 8, "credits": 24 },
         { "time": "17:00", "action": "Hourly NY scan", "assets": 38, "credits": 38 },
         { "time": "17:15-17:45", "action": "Priority × 3", "assets": 8, "credits": 24 },
@@ -112,10 +113,10 @@
   "priority_assets_rule": "Assets within 1% of TP/SL/limit fill are always in the priority scan list regardless of schedule",
 
   "never_miss": [
-    "08:00 — EU overnight gap scan (21 stocks)",
-    "10:00 — London open full scan (39 assets)",
-    "14:00 — Finviz FREE penny scan + earnings check",
-    "15:30 — NY open full scan (43 assets) — MOST IMPORTANT",
+    "10:00 — London open: forex + commodities + macro (18 assets)",
+    "14:00 — Finviz FREE penny scan + Yahoo earnings check",
+    "14:15 — EU ADR pre-market gap scan (21 stocks — first time they show today's data)",
+    "15:30 — NY open FULL scan (64 assets: 38 NY + 21 EU ADRs + 5 penny) — MOST IMPORTANT",
     "20:00 — Crypto full scan (16 assets)"
   ]
 }
