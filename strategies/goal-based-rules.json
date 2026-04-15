@@ -102,7 +102,17 @@
     "rule_4": "At +$100 → close entire position. Take the money. Move to next trade.",
     "rule_5": "NEVER hold a trade hoping for more after +$100. Close and find next setup.",
     "rule_6": "If trade hasn't reached +$25 within 2 hours → close at whatever P&L. Capital is better used elsewhere.",
-    "golden_rule": "A $50 profit taken is ALWAYS better than a $1,494 profit given back. ALWAYS."
+    "golden_rule": "A $50 profit taken is ALWAYS better than a $1,494 profit given back. ALWAYS.",
+    "time_limit": "CLOSE ALL TRADES BY END OF SESSION. No overnight holds. Maximum trade duration = 1 day.",
+    "session_close_times": {
+      "forex_commodities": "Close by 22:00 Oslo (NY close) — no holding forex/gold/oil overnight",
+      "us_stocks": "Close by 22:00 Oslo (US market close) — no holding stocks overnight",
+      "eu_adr_stocks": "Close by 22:00 Oslo — same as US stocks",
+      "crypto": "Close by 00:00 Oslo — crypto has no close but we stop at midnight",
+      "penny_stocks": "Close within 30 minutes of entry — NEVER hold penny stocks"
+    },
+    "exception": "NONE. Close everything daily. If trade hasn't hit target by session close → close at market. A small loss or small gain is better than overnight gap risk.",
+    "lesson": "WTI stopped out overnight at 3am (-$2.86). Gold gapped down after we couldn't monitor. Overnight = uncontrolled risk."
   },
 
   "daily_routine": {
