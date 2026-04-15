@@ -7,6 +7,8 @@
     "description": "Track API credits to stay within daily limits. Spend MORE credits during high-liquidity hours, LESS overnight.",
     "daily_limit": 800,
     "per_minute_limit": 8,
+    "max_symbols_per_batch": 6,
+    "batch_note": "Never send more than 6 symbols per request. 8/min limit means 6 is safe with margin. Batches of 8+ sometimes return empty but still count credits.",
     "credits_per_quote": 1,
     "credit_log_file": "./scanner/credit-log.json",
 

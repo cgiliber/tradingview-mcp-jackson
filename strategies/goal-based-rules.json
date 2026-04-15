@@ -15,8 +15,14 @@
   "core_principle": "Small targets, tiny stops, many trades. Take profit GREEDILY. Never let a winner become a loser. $3,000/month = 60 trades at +$50 or 30 trades at +$100. NOT 1 trade at +$3,000.",
 
   "position_sizing_by_goal": {
-    "description": "Size every trade so that max loss is $25. Calculate units from this.",
-    "formula": "Units = $25 ÷ stop_distance_per_unit",
+    "description": "Size every trade so that max loss is EXACTLY $25. Calculate units precisely.",
+    "formula": "Units = FLOOR($25 ÷ stop_distance_per_unit). Always round DOWN. Never round up.",
+    "pre_submit_checklist": {
+      "1_verify_risk": "Units × stop_distance MUST be ≤ $25. If not, reduce units.",
+      "2_verify_rr": "R:R MUST be ≥ 1:2 BEFORE submitting. If not, don't place the trade.",
+      "3_verify_tp_sl": "Both TP and SL must be set. Verify after submission.",
+      "4_verify_sl_saved": "After modifying any SL, re-read the position to CONFIRM it actually changed. TradingView sometimes doesn't save."
+    },
     "examples": {
       "gold": "Stop $8/unit → units = $25 ÷ $8 = 3 units. Target $25/unit = +$75 profit.",
       "usdjpy": "Stop 0.15/unit → units = $25 ÷ 0.15 = 166 units. Target 0.30 = +$50.",
