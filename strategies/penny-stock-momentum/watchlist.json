@@ -5,5 +5,19 @@
   "how_to_build": "Run Finviz screener + check Warrior Trading penny stocks page + check Yahoo earnings calendar. Pick top 3-5 that score 5+ out of 9.",
   "scanner_url": "https://finviz.com/screener.ashx?v=111&f=gap_u4,sh_float_u20,sh_price_1to20,sh_relvol_o2&ft=4",
   "save_daily_to": "today.json under penny_stock_watchlist section",
+
+  "eu_high_volatility_candidates": {
+    "description": "EU ADR stocks in penny stock price range ($1-$20) that can gap on EU news. These trade on NYSE/NASDAQ so Finviz scanner covers them. Check EU news at London open (10:00 Oslo) — if any gapped >4% on catalyst, add to today's penny stock list.",
+    "assets": [
+      { "symbol": "STLA", "name": "Stellantis", "price_range": "~$8", "country": "Italy/NL", "note": "EV news, labor disputes, earnings — very volatile" },
+      { "symbol": "VWAGY", "name": "Volkswagen", "price_range": "~$11", "country": "Germany", "note": "EV transition, China sales, union news" },
+      { "symbol": "ERIC", "name": "Ericsson", "price_range": "~$12", "country": "Sweden", "note": "5G contracts, AI infrastructure deals" },
+      { "symbol": "BASFY", "name": "BASF", "price_range": "~$16", "country": "Germany", "note": "Chemical demand, energy costs, EU industrial health" },
+      { "symbol": "YARIY", "name": "Yara International", "price_range": "~$29", "note": "Above $20 range but very volatile on fertilizer/food news" },
+      { "symbol": "DB", "name": "Deutsche Bank", "price_range": "~$34", "note": "Above range but gaps hard on ECB/financial stress news" }
+    ],
+    "scanning_rule": "At London open 10:00 Oslo, check if any EU ADR gapped >4% overnight with catalyst. If yes, add to today's penny stock candidates for NY open execution at 15:30."
+  },
+
   "todays_candidates": []
 }

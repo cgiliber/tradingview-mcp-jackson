@@ -108,8 +108,37 @@
     ]
   },
 
+  "eu_session": {
+    "time_oslo": "09:00-17:30",
+    "description": "European stocks via US ADR listings. Scan at London open 10:00 Oslo. Covers UK, Germany, France, Italy, Norway, Sweden, Switzerland. All confirmed working on Twelve Data Basic plan.",
+    "assets": [
+      { "symbol": "AZN", "name": "AstraZeneca", "country": "UK", "sector": "Healthcare", "note": "Pharma giant — FDA/drug news" },
+      { "symbol": "SHEL", "name": "Shell", "country": "UK", "sector": "Energy", "note": "Oil price proxy — Hormuz, OPEC" },
+      { "symbol": "BP", "name": "BP", "country": "UK", "sector": "Energy", "note": "Oil — same drivers as Shell" },
+      { "symbol": "HSBC", "name": "HSBC Holdings", "country": "UK", "sector": "Banking", "note": "Largest EU bank — BOE/ECB rate decisions" },
+      { "symbol": "GSK", "name": "GSK", "country": "UK", "sector": "Healthcare", "note": "Drug approvals, pipeline news" },
+      { "symbol": "BCS", "name": "Barclays", "country": "UK", "sector": "Banking", "note": "UK rates, consumer lending" },
+      { "symbol": "SAP", "name": "SAP", "country": "Germany", "sector": "Tech/AI", "note": "Largest EU tech — AI enterprise software" },
+      { "symbol": "DB", "name": "Deutsche Bank", "country": "Germany", "sector": "Banking", "note": "ECB rates, financial stress indicator" },
+      { "symbol": "VWAGY", "name": "Volkswagen", "country": "Germany", "sector": "Auto/EV", "note": "EV transition, China sales" },
+      { "symbol": "BASFY", "name": "BASF", "country": "Germany", "sector": "Chemicals", "note": "Global industrial demand bellwether" },
+      { "symbol": "TTE", "name": "TotalEnergies", "country": "France", "sector": "Energy", "note": "Oil + renewables" },
+      { "symbol": "EADSY", "name": "Airbus", "country": "France", "sector": "Aerospace/Defense", "note": "Defense spending, Boeing competitor" },
+      { "symbol": "STLA", "name": "Stellantis", "country": "Italy/NL", "sector": "Auto", "note": "Fiat/Peugeot/Jeep — EV transition" },
+      { "symbol": "RACE", "name": "Ferrari", "country": "Italy", "sector": "Luxury Auto", "note": "Premium brand — earnings always move it" },
+      { "symbol": "EQNR", "name": "Equinor", "country": "Norway", "sector": "Energy", "note": "Norway oil giant — North Sea, Hormuz" },
+      { "symbol": "DNBBY", "name": "DNB Bank", "country": "Norway", "sector": "Banking", "note": "Norges Bank rate decisions" },
+      { "symbol": "YARIY", "name": "Yara International", "country": "Norway", "sector": "Resources", "note": "Fertilizer — food inflation proxy" },
+      { "symbol": "ERIC", "name": "Ericsson", "country": "Sweden", "sector": "Tech/Telecom", "note": "5G infrastructure — AI network demand" },
+      { "symbol": "SPOT", "name": "Spotify", "country": "Sweden", "sector": "Tech", "note": "Listed NYSE — AI music, subscribers" },
+      { "symbol": "NVS", "name": "Novartis", "country": "Switzerland", "sector": "Healthcare", "note": "Swiss pharma — drug pipeline" },
+      { "symbol": "UL", "name": "Unilever", "country": "UK/NL", "sector": "Consumer", "note": "Consumer staples — inflation indicator" }
+    ]
+  },
+
   "sessions_oslo": {
     "london": "10:00",
+    "eu": "09:00",
     "ny": "15:30",
     "crypto": "20:00"
   }

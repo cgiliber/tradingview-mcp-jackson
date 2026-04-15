@@ -33,7 +33,8 @@ Triggered by the word **"briefing"** at ANY time of day. Claude auto-detects Osl
 - **OVERNIGHT-SWING** — check if any overnight positions need managing at London open
 
 ### LONDON SESSION (10:00–15:30 Oslo)
-- **SWING-TRADE** — scan London assets: EURUSD, GBPUSD, USDJPY, XAUUSD, Silver, Oil
+- **SWING-TRADE** — scan London forex: EURUSD, GBPUSD, USDJPY, XAUUSD, Silver, Oil
+- **SWING-TRADE EU** — scan all 21 EU stocks from `eu_session` watchlist (healthcare, banking, energy, tech, auto, defense, resources across UK, Germany, France, Italy, Norway, Sweden, Switzerland)
 - **RESOURCE-COMMODITY** — Gold and Oil setups
 - **GAP-AND-GO** — flag candidates building pre-market for NY open at 15:30
 
