@@ -560,6 +560,13 @@
         "example_eth": "Portfolio $100K, risk 1% = $1,000. Entry 2,300, SL 2,200, distance = $100. Units = $1,000 ÷ $100 = 10 units. NOT 1 unit."
       },
       "critical_rule": "ALWAYS calculate proper units using the formula above. NEVER default to 1 unit. The old approach of trading 1 unit made $1 per trade on a $100K account — that is wrong.",
+      "stop_distance_cap": {
+        "description": "CRITICAL: Stop distance must be proportional to position size. Wide stops + big positions = catastrophic losses.",
+        "max_risk_dollars": 500,
+        "formula": "Max stop distance = $500 ÷ units. For 25 units = $20 max stop. For 83 units = $6 max stop.",
+        "if_stop_needs_to_be_wider": "REDUCE units to keep risk under $500. Example: need $40 stop → use 12 units not 25.",
+        "lesson": "Gold April 15: 25 units × $40 stop = $1,000 risk. Was +$1,494 unrealized, ended -$514. Should have been $20 stop = $500 risk max."
+      },
       "crypto_altcoin_max_risk": "0.5% only ($500 on $100K) — higher volatility demands smaller risk percentage but still proper unit calculation",
       "max_portfolio_heat": "6% maximum across ALL open trades simultaneously",
       "target_active_trades": {
