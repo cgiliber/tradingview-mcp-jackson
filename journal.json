@@ -289,8 +289,8 @@
       "tv_symbol": "OANDA:XAUUSD",
       "direction": "LONG",
       "strategy": "Breakout above $4,800 resistance in BULL regime. UBP target $6,000. Geopolitical safe haven.",
-      "entry_price": 4810.0,
-      "entry_filled": "pending",
+      "entry_price": 4809.82,
+      "entry_filled": "YES — filled 2026-04-15 ~09:05 Oslo",
       "stop_loss": 4770.0,
       "target": 4900.0,
       "stop_distance": 40.0,
@@ -299,10 +299,10 @@
       "qty": 25,
       "session": "24/7 — Gold trades around the clock",
       "exit_price": null,
-      "result": "PENDING",
+      "result": "ACTIVE",
       "r": 0,
       "score": 8,
-      "notes": "v6.0 AUTO-TRADE: Proper sizing 25 units ($1,000 risk). Bull regime, breakout above $4,800 resistance, limit 0.5% below current price.",
+      "notes": "FILLED at 4,809.82 on April 15 09:05 Oslo. 25 units, $1,000 risk. TP 4,900, SL 4,770. First v6.0 properly-sized trade to fill!",
       "lessons": ""
     },
     {
