@@ -1,131 +1,163 @@
-# Project Context — Why This Exists
+# Project Context — v8.0 Free Scanner Revolution
 
-This file exists so that Claude (or any future AI assistant) understands the goal and vision behind this project across sessions. **Read this file at the start of every session.**
+**Read this file at the start of every session.**
 
 ---
 
 ## The Vision
 
-Build a trading system where **Claude Code sits between TradingView and a crypto exchange**, acting as the brain that reads the market, applies strategy rules, and executes trades — all with strict safety controls.
+Build a trading system where Claude Code finds market movers, analyzes charts, and executes paper trades — all with strict risk controls and 100% free data sources.
 
 ```
-Twelve Data Scanner (eyes)  →  Claude Code (brain)  →  TradingView Paper Trading (hands)
+Finviz + CoinGecko (free scanners)  →  Claude Code (brain)  →  TradingView MCP (charts + trades)
 ```
 
-Phase 1: Paper trading to prove strategies. Phase 2: Live broker (Bitget) after journal proves consistent positive R.
+Phase 1: Paper trading to prove strategies. Phase 2: Live broker (Bitget) after journal proves consistent profit.
 
 ---
 
-## What Was Built (April 13-15, 2026)
+## Architecture — Everything is Free
 
-### Multi-Strategy Architecture — 6 Strategies in `/strategies/`
-
-| Strategy | Label | Tier | Session (Oslo) | Assets |
-|----------|-------|------|----------------|--------|
-| Gap and Go | GAP-AND-GO | Tier 1 | NY 15:30-16:00 | US stocks gapping >4% |
-| Swing Trade | SWING-TRADE | Tier 2 | London + NY | All watchlist |
-| Overnight Swing | OVERNIGHT-SWING | Tier 2 | 22:00 → 10:00 | Gold, Oil, forex, BTC, ETH |
-| Crypto Momentum | CRYPTO-MOMENTUM | Tier 1/2 | 20:00+ | 16 crypto assets |
-| Resource Commodity | RESOURCE-COMMODITY | Tier 2 | London + NY | Gold, Oil, Copper, Uranium stocks |
-| Penny Stock Momentum | PENNY-STOCK-MOMENTUM | Tier 1 | NY 15:30-17:00 | Dynamic daily via Finviz scanner |
-
-**Trigger words:** `"briefing"` (auto-detect time), `"full briefing"` (all), `"run [LABEL]"` (specific), `"penny scan"` / `"gap scan"` / `"crypto scan"` / etc.
-
-### Market Data Scanner (`scanner/`)
-- Provider-agnostic — swap by changing `scanner/config.json` → `active_provider`
-- Current: Twelve Data (tested — stocks, forex, crypto, gold)
-- Credit tracking: 800/day, session-based budget allocation
-- Commands: `node scanner/index.js quote SYMBOLS` / `scan session ny` / `movers 1` / `credits`
-- `scanner/format.py` — consistent output formatting
-
-### Watchlist — 93 Assets
-- London: 11 forex + commodities
-- EU stocks: 21 via US ADR (UK, Germany, France, Italy, Norway, Sweden, Switzerland)
-- NY stocks: 38 (AI ecosystem layers 1-7 + high-news)
-- Crypto: 16 (majors + AI tokens)
-- Macro: 7 (SPY, QQQ, DXY, Oil, Copper, Silver, NatGas)
-
-### Automated Daily Schedule (`daily-schedule.json`)
-- Overnight (22:00-07:00): 45 credits — priority assets
-- Pre-London (07:00-10:00): 32 credits — forex prep
-- London (10:00-14:00): 156 credits — forex + commodities
-- Pre-NY (14:00-15:30): 38 credits — EU ADR gaps + penny scan
-- NY (15:30-20:00): 326 credits — ALL stocks (64 assets)
-- Crypto (20:00-22:00): 68 credits — 16 crypto assets
-- Total: 665/800 with 135 buffer
-- **Always check local time with `date` before scheduling**
-
-### rules.json v6.0 — Key Features
-- Position sizing: Units = (Portfolio × Risk%) ÷ Stop Distance. NEVER 1 unit.
-- Market regime: BULL (limits 1-2%, market orders for breakouts) / BEAR (limits at support)
-- ATR stops: 1.5x ATR(14) minimum
-- Auto-execute: no score threshold, risk limits only, no daily trade limit
-- Max portfolio allocation: 10% (Maria approved)
-- Portfolio stretch: alert Maria at 4%+ with good opportunity
-- Breakout detection: prev day high break + volume
-- Tier conflict: check higher TF to decide
+| Need | Tool | Cost |
+|------|------|------|
+| Find stock movers | Finviz screener | Free |
+| Find crypto movers | CoinGecko API | Free |
+| Real-time charts | TradingView MCP | Free |
+| Real-time quotes | TradingView quote_get | Free |
+| Place trades | TradingView paper trading | Free |
+| Backup quotes | Twelve Data API | Free tier (800/day, rarely needed) |
 
 ---
 
-## Current State (Updated April 15, 07:00 Oslo)
+## Two Modes of Operation
 
-### Open Positions
-- USDJPY SHORT — entry 159.85, TP 158.50 (0.48 away), SL 160.35
-- RENDERUSD LONG — entry 1.88, TP 2.45, SL 1.70 (**RenderCon TODAY Apr 16-17**)
+### 1. Morning Briefing (long-term positions)
+- **Trigger:** Maria says "morning briefing"
+- **Source:** `watchlist.json` — 93 curated assets (London/NY/Crypto/EU)
+- **Workflow:** `MORNING_BRIEF.md` — 13 steps, news research, scoring
+- **Output:** `today.json` (read-only after morning)
 
-### Pending Orders (v6.0 proper sizing)
-- Gold LONG — 25 units @ 4,810, TP 4,900, SL 4,770 ($14 from market)
-- ETH LONG — 10 units @ 2,300, TP 2,500, SL 2,200 ($29 from market)
-- AMD LONG — 83 units @ 250, TP 274, SL 238 (market closed)
-- META LONG — 66 units @ 655, TP 700, SL 640 (market closed)
+### 2. Cash Flow Hunting (daily income)
+- **Trigger:** Automatic cron every 5-15 min
+- **Source:** Finviz (stocks) + CoinGecko (crypto) — DYNAMIC, changes daily
+- **Workflow:** `TRADER_WORKFLOW.md` — scan movers → open charts → trade or skip
+- **Goal:** $50-100/day from many small $20 wins
 
-### Account
-- Balance: ~$100,005
-- Performance tier: 0.5% risk (last 3 trades net negative)
+---
 
-### Tomorrow's Priority
-- ARAI (Arrive AI) — penny stock, 8/9 score, earnings today before open
-- TSM — earnings April 16 (tomorrow)
-- RenderCon — April 16-17 (today/tomorrow)
+## Daily Schedule
+
+| Window (Oslo) | Interval | What |
+|---------------|----------|------|
+| 15:30-17:00 | **Every 5 min** | NY open power hour — biggest moves happen here |
+| 17:00-22:00 | Every 15 min | Regular session — monitor + late runners |
+| 22:00 | **CLOSE ALL** | No overnight holds |
+| 20:00-00:00 | Every 15 min | Crypto session (CoinGecko scanner) |
+
+---
+
+## Trading Rules — v7.0 v2
+
+| Rule | Value |
+|------|-------|
+| Max loss per trade | **$10** |
+| Target per trade | **$20** (1:2 R:R) |
+| Breakeven lock | At **+$10 profit** → move SL to entry |
+| Close rule | At **+$20** → close position |
+| Daily loss limit | **-$50** → stop trading |
+| Monthly goal | **$3,000** ($150/day, 20 trading days) |
+| Position sizing | Units = FLOOR($10 / stop_distance) |
+| Close all by | 22:00 Oslo (stocks) / 00:00 (crypto) |
+| Default | **TRADE** (need reason NOT to trade) |
+| Minimum trades/day | 5-8 |
+
+### NOT valid skip reasons:
+- "Above BB upper" — momentum stocks live there
+- "Extended from EMA" — gap stocks ARE extended
+- "Late in the day" — if 1+ hour left, trade it
+- "Already have positions" — 5 × $10 = $50 total risk, fine
+- "Too volatile" — that's the opportunity
+
+---
+
+## Scanner — `trader-scan.js`
+
+```bash
+node scanner/trader-scan.js              # Stock gainers + losers (Finviz)
+node scanner/trader-scan.js --crypto     # Crypto movers (CoinGecko)
+node scanner/trader-scan.js --all        # Both
+node scanner/trader-scan.js --top 20     # Top 20 per list
+```
+
+Output: ranked lists of biggest movers. Start from #1, work down. Open each chart on TradingView. Analyze. Trade or skip with technical reason.
 
 ---
 
 ## Key Files
 
+### Workflows
 | File | Purpose |
 |------|---------|
-| `PROJECT_CONTEXT.md` | This file — read first every session |
-| `daily-schedule.json` | Automated daily trading schedule |
-| `session-briefing.md` | Multi-strategy session briefing |
-| `TIMED_BRIEFING.md` | 15-min market monitor |
-| `PAPER_TRADING_ORDERS.md` | Order placement — MANDATORY TP/SL verification |
-| `rules.json` (v6.0) | Master rules |
-| `watchlist.json` | 93 assets by session |
-| `journal.json` | Trade journal — 17 trades |
-| `auto-trades.json` | Auto-trade log |
-| `scanner/config.json` | Scanner provider config + credit budget |
-| `scanner/index.js` | Market scanner script |
-| `scanner-sources.json` | External URLs (Finviz, Fear&Greed, Yahoo) |
-| `strategies/` | 6 strategy subfolders |
+| `TRADER_WORKFLOW.md` | **PRIMARY** — scan → chart → trade. The daily cash flow playbook. |
+| `MORNING_BRIEF.md` | Morning briefing with curated watchlist |
+| `PAPER_TRADING_ORDERS.md` | How to place orders on TradingView via DOM |
+
+### Scanner
+| File | Purpose |
+|------|---------|
+| `scanner/trader-scan.js` | **PRIMARY** — Finviz + CoinGecko, free |
+| `scanner/index.js` | Backup — Twelve Data quotes |
+| `scanner/status.js` | Live countdown display |
+
+### Rules & Strategies
+| File | Purpose |
+|------|---------|
+| `strategies/goal-based-rules.json` | **CORE** — $10 loss, $20 target |
+| `strategies/profit-lock-rules.json` | Breakeven + profit locking |
+| `rules.json` | Master rules v7.0 |
+| `strategies/*/` | 6 strategy folders with rules + watchlists |
+
+### Data
+| File | Purpose |
+|------|---------|
+| `watchlist.json` | 93 curated assets — morning briefing |
+| `journal.json` | Trade journal — 20 trades |
+| `today.json` | Morning briefing output (read-only) |
+
+---
+
+## 6 Strategies
+
+| Strategy | Session (Oslo) | Assets |
+|----------|----------------|--------|
+| GAP-AND-GO | NY 15:30-16:00 | Finviz gappers >4% |
+| PENNY-STOCK-MOMENTUM | NY 15:30-17:00 | Finviz $1-$20 stocks |
+| SWING-TRADE | London + NY | S/R levels, both directions |
+| RESOURCE-COMMODITY | London + NY | Gold, Oil, Uranium, Rare earth |
+| OVERNIGHT-SWING | 22:00 → 10:00 | Forex, Gold, BTC |
+| CRYPTO-MOMENTUM | 20:00+ | CoinGecko top movers |
 
 ---
 
 ## Critical Rules — Never Forget
 
-1. **Every order MUST have TP and SL** — verify after placement
-2. **Scan watchlist.json directly** — never limit to today.json
-3. **Proper position sizing** — Units = (Portfolio × Risk%) ÷ Stop Distance
-4. **Check local time** — run `date` before every scheduled action
-5. **No asking permission** — execute per rules, notify after
-6. **Market regime** — check BULL/BEAR before setting limits
-7. **EU ADRs trade at 15:30+ Oslo** — not during London
-8. **Credit budget** — 800/day, save most for NY peak
-9. **Auto-trade** — no score threshold, risk limits only, 10% max allocation
-10. **Log everything** — journal.json + auto-trades.json
+1. **$10 max loss.** Units = FLOOR($10 / stop). No exceptions.
+2. **Every order MUST have TP and SL.** Verify after placement.
+3. **At +$10 → breakeven SL.** Immediately. Zero exceptions.
+4. **At +$20 → CLOSE.** Take the cash. Find next trade.
+5. **Close ALL by 22:00 Oslo.** No overnight holds.
+6. **Always check chart.** Open TradingView for every mover.
+7. **Default is TRADE.** Stop being scared. $10 is 0.01% of portfolio.
+8. **Both directions.** Scan gainers (LONG) AND losers (SHORT).
+9. **Start from #1.** Work down the Finviz/CoinGecko list.
+10. **Log everything.** journal.json after every trade.
 
 ---
 
-## API Keys Location
-- Twelve Data: `/Users/mariashchekanenko/claude-trading-broker/.env` → `TWELVE_DATA_API_KEY`
-- Apify: same file → `APIFY_API_KEY`
-- SSH: `~/.ssh/id_ed25519_github` → repo `cgiliber/tradingview-mcp-jackson` branch `maria-dev`
+## Account
+- Started: $100,000
+- Current: ~$100,002
+- Branch: `maria-dev`
+- Tag: `v8.0`
+- Repo: `cgiliber/tradingview-mcp-jackson`
+- SSH: `~/.ssh/id_ed25519_github`
