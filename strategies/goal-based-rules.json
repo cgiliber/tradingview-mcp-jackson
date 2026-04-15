@@ -115,6 +115,13 @@
     "lesson": "WTI stopped out overnight at 3am (-$2.86). Gold gapped down after we couldn't monitor. Overnight = uncontrolled risk."
   },
 
+  "pre_market_standing_orders": {
+    "description": "When a high-scoring trade is identified the night before (earnings, FDA, major catalyst), place a limit order BEFORE going to sleep. Don't wait for morning scan — morning is too late for gap plays.",
+    "rule": "If penny stock or gap-and-go candidate scores 7+ with confirmed catalyst for next day → place limit order that night at a reasonable gap entry level.",
+    "example": "ARAI scored 8/9 at 02:00 Oslo with earnings next morning. Should have placed limit at $1.20 that night. ARAI gapped to $1.65 (+85%). We would have filled at $1.20 and made +$112 on 250 shares.",
+    "lesson": "ARAI April 15: identified at 02:00, scored 8/9, said 'wait for morning.' By morning it was +85%. Never wait — place the order the night before."
+  },
+
   "daily_routine": {
     "morning": "Check journal — how much of daily $150 target achieved. How many trades left.",
     "each_trade": "Before placing: will this make me +$50-$100? Is the max loss $25? If not → don't trade.",
