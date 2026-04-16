@@ -60,17 +60,26 @@ For each top 10 mover:
 - BTC dominance 59.76% — **RISING** = altcoins underperform
 - v8.2 says: reduce crypto exposure, only BTC if anything, tighter stops
 
+## Strategy D: v8.3 Wysetrade (FOREX focused)
+- **Framework:** Wysetrade — liquidity sweeps, smart money concepts, trend lines, MA strategy
+- **Entry:** Liquidity grabs above/below key levels, trend line bounces, MA crossovers
+- **Best time:** London-NY overlap (15:30-17:30 Oslo) — highest forex liquidity
+- **Pairs:** EUR/USD, GBP/USD, USD/JPY, GBP/JPY, EUR/GBP
+- **Journal:** journal-v83.json
+- **Rules:** strategies/v8.3-wysetrade/rules.json
+- **Note:** 10% portfolio limit suspended during paper trading — trade freely to test
+
 ## Scoring After 20 Days
 
-| Metric | v8.0 | v8.1 | v8.2 |
+| Metric | v8.0 | v8.1 | v8.2 | v8.3 |
 |--------|------|------|------|
-| Total trades | | | |
-| Win rate | | | |
-| Avg profit per win | | | |
-| Avg loss per loss | | | |
-| Total P&L | | | |
-| Best trade | | | |
-| Worst trade | | | |
-| Max drawdown | | | |
+| Total trades | | | | |
+| Win rate | | | | |
+| Avg profit per win | | | | |
+| Avg loss per loss | | | | |
+| Total P&L | | | | |
+| Best trade | | | | |
+| Worst trade | | | | |
+| Max drawdown | | | | |
 
 Winner becomes the permanent strategy.
