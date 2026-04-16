@@ -47,4 +47,30 @@ For each top 10 mover:
 | Worst trade | | |
 | Max drawdown | | |
 
+## Strategy C: v8.2 Cowen (CRYPTO ONLY)
+- **Framework:** Benjamin Cowen — market cycles, 21-week EMA bull/bear divider, BTC dominance
+- **Entry:** Only trade crypto when BTC is above 21w EMA (bull). Below = counter-trend, smaller size.
+- **BTC dominance rising:** Only trade BTC, skip altcoins
+- **RSI divergence:** Don't enter if price higher highs but RSI lower highs
+- **Journal:** journal-v82.json
+- **Rules:** strategies/v8.2-cowen/rules.json
+
+**Current Cowen assessment (Apr 16):**
+- BTC at $74,713 — BELOW 21w EMA ($78,506) = **BEAR MARKET**
+- BTC dominance 59.76% — **RISING** = altcoins underperform
+- v8.2 says: reduce crypto exposure, only BTC if anything, tighter stops
+
+## Scoring After 20 Days
+
+| Metric | v8.0 | v8.1 | v8.2 |
+|--------|------|------|------|
+| Total trades | | | |
+| Win rate | | | |
+| Avg profit per win | | | |
+| Avg loss per loss | | | |
+| Total P&L | | | |
+| Best trade | | | |
+| Worst trade | | | |
+| Max drawdown | | | |
+
 Winner becomes the permanent strategy.
