@@ -119,7 +119,17 @@ quote_get + data_get_study_values + data_get_ohlcv summary:true
 
 **STLA lesson:** Tried to close NYSE stock at 21:50 and 07:00 Oslo. Both failed silently. Wasted time. The order just doesn't execute outside hours.
 
-## Step 6: Profit Management
+## Step 6: Balance Reconciliation
+
+After every scan, verify journal matches TradingView:
+1. Read TradingView account balance via screenshot or UI
+2. Compare to sum of journal P&L entries
+3. If difference > $5 → something is missing from the journal. Investigate.
+4. Update journal with any untracked trades.
+
+**Never let journal drift from reality. The chart is only as good as the data.**
+
+## Step 7: Profit Management
 
 1. **At +$10 unrealized** → move SL to breakeven → VERIFY per 4c
 2. **At +$20 unrealized** → CLOSE position → VERIFY per 4b (only during market hours for stocks)
