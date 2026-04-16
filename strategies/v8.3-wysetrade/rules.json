@@ -1,36 +1,42 @@
 {
   "strategy": "v8.3-wysetrade",
-  "description": "Wysetrade forex framework — liquidity sweeps, smart money concepts, trend lines, moving average strategy for daily profits",
+  "description": "Wysetrade forex framework \u2014 liquidity sweeps, smart money concepts, trend lines, moving average strategy for daily profits",
   "version": "8.3",
-  "source": "Wysetrade (YouTube 1.26M subs) — transcripts in transcripts/wyse_*.txt",
-  "applies_to": "FOREX primarily — also applicable to any liquid market",
-  "status": "LEARNING — rules will be updated as transcripts are analyzed",
-
+  "source": "Wysetrade (YouTube 1.26M subs) \u2014 transcripts in transcripts/wyse_*.txt",
+  "applies_to": "FOREX primarily \u2014 also applicable to any liquid market",
+  "status": "LEARNING \u2014 rules will be updated as transcripts are analyzed",
   "preliminary_rules_from_search": {
     "1_liquidity_trading": "Identify liquidity pools (clusters of stop losses) above highs and below lows. Smart money sweeps these before reversing.",
     "2_moving_average_daily_profits": "Use specific MA combinations for consistent daily entries. Details TBD from transcript.",
     "3_trend_line_trading": "Draw trend lines on key swing points. Trade bounces and breaks with confirmation.",
-    "4_smart_money_concepts": "Follow institutional order flow — look for order blocks, fair value gaps, and liquidity grabs.",
-    "5_candlestick_mastery": "Advanced patterns beyond basics — context matters more than the pattern itself."
+    "4_smart_money_concepts": "Follow institutional order flow \u2014 look for order blocks, fair value gaps, and liquidity grabs.",
+    "5_candlestick_mastery": "Advanced patterns beyond basics \u2014 context matters more than the pattern itself."
   },
-
   "forex_pairs_to_trade": [
-    "EUR/USD", "GBP/USD", "USD/JPY", "GBP/JPY", "EUR/GBP",
-    "AUD/USD", "NZD/USD", "USD/CHF", "USD/CAD"
+    "EUR/USD",
+    "GBP/USD",
+    "USD/JPY",
+    "GBP/JPY",
+    "EUR/GBP",
+    "AUD/USD",
+    "NZD/USD",
+    "USD/CHF",
+    "USD/CAD"
   ],
-
   "session_times_oslo": {
     "london": "09:00-17:30",
     "ny_overlap": "15:30-17:30",
-    "best_time": "London-NY overlap (15:30-17:30 Oslo) — highest forex liquidity"
+    "best_time": "London-NY overlap (15:30-17:30 Oslo) \u2014 highest forex liquidity"
   },
-
   "max_risk": 10,
   "target_profit": 20,
   "breakeven_at": 10,
   "close_at": 20,
   "paper_money_mode": true,
-  "portfolio_limit_note": "10% rule suspended during paper trading phase — trade freely to test strategy",
-
-  "journal_file": "journal-v83.json"
+  "portfolio_limit_note": "10% rule suspended during paper trading phase \u2014 trade freely to test strategy",
+  "journal_file": "journal-v83.json",
+  "paper_trading_mode": true,
+  "portfolio_limit": "NONE \u2014 paper trading, no budget limits. Trade freely to test strategy rules.",
+  "max_positions": "UNLIMITED \u2014 paper trading. More trades = more data = better comparison.",
+  "daily_loss_limit": "NONE \u2014 never stop trading due to losses in paper mode"
 }

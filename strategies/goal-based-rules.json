@@ -7,9 +7,9 @@
     "target": 3000,
     "trading_days_per_month": 20,
     "daily_target": 150,
-    "max_daily_loss": -50,
+    "max_daily_loss": "NONE — paper trading mode, no daily loss limit",
     "max_single_trade_loss": -10,
-    "stop_trading_if": "Daily loss reaches -$50. Walk away. Tomorrow is a new day.",
+    "stop_trading_if": "NEVER — paper trading mode. Keep trading to collect data for strategy comparison.",
     "math": "$10 risk × 1:2 R:R = $20 profit per win. 8 wins/day = $160. Even with 3 losses (-$30), net +$130. Constant small cash."
   },
 
