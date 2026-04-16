@@ -86,19 +86,24 @@ async function fetchFinvizMovers(direction = 'gainers') {
 // ── CoinGecko Screener (FREE — zero credits) ──
 async function fetchCryptoMovers() {
   // CoinGecko API v3 — free, no key needed, returns top coins by market cap with 24h change
-  const url = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=volume_desc&per_page=100&page=1&sparkline=false&price_change_percentage=24h';
+  const url = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=volume_desc&per_page=250&page=1&sparkline=false&price_change_percentage=24h';
   const res = await fetch(url, {
     headers: { 'User-Agent': 'Mozilla/5.0' }
   });
   const data = await res.json();
   if (!Array.isArray(data)) return [];
 
-  // Sort by absolute 24h change
-  const sorted = data
-    .filter(c => c.price_change_percentage_24h != null)
-    .sort((a, b) => Math.abs(b.price_change_percentage_24h) - Math.abs(a.price_change_percentage_24h));
+  // Filter: min $1 price, min $10M market cap — no micro tokens
+  const filtered = data.filter(c =>
+    c.price_change_percentage_24h != null &&
+    c.current_price >= 1.0 &&
+    c.market_cap >= 10_000_000
+  );
 
-  return sorted.map(c => ({
+  // Sort by absolute 24h change
+  filtered.sort((a, b) => Math.abs(b.price_change_percentage_24h) - Math.abs(a.price_change_percentage_24h));
+
+  return filtered.map(c => ({
     symbol: (c.symbol || '').toUpperCase(),
     name: c.name,
     price: c.current_price,
@@ -106,6 +111,7 @@ async function fetchCryptoMovers() {
     volume: c.total_volume?.toLocaleString() || '?',
     sector: 'Crypto',
     market_cap: c.market_cap,
+    mcap_label: c.market_cap >= 1e9 ? (c.market_cap / 1e9).toFixed(1) + 'B' : (c.market_cap / 1e6).toFixed(0) + 'M',
     direction: c.price_change_percentage_24h >= 0 ? 'LONG' : 'SHORT'
   }));
 }
@@ -156,18 +162,27 @@ try {
   }
   if (scanCrypto) {
     const cryptoAll = results[idx++];
-    topCrypto = cryptoAll.filter(c => c.price >= 0.01).slice(0, topN);
+    topCrypto = cryptoAll.slice(0, topN); // already filtered by $1 min + $10M mcap in fetchCryptoMovers
   }
 
   const printTable = (list, label) => {
+    const isCrypto = label.includes('CRYPTO');
     console.log(`\n${label} (${list.length} after filters)`);
-    console.log(`  #   ${'Symbol'.padEnd(8)} ${'Price'.padStart(8)} ${'Change'.padStart(9)}  ${'Volume'.padStart(12)}  ${'Sector'.padEnd(20)} Company`);
+    if (isCrypto) {
+      console.log(`  #   ${'Symbol'.padEnd(8)} ${'Price'.padStart(10)} ${'Change'.padStart(9)}  ${'MCap'.padStart(6)}  ${'Volume'.padStart(14)}  Company`);
+    } else {
+      console.log(`  #   ${'Symbol'.padEnd(8)} ${'Price'.padStart(8)} ${'Change'.padStart(9)}  ${'Volume'.padStart(12)}  ${'Sector'.padEnd(20)} Company`);
+    }
     console.log(`  ${'─'.repeat(90)}`);
     list.forEach((m, i) => {
       const dir = m.change_pct >= 0 ? '+' : '';
       const action = Math.abs(m.change_pct) >= 20 ? ' *** HIGH PRIORITY' :
                      Math.abs(m.change_pct) >= 5 ? ' ** ANALYZE' : '';
-      console.log(`  ${String(i + 1).padStart(2)}  ${m.symbol.padEnd(8)} ${('$' + m.price.toFixed(2)).padStart(8)} ${(dir + m.change_pct.toFixed(2) + '%').padStart(9)}  ${(m.volume || '?').padStart(12)}  ${(m.sector || '').padEnd(20).substring(0, 20)} ${(m.name || '').substring(0, 30)}${action}`);
+      if (isCrypto) {
+        console.log(`  ${String(i + 1).padStart(2)}  ${m.symbol.padEnd(8)} ${('$' + m.price.toFixed(2)).padStart(10)} ${(dir + m.change_pct.toFixed(2) + '%').padStart(9)}  ${(m.mcap_label || '?').padStart(6)}  ${(m.volume || '?').padStart(14)}  ${(m.name || '').substring(0, 25)}${action}`);
+      } else {
+        console.log(`  ${String(i + 1).padStart(2)}  ${m.symbol.padEnd(8)} ${('$' + m.price.toFixed(2)).padStart(8)} ${(dir + m.change_pct.toFixed(2) + '%').padStart(9)}  ${(m.volume || '?').padStart(12)}  ${(m.sector || '').padEnd(20).substring(0, 20)} ${(m.name || '').substring(0, 30)}${action}`);
+      }
     });
   };
 
