@@ -16,6 +16,7 @@ $10 risk per trade. Win $20. Do it 5-8 times a day. That's $100-$160/day = $3,00
 
 | Window (Oslo) | Interval | Why |
 |---------------|----------|-----|
+| **15:30:00 EXACT** | **ONCE — SNIPER** | Market open — place ALL pre-market targets as MARKET orders INSTANTLY |
 | **15:30-17:00** | **Every 5 min** | NY open power hour — gaps spike, biggest moves happen here |
 | **17:00-22:00** | Every 15 min | Regular session — monitor and catch late runners |
 | **20:00-07:00** | Every 15-30 min | Crypto — CoinGecko scanner |
