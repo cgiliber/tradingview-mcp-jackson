@@ -31,11 +31,16 @@ chart_set_symbol → symbol, chart_set_timeframe → "15"
 quote_get + data_get_study_values + data_get_ohlcv summary:true
 ```
 
-### Quick check (10 seconds per stock):
+### Quick check (10 seconds per stock — THEN PLACE IMMEDIATELY):
 1. **Price above EMA 8?** → momentum is alive
 2. **Staircase pattern?** (higher lows, higher highs) → GO signal
 3. **Volume above average?** → real buyers, not fake
 4. **Price $1+ and volume 1K+?** → tradeable
+
+**CRITICAL: PLACE THE ORDER FIRST, WRITE ANALYSIS AFTER.**
+Do NOT write notes, evaluate 4 strategies, or debate before placing. The order of operations is:
+1. See setup → 2. Place order → 3. Verify → 4. THEN write analysis and log to journal.
+Analysis AFTER execution, not before. Every second you spend writing is a second the price moves away.
 
 ### ENTER if ANY of these are true:
 - Staircase up on volume (each candle makes higher low)
