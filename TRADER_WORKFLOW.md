@@ -1,6 +1,14 @@
 # Trader Workflow v3 — Be Aggressive, Verify Everything
 
-**Philosophy: Many small wins. Tiny stops. NEVER assume — always VERIFY.**
+## RULE ZERO — ABOVE ALL OTHER RULES
+
+**TIMING IS EVERYTHING. NOTHING INTERRUPTS A TRADE OPPORTUNITY.**
+
+When the scanner finds a mover: STOP everything else. Stop writing. Stop analyzing. Stop answering questions. Stop scraping videos. Stop updating files. PLACE THE ORDER FIRST. Everything else can wait 30 seconds. The price cannot.
+
+**See it → Place it → Verify it → THEN talk about it.**
+
+This rule overrides ALL other rules. No exceptions. Ever.
 
 $10 risk per trade. Win $20. Do it 5-8 times a day. That's $100-$160/day = $3,000/month.
 
