@@ -1,6 +1,6 @@
-# Trader Workflow v2 — Be Aggressive, Play Small
+# Trader Workflow v3 — Be Aggressive, Verify Everything
 
-**Philosophy: Many small wins. Tiny stops. NEVER sit on the sidelines when momentum is right there.**
+**Philosophy: Many small wins. Tiny stops. NEVER assume — always VERIFY.**
 
 $10 risk per trade. Win $20. Do it 5-8 times a day. That's $100-$160/day = $3,000/month.
 
@@ -10,15 +10,18 @@ $10 risk per trade. Win $20. Do it 5-8 times a day. That's $100-$160/day = $3,00
 |---------------|----------|-----|
 | **15:30-17:00** | **Every 5 min** | NY open power hour — gaps spike, biggest moves happen here |
 | **17:00-22:00** | Every 15 min | Regular session — monitor and catch late runners |
-| **22:00** | CLOSE ALL | End of day — no overnight holds |
+| **20:00-07:00** | Every 15-30 min | Crypto — CoinGecko scanner |
+| **22:00** | CLOSE ALL stocks | No overnight stock holds |
 
 ## Step 1: Find Movers
 
 ```
-node scanner/trader-scan.js
+node scanner/trader-scan.js          # Stocks: Finviz gainers + losers
+node scanner/trader-scan.js --crypto # Crypto: CoinGecko
+node scanner/trader-scan.js --all    # Both
 ```
 
-Finviz scans the ENTIRE US market for free. Top 10 movers by % change. Start from #1 going down.
+Start from #1 going down. Both LONG (gainers) and SHORT (losers).
 
 ## Step 2: Analyze Charts (Top 10, starting from #1)
 
@@ -38,7 +41,7 @@ quote_get + data_get_study_values + data_get_ohlcv summary:true
 - Staircase up on volume (each candle makes higher low)
 - Pullback to EMA 8 and bouncing
 - Breaking above a consolidation range
-- Above BB upper WITH rising volume (momentum breakout, NOT exhaustion)
+- Above BB upper WITH rising volume (momentum breakout)
 
 ### SKIP ONLY if:
 - Volume dead (<500 shares per candle)
@@ -46,13 +49,12 @@ quote_get + data_get_study_values + data_get_ohlcv summary:true
 - Making lower highs AND lower lows (downtrend)
 - Already in this position
 
-### THESE ARE NOT VALID SKIP REASONS:
-- "Above BB upper" — momentum stocks live above BB. That's the signal.
-- "Extended from EMA" — gap stocks ARE extended. That's normal.
-- "Late in the day" — if there's 1+ hour left, trade it.
-- "Already have positions open" — with $10 risk each, 5 positions = $50 total risk. That's fine.
-- "Might reverse" — everything might reverse. That's what the stop loss is for.
-- "Too volatile" — volatile = opportunity. Tight stop + small size = controlled risk.
+### NOT valid skip reasons:
+- "Above BB upper" — momentum stocks live there
+- "Extended from EMA" — gap stocks ARE extended
+- "Late in the day" — if 1+ hour left, trade it
+- "Already have positions" — 5 × $10 = $50 risk, fine
+- "Too volatile" — that's the opportunity
 
 ## Step 3: Size and Execute
 
@@ -60,24 +62,59 @@ quote_get + data_get_study_values + data_get_ohlcv summary:true
 2. **Units**: FLOOR($10 / stop_distance)
 3. **TP**: Entry + (2 × stop_distance) = target +$20
 4. **Place**: Market order with TP and SL
-5. **At +$10**: Move SL to breakeven. IMMEDIATELY. No waiting.
-6. **At +$20**: CLOSE. Take the $20. Find next trade.
 
-## Step 4: Log to journal.json
+## Step 4: MANDATORY VERIFICATION — NEVER SKIP
 
-Every trade and every skip with reason. Update after each trade.
+**After EVERY order action (place, close, modify SL), do ALL of these:**
 
-## Step 5: Check Open Positions
+### 4a. After placing a trade:
+```
+1. capture_screenshot → verify order panel shows "Order sent" or "Filled"
+2. Read positions table → confirm new position appears with correct qty, TP, SL
+3. If TP or SL missing → ALERT and fix immediately
+4. Only THEN report "trade placed"
+```
 
-1. Quote each position
-2. At +$10 unrealized → move SL to breakeven
-3. At +$20 unrealized → CLOSE position
-4. Close ALL by 22:00 Oslo
+### 4b. After closing a position:
+```
+1. capture_screenshot → verify position is GONE from positions table
+2. Count positions → confirm count decreased by 1
+3. If position still there → click Close again and re-verify
+4. Only THEN report "position closed"
+```
+
+### 4c. After modifying SL (breakeven lock):
+```
+1. Re-read the position → confirm SL value actually changed
+2. If old SL still showing → modify again and re-verify
+3. Only THEN report "SL moved to breakeven"
+```
+
+### 4d. After TP/SL should have triggered:
+```
+1. NEVER assume TP/SL hit based on price movement alone
+2. Check positions table → is the position still there or gone?
+3. Check order history → find the specific fill: "Take Profit filled" or "Stop Loss filled"
+4. Only THEN report the result
+```
+
+### CRITICAL RULE: Never say "TP hit" or "SL triggered" without checking order history on TradingView. Price going past TP doesn't mean the order filled — verify it.
+
+## Step 5: Profit Management
+
+1. **At +$10 unrealized** → move SL to breakeven → VERIFY per 4c
+2. **At +$20 unrealized** → CLOSE position → VERIFY per 4b
+3. Close ALL stocks by 22:00 Oslo → VERIFY each one closed
+
+## Step 6: Log to journal.json
+
+Every trade with VERIFIED entry price, exit price, and P&L. Not assumed — verified.
 
 ## Mindset Rules
 
-- **Default is TRADE, not SKIP.** You need a reason NOT to trade, not a reason to trade.
-- **5 trades per day minimum target.** If you've done 0 trades by 17:00 Oslo, you're too scared.
-- **$10 risk is nothing.** That's 0.01% of portfolio. Stop treating it like $1,000.
-- **Speed matters.** Scan → chart → 10 seconds → decide → place. Don't overthink.
-- **ASTI lesson:** Staircase up, volume surging, skipped because "above BB." Missed +$23.50. Never again.
+- **Default is TRADE, not SKIP.**
+- **VERIFY everything.** Never assume an action worked.
+- **$10 risk is nothing.** 0.01% of portfolio.
+- **Speed matters.** But verification matters more.
+- **ORDI lesson:** Assumed TP hit because price went above target. Actually SL hit first during a dip. Never assume — check order history.
+- **STLA lesson:** Clicked "Close position" but it didn't execute. Never assume — verify position is gone.
