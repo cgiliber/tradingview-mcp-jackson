@@ -31,4 +31,4 @@
 | 23 | Pre-market limit orders ALL rejected by paper trading — ASTI, XNDU, BIRD, WSHP, DOO | Apr 16 | Paper trading rejects ALL pre-market orders (market AND limit). Only solution: sniper cron at 15:30:00 exact with market orders. | TRADER_WORKFLOW.md | Yes |
 | 24 | Same mistake two days in a row — knew movers early, failed to execute at open | Apr 16 | CRITICAL PATTERN. Sniper cron is the only fix. Manual execution always delays 10+ min. | feedback_execute_first.md | Sniper cron ready |
 
-## ALL 24 MISTAKES TRACKED — 22 FIXED, 2 PENDING (sniper cron untested until tomorrow)
+## ALL 24 MISTAKES TRACKED — 23 FIXED, 1 PENDING (sniper cron untested until tomorrow)

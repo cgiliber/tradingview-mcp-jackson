@@ -382,3 +382,7 @@ ui_evaluate → expression:
 3. **Quote data bleeds across panes** — In multi-pane layouts, `quote_get` may return data from the active pane, not the requested symbol. Use `pane_focus` first, or switch to single chart mode.
 
 4. **US stocks return stale data on weekends** — PLTR/TSM quotes on Sunday return Gold data because markets are closed and TradingView falls back to the active feed.
+
+5. **CRITICAL: Selling shares does NOT close a long — it creates a NEW SHORT.** On paper trading, placing a sell order when you have a long position opens a separate short position instead of closing the long. ONLY use the "Close" button (X) on the position row to close. If that fails, ask Maria to close via GUI. NEVER place a sell market/limit order to close a long. Same applies in reverse: buying does not close a short.
+
+6. **Pre-market orders are ALL rejected** — Paper trading rejects both market AND limit orders placed before market hours (before 15:30 Oslo for US stocks). The only solution is the sniper cron at 15:30:00 exact that places market orders the instant the bell rings.
