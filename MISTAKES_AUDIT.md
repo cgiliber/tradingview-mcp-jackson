@@ -21,4 +21,7 @@
 | 15 | No strategy comparison | Apr 16 | A/B test framework (v8.0 vs v8.1) | AB_TEST.md, journal-v80.json, journal-v81.json | Yes |
 | 16 | Old zombie orders left open | Apr 16 | All cancelled (TSM, ETH, Gold, AMD, META) | Verified on TradingView | Yes |
 
-## ALL 16 MISTAKES FIXED
+| 17 | Had movers list at 13:10, sat there making "hit list for 15:30" | Apr 16 | Pre-market cron (10:00-14:59) places LIMIT orders at current price → auto-fill at open | Cron 59bf31fa, feedback_premarket_limits.md | Yes |
+| 18 | Market orders don't fill in pre-market on paper trading | Apr 16 | Use LIMIT orders instead of market orders in pre-market | TRADER_WORKFLOW.md Step 5 market hours | Yes |
+
+## ALL 18 MISTAKES FIXED
