@@ -76,17 +76,25 @@ For each top 10 mover:
 - **Journal:** journal-v84.json
 - **Rules:** strategies/v8.4-range-breakout/rules.json
 
+## Strategy F: v8.5 TradingLab — Supply & Demand (PRIORITY: HIGH)
+- **Framework:** 3-step: valid market structure + supply/demand zones + R:R > 2.5:1
+- **No indicators.** Pure price action. Valid highs/lows only.
+- **Demand zone:** consolidation before sharp up move, enter on retest
+- **Supply zone:** consolidation before sharp down move, enter on retest
+- **Key rule:** A low is ONLY valid if it broke the previous high
+- **Journal:** journal-v85.json
+
 ## Scoring After 20 Days
 
-| Metric | v8.0 | v8.1 | v8.2 | v8.3 | v8.4 |
+| Metric | v8.0 | v8.1 | v8.2 | v8.3 | v8.4 | v8.5 |
 |--------|------|------|------|
-| Total trades | | | | | |
-| Win rate | | | | | |
-| Avg profit per win | | | | | |
-| Avg loss per loss | | | | | |
-| Total P&L | | | | | |
-| Best trade | | | | | |
-| Worst trade | | | | | |
-| Max drawdown | | | | | |
+| Total trades | | | | | | |
+| Win rate | | | | | | |
+| Avg profit per win | | | | | | |
+| Avg loss per loss | | | | | | |
+| Total P&L | | | | | | |
+| Best trade | | | | | | |
+| Worst trade | | | | | | |
+| Max drawdown | | | | | | |
 
 Winner becomes the permanent strategy.

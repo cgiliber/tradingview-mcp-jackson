@@ -1,0 +1,31 @@
+{
+  "strategy": "v8.5-tradinglab",
+  "name": "Supply & Demand with Valid Structure",
+  "source": "TradingLab YouTube — 'The Only Trading Strategy You'll Ever Need'",
+  "core_concept": "3-step formula: 1) Identify trend via VALID highs/lows (not just any high/low), 2) Mark supply/demand zones at consolidation before impulse moves, 3) Only trade if R:R > 2.5:1",
+
+  "step_1_market_structure": {
+    "rule": "A low is ONLY valid if it broke the previous high. A high is ONLY valid if it broke the previous low.",
+    "uptrend": "Valid higher highs and valid higher lows. Only look for LONGS.",
+    "downtrend": "Valid lower lows and valid lower highs. Only look for SHORTS.",
+    "critical": "If price breaks a low that DIDN'T break the previous high, it's NOT a valid break. Trend unchanged.",
+    "trend_change": "Only when price breaks a VALID low (uptrend ends) or VALID high (downtrend ends)."
+  },
+
+  "step_2_supply_demand": {
+    "demand_zone": "In uptrend: find consolidation/sideways area BEFORE a sharp move UP. Mark the candle BEFORE the impulse — low to high of that candle.",
+    "supply_zone": "In downtrend: find consolidation/sideways area BEFORE a sharp move DOWN. Mark the candle BEFORE the impulse — high to low of that candle.",
+    "entry": "Wait for price to RE-ENTER the zone. Enter when it touches.",
+    "stop_loss": "Below demand zone (longs) or above supply zone (shorts).",
+    "take_profit": "At the recent high (longs) or recent low (shorts)."
+  },
+
+  "step_3_risk_reward": {
+    "minimum": 2.5,
+    "rule": "Only take trade if R:R > 2.5:1. If zone is valid but R:R < 2.5, SKIP.",
+    "example": "Risk $100, reward must be $250+."
+  },
+
+  "priority": "HIGH — Maria wants this prioritized above other strategies",
+  "journal_file": "journal-v85.json"
+}

@@ -78,6 +78,27 @@
     "risk": 10,
     "check_interval": "every 5 min from 15:45 to 16:15"
   },
+  "v8.5": {
+    "name": "supply_demand_valid_structure",
+    "priority": "HIGH",
+    "indicators": "NONE — pure price action",
+    "step1_structure": {
+      "valid_low": "ONLY if it broke previous high",
+      "valid_high": "ONLY if it broke previous low",
+      "uptrend": "valid higher highs + valid higher lows → LONGS only",
+      "downtrend": "valid lower lows + valid lower highs → SHORTS only",
+      "trend_change": "only when VALID low/high is broken"
+    },
+    "step2_zones": {
+      "demand": "consolidation before sharp UP move → mark candle before impulse (low to high)",
+      "supply": "consolidation before sharp DOWN move → mark candle before impulse (high to low)",
+      "entry": "wait for price to re-enter zone",
+      "stop": "below demand (long) or above supply (short)",
+      "tp": "recent high (long) or recent low (short)"
+    },
+    "step3_rr": "minimum 2.5:1 — skip if under 2.5",
+    "risk": 10
+  },
   "global": {
     "risk_per_trade": 10,
     "sizing": "FLOOR(10 / stop_distance)",
