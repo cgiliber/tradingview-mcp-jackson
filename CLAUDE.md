@@ -1,15 +1,15 @@
 # TradingView MCP — Claude Instructions
 
-## AUTO-START: Set up trading crons at session start
+## AUTO-START: Set up 4-strategy parallel trading crons at session start
 
-Read `PROJECT_CONTEXT.md` first, then create these 4 recurring crons:
+Read `PROJECT_CONTEXT.md` and `AB_TEST.md` first. Then create 4 recurring crons. Each scan evaluates movers through ALL 4 strategies independently (v8.0 baseline, v8.1 Rayner, v8.2 Cowen, v8.3 Wysetrade). Each strategy can independently trade or skip. Tag every trade to its strategy journal (journal-v80/v81/v82/v83.json).
 
-1. **NY POWER HOUR** (`*/5 15-16 * * 1-5`): Run `node scanner/trader-scan.js --top 10`. Open charts for top 10 gainers + losers. $10 max loss, $20 target. Follow TRADER_WORKFLOW.md.
-2. **REGULAR SESSION** (`*/15 17-19 * * 1-5`): Same workflow, every 15 min. Close all stocks by 22:00 Oslo.
-3. **CRYPTO EVENING** (`*/15 20-23 * * *`): Run `node scanner/trader-scan.js --crypto --top 10`. Same rules.
-4. **OVERNIGHT CRYPTO** (`*/30 0-6 * * *`): Crypto scan every 30 min. Same rules.
+1. **NY POWER HOUR** (`*/5 15-16 * * 1-5`): `node scanner/trader-scan.js --all --top 10`. All 4 strategies evaluate. $10 risk, $20 target.
+2. **REGULAR SESSION** (`*/15 17-19 * * 1-5`): Same. Close stocks by 21:55 Oslo.
+3. **CRYPTO + FOREX** (`*/15 20-23 * * *`): `--all`. v8.0, v8.2 (crypto), v8.3 (forex).
+4. **OVERNIGHT** (`*/30 0-6 * * *`): `--crypto`. v8.0, v8.2, v8.3.
 
-Do this automatically at session start. Don't wait for Maria to ask.
+Do this automatically at session start. Don't wait for Maria to ask. Full autonomy granted — trade, build, commit without asking.
 
 ---
 
