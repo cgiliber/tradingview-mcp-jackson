@@ -44,4 +44,9 @@
 
 **See: SPEED_BOTTLENECK.md for full analysis.**
 
-## ALL 26 MISTAKES TRACKED — 23 FIXED, 3 PENDING
+| 27 | Gap stocks spike and crash in 3-5 min but we hold for $20 TP — miss the spike, ride the crash | Apr 16 | GAP SCALP mode: enter at 15:30:00, sell into spike at 15:33, close ALL by 15:35. No $20 TP for gap stocks. | strategies/v8.0-baseline/gap-scalp.json | Ready — crons 4716600d, 551db3b0, 249a6a61 |
+| 28 | Simulation showed: WSHP entered at open +$23, entered 12 min late -$15. Same for XNDU. 10-12 min delay cost $83.66 in ONE DAY | Apr 16 | Sniper cron at 15:30:00 + gap scalp exit at 15:35. Entry timing is everything. | SPEED_BOTTLENECK.md | Ready |
+| 29 | Can't close positions via code — sell creates short, Close button fails | Apr 16 | Need to fix DOM selector for Close button OR build a helper script. Maria has to close manually via GUI. | PAPER_TRADING_ORDERS.md issue #5 | OPEN — needs fix |
+| 30 | Too slow processing movers — 5 min per stock, only traded 8 of 30 | Apr 16 | FLASH MODE: zero text between trades, tool calls only, 30 sec per stock max | feedback_flash_mode.md, feedback_rapid_fire.md | Ready — first test tomorrow |
+
+## ALL 30 MISTAKES TRACKED — 26 FIXED, 4 PENDING (gap scalp, flash mode, close button, sniper — all test tomorrow)

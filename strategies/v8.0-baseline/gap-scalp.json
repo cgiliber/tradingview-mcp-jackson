@@ -1,0 +1,40 @@
+{
+  "name": "GAP SCALP",
+  "description": "Sub-strategy of v8.0 for gap stocks at market open. Enter at 15:30:00, sell into first spike within 3-5 min, never hold past 5 min.",
+  "applies_when": "First 5 minutes after market open (15:30-15:35 Oslo) on stocks gapping >20% from pre-market scan",
+
+  "entry": {
+    "when": "15:30:00 EXACT — sniper cron",
+    "what": "Market order on ALL pre-market targets gapping >20%",
+    "sizing": "FLOOR($10 / $1.00) — use $1.00 fixed stop for gap scalps"
+  },
+
+  "exit": {
+    "primary": "Sell into first spike — when price makes first new high then starts pulling back, SELL immediately",
+    "time_exit": "If no spike within 3 minutes, close at market. MAX hold 5 minutes.",
+    "stop": "$1.00 below open price — tight, fixed",
+    "target": "NO fixed TP — sell into strength. Take whatever the spike gives (+$2 to +$10 per share typical)",
+    "never": "NEVER hold a gap scalp past 5 minutes. The move is OVER."
+  },
+
+  "after_5_min": "Switch to normal v8.0 rules (EMA 8 entries, $20 TP) for the rest of the session",
+
+  "cron_implementation": {
+    "15:30:00": "SNIPER — place market orders on all pre-market gap targets",
+    "15:33:00": "CHECK — any position in profit? Sell into strength. Any making new high? Hold 1 more min.",
+    "15:35:00": "CLOSE ALL gap scalp positions regardless of P&L. Gap scalp window is OVER.",
+    "15:35+": "Switch to normal v8.0/v8.1/v8.2/v8.3 evaluation for rest of session"
+  },
+
+  "ross_cameron_rules": {
+    "source": "Warrior Trading transcripts",
+    "1": "Gap >4% with catalyst and volume",
+    "2": "Enter break of pre-market high OR at market open",
+    "3": "Sell into first spike — NEVER hold hoping for more",
+    "4": "Max 30 min hold (we use 5 min for scalp mode)",
+    "5": "If no break within 5 min, skip — momentum is dead"
+  },
+
+  "journal_file": "journal-v80.json",
+  "tag": "GAP_SCALP"
+}
