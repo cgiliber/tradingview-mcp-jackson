@@ -1,0 +1,37 @@
+{
+  "strategy": "v8.6-tradinglab-focused",
+  "name": "Focused Watchlist — Few Stocks, Many Trades, 1H Timeframe",
+  "source": "TradingLab YouTube — AI bot trading $30K for 1 month",
+  "core_concept": "Instead of scanning 30+ movers daily, fix a watchlist of 10 blue-chip stocks and trade them repeatedly on 1H timeframe using supply/demand zones. More trades per stock, fewer stocks total.",
+
+  "watchlist": ["AAPL", "GOOGL", "MSFT", "AMD", "NVDA", "TSLA", "DIS", "AMZN", "V", "COST"],
+  "watchlist_note": "These are the exact 10 stocks from the video. High liquidity, good trends, well-known.",
+
+  "parameters": {
+    "timeframe": "1H",
+    "why_1h": "3H had too few signals. 1H gave ~47 trades in 1 month = ~2-3 per day across 10 stocks.",
+    "max_per_trade": "No cap in paper mode. In live: $5,000 max per trade.",
+    "strategy": "v8.5 supply/demand with valid structure — same 3-step formula",
+    "both_directions": true,
+    "market_sentiment": "If market is bearish → more shorts. If bullish → more longs."
+  },
+
+  "results_from_video": {
+    "period": "Jan 17 - Feb 18 (1 month)",
+    "total_trades": 47,
+    "wins": 31,
+    "losses": 16,
+    "win_rate": "65.9%",
+    "total_profit": "$3,736.50 on $30K account (12.5%)",
+    "best_stock": "TSLA: 5 trades, +24.2%, +$1,210",
+    "worst_stock": "AMD: 3 trades, -3%, -$150",
+    "note": "Bot did well in trending markets. Struggled in consolidation."
+  },
+
+  "key_insight": "OPPOSITE approach to our current system. We scan 30 movers and trade each once. This strategy watches 10 stocks and trades each 4-7 times per month. More familiarity with each stock's behavior = better zone identification.",
+
+  "when_it_works": "Trending markets — higher highs/lows or lower highs/lows",
+  "when_it_fails": "Consolidating/sideways markets — zones get swept repeatedly",
+
+  "journal_file": "journal-v86.json"
+}

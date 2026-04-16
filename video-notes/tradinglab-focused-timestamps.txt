@@ -1,0 +1,482 @@
+[21.010] On November 30th 2022 the world changed forever.
+Artificial intelligence or Ai became accessible
+[27.910] to the general public For free
+And this happened because of a little thing
+[32.000] called, chatgpt
+*chatgpt* montage.
+[34.860] Ai is 
+getting more and more powerful every single
+[45.649] day.
+It starting to beat actual professionals in
+[48.720] chess, poker, videos games, and even camel
+racing?
+[56.410] Yes, believe it or not, that is a robot on
+that camels back. Controlling it in a camel
+[62.210] race. I didn t even know they raced camels.
+So, it got me thinking. If artificial intelligence
+[69.230] can beat humans in very advanced activities
+like chess.
+[72.690] Could it beat humans in something as advanced
+as trading in the stock market?
+[76.479] Which if you really sit down and think about
+it, there are multiple reasons why AI would
+[80.610] be better than humans at trading.
+Speed and efficiency. Ai can analyze vast
+[90.479] amounts of financial data in the matter of
+seconds. Which a human obviously cannot do.
+[97.909] Ai s have no emotion. Unlike a human, AI s
+don t experience emotions such as fear, greed,
+[103.380] or excitement. Which when trading, those types
+of emotions cloud your judgement and lead
+[108.090] to poor trading decisions.
+Continuous monitoring. Ai don t need to sleep.
+[111.299] They can trade 24 hour every single day. Which
+obviously we cannot do. I need my beaty sleep,
+[118.090] ya know?
+Then finally, consistency. One of the hardest
+[121.710] parts about trading is sticking to a set trading
+plan. For one reason or another we ve all
+[126.409] diverged from our trading plan atleast once.
+Whether that s moving a stop loss, entering
+[131.709] early, exiting late. Whatever it is, you ve
+probably done it. The thing about AI, it will
+[136.910] always stick to that trading plan no matter
+what.
+[139.910] So I wanted to put it to the test.
+I coded a trading bot from scratch with all
+[144.610] the trading knowledge I ve learned from the
+past 8 years.
+[147.709] I coded everything I know into this bot. The
+ability to read market structure, momentum,
+[152.560] volume, level II data, everything.
+I basically wanted to create me and my trading
+[157.170] style and how I would personally trade into
+a little baby robot.
+[161.500] This bot will automatically enter, exit, and
+make every single trading decision for me.
+[166.360] While I eat a peanut butter jelly sandwichs
+on my couch watching ai camel racing.
+[171.530] So I wanted to know what would happen if I
+put $30,000 into a brand new trading account
+[176.989] and completely left the bot alone and let
+it trade for me for 1 week.
+[181.350] Would I actually make money on autopilot?
+Or would I lose the $30,000 within seconds?
+[186.870] Now I had to make some rules for this video.
+I m not a loud to interfere with this account
+[191.390] at all, I cant help the bot trade in any way,
+all I can do is turn on the bot, and let it
+[195.940] trade.
+It s kind of like a game show.
+[198.300] I m gonna call it. Does this Ai Strategy really
+work? Or is it a money loser? Game show. By
+[208.411] tradinglab
+So the code we are going to be using for the
+[210.930] ai is from my own personal private indicator
+from tradinglab.ai.
+[214.950] Now my indicator is only available on Meta
+Trader 5. Which is a charting platform.
+[219.790] And to be honest, its probably one of the
+worst looking trading platforms out there.
+[226.220] Like it literally looks like 2001 excel.
+So you may be asking, why are you using this
+[231.510] absolute abomination of a charting platform?
+Well there is one specific reason why I like
+[236.409] Meta trader so much. And that reason is They
+make it extremely easy to connect bots to
+[242.440] automatically trade for you.
+Because normally, you would need to code an
+[245.120] indicator, have that indicator send its signals
+to a trading bot, then have that bot, send
+[249.830] its signals to a stock trading API, and have
+that API, execute the orders.
+[254.269] Which if you have no idea what im talking
+about, this may sound slightly easy, let me
+[257.880] tell you, its not.
+Which im going to be completely honest, coding
+[260.940] all of this is probably the worst thing on
+planet earth.
+[279.820] On meta trader they make it really easy to
+do it.
+[282.830] You essentially connect what called an EA
+which stands for Expert advisor which is basically
+[287.560] another word for bot. I guess it sounds more
+professional tho.
+[291.080] *ahhh yes, ill have my expert advisor take
+care of it
+[294.750] Anyways, as long as you have the indicator
+or whatever is providing the signals, connecting
+[299.509] it to a broker is infinitely times easier
+on Meta Trader then creating it manually.
+[304.780] So that s the main reasoning for why we are
+using Meta trader.
+[307.590] So its quite simple actually. After I have
+the EA setup. Every time my indicator gives
+[312.259] a buy signal, the EA will note that, send
+an execution order to my broker, my broker
+[317.479] will then buy it. Then once the indicator
+gives a sell signal, the broker will automatically
+[321.460] sell it. Completing the trade. Pretty simple.
+So now that we know what code im using, how
+[325.930] im going to use that code to automatically
+trade for me, we move to next step which is
+[330.080] funding my brand new account.
+So when I originally thought of this video
+[332.950] idea I was originally just going to trade
+with just $1,000. But if you re watching this
+[336.810] video now, you ll see in the title I says
+I gave the Ai $30,000. Hmm, weird right. So
+[342.091] how did I go from $1,000 to $30,000?
+Let me explain.
+[349.340] So my indicator gives both long trades and
+short trades. Which if you don t know, long
+[354.551] trades you make money as the chart is going
+up, short trades, you make money as the market
+[358.720] is going down.
+In order to short stocks, you need to be able
+[361.910] to use margin. Which is borrowing money from
+you broker.
+[365.330] And I completely forget there is stupidest
+rule on planet earth that the SEC made called
+[375.310] the pattern day trading rule . Which basically
+means in order to use both margin and do more
+[380.990] than 3 consecutive day trades a week I need
+a margin account. Which if I want a margin
+[385.490] account, I need to add $25,000 or more into
+the account.
+[390.270] I ended up putting $30,000 in so I had some
+wiggle room.
+[393.639] So I went from wanting to only put $1,000
+to putting $30,000. Which means if this ai
+[399.810] strategy goes terribly wrong, well, pray for
+me.
+[405.449] So once I realized this rule, all I have to
+do is fund $30,000 into my trading account.
+[437.210] I feel like this is great time to talk about
+today s sponsor.
+[440.330] Hankotrade.
+Hankotrade is who I personally use as my forex
+[443.740] broker. Its kind of funny because I used them
+way before they asked to sponsor me, so when
+[448.069] they did, I frantically said yes.
+They are overall just a good forex broker.
+[452.759] Low fees, low spreads, easy to use platform.
+And one of the main reasons why I like them
+[456.949] so much is because they are one of the few
+brokers you can hook up directly to the EA
+[461.590] I was talking about before on Meta Trader.
+So they make it really easy to setup automatic
+[466.010] trading bots.
+If you use the link in my description. They
+[468.460] will match whatever you first deposit. So
+if you deposit say $100, they give you $100.
+[473.539] Thank you hankotrade for sponsoring this video.
+I love you.
+[476.960] Alright, so the account is now funded.
+But we ran into a slight issue.
+[480.930] If you ve ever watched one of my videos before,
+I always say time and time again to never
+[486.530] follow the private indicator blindly, by just
+following the signals.
+[490.139] Which is essentially exactly what we are about
+to do.
+[492.900] There are multiple reasons for why this is
+not a good idea.
+[496.260] One being if the market is super bearish and
+is falling, the indicator still might give
+[500.710] you a long entry buy signal. Which as we all
+know, is a big no no.
+[504.800] So what I usually always recommend is using
+the indicator as more of a tool rather than
+[509.990] blindly following it. Use the trend table
+it provides, use the orderblocks, and all
+[515.330] of its other features. and use them as tools
+to HELP you make trading decisions rather
+[520.180] than it making the trading decisions.
+Which as I said, if the bot is trading for
+[527.760] us, its blindly following the signals. Which
+is kind of a bummer.
+[532.010] And I thought that ruin the whole video if
+I was helping it make decisions on which specific
+[537.120] signals to put more weight on.
+So I had to do some brain storming.
+[550.920] Because the indicator can t really read market
+sentiment by itself. That is, Until now.
+[557.280] I added a feature that you can manually or
+automatically adjust the market sentiment.
+[561.880] So for example, if for some reason you think
+the market is going to be very bearish that
+[566.110] week, because of rising interest rates, bad
+economic news, a war is breaking out, or Donald
+[571.660] trump made another tweet.
+You can just go to the indicator settings
+[574.800] and say the market sentiment is bearish.
+Which then, the indicator will automatically
+[579.050] give you less long trades and more short trades.
+Giving the short trades more weight during
+[584.050] this period.
+If you said the market sentiment is bullish.
+[586.260] It will show you more long trades compared
+to short trades.
+[589.899] Adding just this one little tool to the indicator,
+has greatly increased the profitability of
+[594.649] it, atleast when it comes to just blindly
+following it. It also makes me feel way more
+[598.870] comfortable, letting the bot follow the signals
+blindly with $30,000.
+[603.220] As im editing this now, its now Saturday.
+And I plan to start this 7 day challenge on
+[607.991] Monday.
+But to be honest, I have no idea what s about
+[610.800] to happen. And im kind of scared. No im really
+scared.
+[615.970] It will be cool to see if the bot can make
+money completely on its own without me doing
+[626.700] absolutely any work. Because its almost kind
+of my baby and it would be like uh proud dad
+[632.100] moment.
+Like Imagine if you birthed a baby and made
+[634.500] the baby go into work for you as you watched
+ai camel racing and it came home every day
+[640.010] with a bag. Like, that would be the definition
+of a cool life.
+[642.839] So as the clock ticked down, I got more and
+more anxious of what was about to happen.
+[647.510] Then, Monday morning came.
+I woke up at 6:30, went to my computer, and
+[660.420] set the parameters for each trade.
+For one, I made it so the bot can go above
+[664.610] $5,000 for any single trade.
+Two, It will only be trading stocks. I gave
+[669.370] it a list of 10 stocks to choose from.
+Three. Its going to be using the 3 hour timeframe
+[673.800] for its signals as that is the timeframe that
+performed the best.
+[678.260] Once the parameters were entered. I nervously
+started the bot.
+[681.370] And then something crazy happened
+Absolutely nothing.
+[694.420] I waited for about 4 hours and the bot didn
+t take one single trade. The reasoning behind
+[699.340] this was because we were using the 3 hour
+time frame and that ended up being a mistake.
+[704.779] Atleast for this experiment, because we wernt
+getting a lot of signals, so the bot wasn
+[708.910] t making a lot of trades.
+So I decided to make the bold and rash decision
+[713.230] to change the timeframe to the one hour timeframe.
+I also looked at the chart history, and if
+[721.081] we were going to do the one hour time frame
+for a week period. The bot would only take
+[725.490] around like 10 trades.
+So I decided I would now change the time period
+[729.610] to one month of testing. Just so we can better
+understand this experiment and get a lot more
+[734.350] trades in to see if this thing actually works.
+Which kind of sucks because I want to upload
+[737.090] this video right away, but looks like we gotta
+wait a month.
+[738.090] Which is kind of crazy. Because a lot can
+happen in one month and that s a lot of time
+[742.529] to purely let a bot trade. So changing from
+a one week of testing to one month makes me
+[747.959] feel even more nervous.
+But f it.
+[750.670] I set the bot to trade on the 1 hour timeframe
+and completely left it alone for one whole
+[755.720] month.
+Fast forward
+[765.140] Alright guys its been one month.
+I started this bot on January 17th and it
+[769.529] is now February 18th and the result are in.
+As I m talking right now. I m looking at the
+[775.600] balance. Im still in absolute shock.
+I cant believe this happened.
+[777.980] So the bot traded 10 different stocks. Apple,
+google, Microsoft, amd, nivida, tesla, Disney,
+[783.210] amazon, Visa, Costco.
+and one of these gave some pretty interesting
+[789.529] results.
+Can you guess which one it was?
+[792.089] *intense music*
+That s a little foreshadowing.
+[795.740] First, we ll start with Apple.
+So just so you guys know what the signals
+[799.330] mean. A green arrow means a long entry. These
+1 and 2 s are take profits. If you see a green
+[805.340] x, that means the bot exited, but it was a
+losing trade.
+[808.820] And it s the Same thing with shorts, red arrow
+means entry, 1 and 2s take profits, red x
+[814.990] means the bot exited but it was a losing trade.
+So how did the bot did the bot do for the
+[818.870] very fist trade it took? The first trade to
+set the momentum for this whole experiment.
+[827.029] It was a loss.
+It tried entering a short and it looks like
+[831.589] it miscalculated a bit.
+It printed this red x which means it exited
+[835.100] the short and hit our stop loss.
+Great start.
+[837.740] And this loss was a 2.3% loss, which means,
+with a $5,000 entry, makes this a $115 loss.
+[844.240] I could of bought 10 chipotle burritos with
+that money.
+[848.060] But if you look a little bit closer, something
+interesting happened.
+[852.170] right as the bot exited the short, it also
+entered into a long trade.
+[856.170] And this long, actually ended up being a winning
+trade.
+[858.571] For a 3.5% win.
+Making all of our money back. Plus $60. So
+[864.320] now we are in the profit baby.
+AS we move throughout the month, the bot took
+[867.649] 4 more trades on Apple.
+Totaling 6 trades, 4 being winners and 2 being
+[872.329] losers.
+The bot actually did exceptionally well on
+[874.769] apple, as if we total up all the % s it made,
+it made a whopping 5.85% profit for the month.
+[881.630] And this is just for apple. Which is absolutely
+insane. I m so proud.
+[886.540] But since we set a max of $5,000 per trade
+for risk management purposes.. This 5.85%
+[892.440] isnt 5.85% of the $30,000, it s 5.85% of $5,000.
+So we made a total of $292.50 on apple during
+[898.930] this one month.
+Even if it s just $292. It s so cool to think
+[902.949] that the bot did this completely on its own.
+You did good sport, you did good.
+[911.149] Next we move onto google.
+For google, we took a total of 3 trades. 2
+[915.020] being winners, one being a loser.
+It ended up being a great dub as we made a
+[919.190] total of 6.9% for the month. Making $345.
+Onto the next one. Microsoft.
+[928.380] Microsoft was interesting one. Purely because
+the bot took the most amount of trades on
+[933.020] Microsoft.
+So the bot took a total of 7 trades. 5 being
+[936.699] winners, 2 being losers.
+For one of the losses, the bot entered a long
+[942.540] up here, but it took a little profit before
+it hit the stop loss, so the loss ended up
+[947.320] not being that bad. After all the trades it
+took. It profited a staggering 13.25%. Making
+[954.420] a total of $662.50
+Our next candidate. Was Tesla.
+[962.180] If you know anything about tesla it is extremely
+volatile.
+[965.990] And as the test was running, I was watching
+this one live a lot because both the winners
+[971.240] and losers were super big, so it was very
+nerve racking watching it live.
+[976.399] Tesla took a total of 5 trades, and profited
+24.2% during the month. Making a total of
+[983.709] $1,210. That s absolutely beautiful.
+Our next ticker, was AMD. And AMD was kind
+[990.910] of a heart breaker.
+It actually was the bots big loser.
+[993.839] Having a total of 3 trades and 2 being losses.
+It totaled a 3% loss, losing $150.
+[1000.800] Now I don t want this video to be extremely
+long, so I ll just quickly go over the rest
+[1004.810] of the ticker symbols. Feel free to pause
+the video if you want to see any specific
+[1009.010] trades.
+Nividia. 6 trades, 4 wins, 2 losses. 8.9%
+[1015.330] profit. $445.
+Disney. 3 trades, 3 wins, 0 losses. 8.5% profit.
+[1023.050] $425
+Amazon. 7 trades. 3 wins, 4 losses. 3.63%
+[1029.360] profit. $181.50
+Visa. 2 trades. 1 win, 1 loss. 1% loss. -$55.
+[1037.780] Costco. 5 trades. 4 wins, 1 loss. 7.6% gains.
+$380.
+[1044.799] But there are some major points we have to
+go over
+[1049.030] Now I want to be extremely extremely clear.
+One, I think we could of done a lot better
+[1053.990] if again, we were using the bot as more of
+a tool. Rather than just blindly following
+[1059.179] it.
+But at the same time, its pretty cool to have
+[1061.690] something like this run completely in the
+background by itself.
+[1065.500] But also, all of these trades for the most
+part, were traded while the market was trending.
+[1067.750] So we might of gotten a little lucky, its
+hard to tell. As in the last week of the testing
+[1068.840] the market started moving sideways a bit more
+and started to consolidate. Whenever the market
+[1069.840] does consolidate, the bot doesn t work as
+well.
+[1070.840] As you can see here, when the market started
+moving sideways, that s when the bot started
+[1071.840] producing more losing trades.
+So basically the bot does exceptionally well
+[1072.840] when the market is trending. And not so good
+when the market is consolidating.
+[1073.840] And for the majority of this test, the market
+was trending. So keep that in mind.
+[1075.351] So that defiantly helped with the results.
+It could have been a lot worst if the market
+[1077.920] was moving sideways the whole time.
+But if you were to trade manually. You could
+[1078.920] easily avoid that with the trend table. Because
+there is a feature where it will tell you
+[1079.940] if the market is consolidating, so you just
+simply wouldn t trade during this period.
+[1083.429] I just wanted to clear that up.
+So, after totaling all of the trades. The
+[1085.200] bot took a total of 47 trades in one month.
+Out of those 47, 16 were losses, 31 were wins.
+[1090.080] And the moment you ve all been waiting for,
+the bot made a total of $3,736.50. Taking
+[1093.400] our account total from $30,000 to $33,736.50.
+In one month of trading, completely on its
+[1096.240] own, without me touching at all. Which is
+still mind blowing to me.
+[1100.240] The bot made a total of 74.73% during the
+month. So if we didn t put the 5,000 cap per
+[1107.600] trade and used all $30,000 for every single
+trade. We would have made $22,419 in a month.
+[1117.409] Without doing any work Which is kind of sacking.
+But even with that said, I think doing this
+[1122.140] over, I would still put the cap, just for
+risk management purposes. Because if you re
+[1126.701] using all of your capital for every single
+trade, you could easily blow up an account
+[1131.890] if you got on a loss streak.
+So yeah, I think this experiment was a massive
+[1136.000] success. After doing this, it really opened
+my eyes to the potential of what this bot
+[1140.820] can actually do.
+In no way is perfect, but this has kind of
+[1144.090] inspired me to work more on the automated
+features and signals, to make this perform
+[1149.110] even better.
+Because I honestly do think automation is
+[1152.500] the future of trading. And if you re early,
+there is some serious potential for profits.
+[1157.919] So maybe ill keep this bot running in the
+background for a year or so and let you guys
+[1161.970] know what ends up happening on my Instagram.
+If you re not following me on Instagram, what
+[1167.271] are you doing
+[1168.271] But I could not be any more proud with the
+results it produced.
+[1171.669] If you guys want to check out the private
+indicator for yourself. You can go to tradinglab.ai.
+[1175.809] Ill put a link in the description.
+If you made it this far in the video, I just
+[1179.990] want to say thank you.
+This video took me 37 days to make. Which
+[1183.850] is the longest ive ever worked on a video.
+So thanks for watching till the end.
+[1186.550] Because you made it to the end, here s a coupon
+for the indicator. Ill make it
+[1189.919] Aiissexy.
+Thanks for watching and ill see you guys,
+[1194.559] next time.
