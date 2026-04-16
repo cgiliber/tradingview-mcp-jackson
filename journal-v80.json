@@ -1,0 +1,6 @@
+{
+  "strategy": "v8.0-baseline",
+  "description": "A/B test — baseline strategy trades",
+  "started": "2026-04-16",
+  "trades": []
+}
