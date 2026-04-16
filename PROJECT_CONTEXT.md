@@ -1,163 +1,80 @@
-# Project Context — v8.0 Free Scanner Revolution
+# Project Context — v8.4 (5-Strategy Parallel Testing)
 
 **Read this file at the start of every session.**
 
----
+## Vision
 
-## The Vision
-
-Build a trading system where Claude Code finds market movers, analyzes charts, and executes paper trades — all with strict risk controls and 100% free data sources.
+Build a trading system where Claude finds market movers, analyzes charts, and executes paper trades using 5 competing strategies. The winning strategy becomes v9.0 "Maria" for live trading.
 
 ```
-Finviz + CoinGecko (free scanners)  →  Claude Code (brain)  →  TradingView MCP (charts + trades)
+Finviz + CoinGecko (free) → Claude (brain) → TradingView MCP (charts + trades)
 ```
 
-Phase 1: Paper trading to prove strategies. Phase 2: Live broker (Bitget) after journal proves consistent profit.
+## Current State (April 16, 2026 end of day)
 
----
+- **Account:** $99,428.46 | Realized P&L: -$571.54
+- **Phase:** 1 (Paper Trading R&D)
+- **Strategies:** 5 running in parallel
+- **Transcripts:** 30 videos scraped (476K+ chars) from 4 channels
+- **Mistakes tracked:** 30 (27 fixed, 3 pending)
+- **Open positions:** RENDER 51u only (overnight)
 
-## Architecture — Everything is Free
+## 5 Competing Strategies
 
-| Need | Tool | Cost |
-|------|------|------|
-| Find stock movers | Finviz screener | Free |
-| Find crypto movers | CoinGecko API | Free |
-| Real-time charts | TradingView MCP | Free |
-| Real-time quotes | TradingView quote_get | Free |
-| Place trades | TradingView paper trading | Free |
-| Backup quotes | Twelve Data API | Free tier (800/day, rarely needed) |
+| Strategy | Source | Market | Key Rule | Journal |
+|----------|--------|--------|----------|---------|
+| v8.0 Baseline | Warrior Trading | All | EMA 8 momentum | journal-v80.json |
+| v8.1 Rayner | Rayner Teo (7 vids) | Stocks | Buildup, retest, EMA 21 | journal-v81.json |
+| v8.2 Cowen | Benjamin Cowen (7 vids) | Crypto | 21w EMA cycle, BTC dominance | journal-v82.json |
+| v8.3 Wysetrade | Wysetrade (7 vids) | Forex | Liquidity sweeps, smart money | journal-v83.json |
+| v8.4 Range | YouTube short | All | 15-min range breakout + pullback | journal-v84.json |
 
----
+## Rules (compact — in memory, not files)
 
-## Two Modes of Operation
-
-### 1. Morning Briefing (long-term positions)
-- **Trigger:** Maria says "morning briefing"
-- **Source:** `watchlist.json` — 93 curated assets (London/NY/Crypto/EU)
-- **Workflow:** `MORNING_BRIEF.md` — 13 steps, news research, scoring
-- **Output:** `today.json` (read-only after morning)
-
-### 2. Cash Flow Hunting (daily income)
-- **Trigger:** Automatic cron every 5-15 min
-- **Source:** Finviz (stocks) + CoinGecko (crypto) — DYNAMIC, changes daily
-- **Workflow:** `TRADER_WORKFLOW.md` — scan movers → open charts → trade or skip
-- **Goal:** $50-100/day from many small $20 wins
-
----
+See `memory/rules_compact.md` — loaded once at session start, never re-read during scans.
 
 ## Daily Schedule
 
-| Window (Oslo) | Interval | What |
-|---------------|----------|------|
-| 15:30-17:00 | **Every 5 min** | NY open power hour — biggest moves happen here |
-| 17:00-22:00 | Every 15 min | Regular session — monitor + late runners |
-| 22:00 | **CLOSE ALL** | No overnight holds |
-| 20:00-00:00 | Every 15 min | Crypto session (CoinGecko scanner) |
+| Time | What |
+|------|------|
+| 10:00-14:59 | Pre-market scan (Finviz), identify targets |
+| 15:30:00 | GAP SCALP sniper — market orders on all targets (v8.0-v8.3) |
+| 15:33 | Gap scalp check — sell winners |
+| 15:35 | Gap scalp close ALL |
+| 15:45 | v8.4 Range — mark HIGH/LOW of first 15-min candle |
+| 15:50-16:15 | v8.4 Range — check breakouts every 5 min |
+| 15:31-15:40 | Opening burst — 1 min scans for new movers |
+| 15:40-17:00 | Power hour — 5 min scans, all 5 strategies |
+| 17:00-20:00 | Regular — 15 min scans |
+| 20:00-21:55 | Closing hour — 5 min scans, close all stocks by 21:55 |
+| 20:00-00:00 | Crypto — 15 min CoinGecko scans |
+| 00:00-07:00 | Overnight crypto — 30 min scans |
 
----
+## Critical Rules
 
-## Trading Rules — v7.0 v2
-
-| Rule | Value |
-|------|-------|
-| Max loss per trade | **$10** |
-| Target per trade | **$20** (1:2 R:R) |
-| Breakeven lock | At **+$10 profit** → move SL to entry |
-| Close rule | At **+$20** → close position |
-| Daily loss limit | **-$50** → stop trading |
-| Monthly goal | **$3,000** ($150/day, 20 trading days) |
-| Position sizing | Units = FLOOR($10 / stop_distance) |
-| Close all by | 22:00 Oslo (stocks) / 00:00 (crypto) |
-| Default | **TRADE** (need reason NOT to trade) |
-| Minimum trades/day | 5-8 |
-
-### NOT valid skip reasons:
-- "Above BB upper" — momentum stocks live there
-- "Extended from EMA" — gap stocks ARE extended
-- "Late in the day" — if 1+ hour left, trade it
-- "Already have positions" — 5 × $10 = $50 total risk, fine
-- "Too volatile" — that's the opportunity
-
----
-
-## Scanner — `trader-scan.js`
-
-```bash
-node scanner/trader-scan.js              # Stock gainers + losers (Finviz)
-node scanner/trader-scan.js --crypto     # Crypto movers (CoinGecko)
-node scanner/trader-scan.js --all        # Both
-node scanner/trader-scan.js --top 20     # Top 20 per list
-```
-
-Output: ranked lists of biggest movers. Start from #1, work down. Open each chart on TradingView. Analyze. Trade or skip with technical reason.
-
----
+1. **FLASH MODE** — zero text between trades, tool calls only, summary after
+2. **RULE ZERO** — timing is everything, place order FIRST, write after
+3. **Both directions** — alternate long/short, shorts are 50% of opportunities
+4. **Top 30 movers** — not 10, go wider
+5. **$10 risk** per trade, breakeven at +$10, close at +$20
+6. **All 5 strategies** evaluate every mover independently
+7. **Close positions** via aria-label="Close" button → "Close position" confirm
+8. **Paper mode** — no budget limits, trade freely for data
+9. **Verify** every action — screenshot + check positions
+10. **Phase 2 gate** — data mining REQUIRED before live trading
 
 ## Key Files
 
-### Workflows
 | File | Purpose |
 |------|---------|
-| `TRADER_WORKFLOW.md` | **PRIMARY** — scan → chart → trade. The daily cash flow playbook. |
-| `MORNING_BRIEF.md` | Morning briefing with curated watchlist |
-| `PAPER_TRADING_ORDERS.md` | How to place orders on TradingView via DOM |
+| `TRADER_WORKFLOW.md` | Primary execution workflow |
+| `strategies/rules-compact.json` | All rules in compact format |
+| `AB_TEST.md` | 5-strategy comparison framework |
+| `MISTAKES_AUDIT.md` | 30 mistakes tracked |
+| `SPEED_BOTTLENECK.md` | Performance analysis |
+| `scanner/trader-scan.js` | Finviz + CoinGecko scanner |
+| `journal-v8*.json` | Per-strategy trade journals |
 
-### Scanner
-| File | Purpose |
-|------|---------|
-| `scanner/trader-scan.js` | **PRIMARY** — Finviz + CoinGecko, free |
-| `scanner/index.js` | Backup — Twelve Data quotes |
-| `scanner/status.js` | Live countdown display |
+## Phase 2 Gate
 
-### Rules & Strategies
-| File | Purpose |
-|------|---------|
-| `strategies/goal-based-rules.json` | **CORE** — $10 loss, $20 target |
-| `strategies/profit-lock-rules.json` | Breakeven + profit locking |
-| `rules.json` | Master rules v7.0 |
-| `strategies/*/` | 6 strategy folders with rules + watchlists |
-
-### Data
-| File | Purpose |
-|------|---------|
-| `watchlist.json` | 93 curated assets — morning briefing |
-| `journal.json` | Trade journal — 20 trades |
-| `today.json` | Morning briefing output (read-only) |
-
----
-
-## 6 Strategies
-
-| Strategy | Session (Oslo) | Assets |
-|----------|----------------|--------|
-| GAP-AND-GO | NY 15:30-16:00 | Finviz gappers >4% |
-| PENNY-STOCK-MOMENTUM | NY 15:30-17:00 | Finviz $1-$20 stocks |
-| SWING-TRADE | London + NY | S/R levels, both directions |
-| RESOURCE-COMMODITY | London + NY | Gold, Oil, Uranium, Rare earth |
-| OVERNIGHT-SWING | 22:00 → 10:00 | Forex, Gold, BTC |
-| CRYPTO-MOMENTUM | 20:00+ | CoinGecko top movers |
-
----
-
-## Critical Rules — Never Forget
-
-1. **$10 max loss.** Units = FLOOR($10 / stop). No exceptions.
-2. **Every order MUST have TP and SL.** Verify after placement.
-3. **At +$10 → breakeven SL.** Immediately. Zero exceptions.
-4. **At +$20 → CLOSE.** Take the cash. Find next trade.
-5. **Close ALL by 22:00 Oslo.** No overnight holds.
-6. **Always check chart.** Open TradingView for every mover.
-7. **Default is TRADE.** Stop being scared. $10 is 0.01% of portfolio.
-8. **Both directions.** Scan gainers (LONG) AND losers (SHORT).
-9. **Start from #1.** Work down the Finviz/CoinGecko list.
-10. **Log everything.** journal.json after every trade.
-
----
-
-## Account
-- Started: $100,000
-- Current: ~$100,002
-- Branch: `maria-dev`
-- Tag: `v8.0`
-- Repo: `cgiliber/tradingview-mcp-jackson`
-- SSH: `~/.ssh/id_ed25519_github`
+Before live trading: collect 100+ trades → data mine all journals → find best rules per condition → build v9.0 hybrid → paper trade 10 days → THEN go live on Bitget.
