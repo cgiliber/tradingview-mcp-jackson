@@ -1,0 +1,47 @@
+{
+  "strategy": "v8.2-cowen",
+  "description": "Benjamin Cowen crypto framework \u2014 market cycle awareness, 21-week EMA as bull/bear divider, risk-off when indicators say so, BTC dominance rotation",
+  "version": "8.2",
+  "source": "Benjamin Cowen (IntoTheCryptoverse) \u2014 transcripts in transcripts/cowen_*.txt",
+  "applies_to": "CRYPTO ONLY \u2014 this strategy is for crypto trades, not stocks",
+  "core_concepts": {
+    "1_bare_market_resistance_band": "The 20-week SMA and 21-week EMA form a resistance band. In bear markets, price gets rejected here. In bull markets, it acts as support. Check where BTC is relative to this band before trading ANY crypto.",
+    "2_btc_dominance": "BTC dominance rising = risk rolling DOWN the curve (altcoins bleed to BTC, BTC bleeds to stocks, stocks bleed to gold). When dominance rising, only trade BTC, not altcoins.",
+    "3_midterm_year_psychology": "Midterm years eat portfolios alive. Counter-trend rallies trick people into buying back in, then lower lows follow. Don't FOMO into rallies.",
+    "4_windows_of_weakness": "Historical weakness months: February, April, June, August, October. Be cautious entering new crypto positions during these windows.",
+    "5_always_bull_market_somewhere": "If crypto is in a bear phase, look elsewhere (energy, metals, stocks). Don't force crypto trades in a bear cycle."
+  },
+  "entry_rules": {
+    "1_check_btc_vs_21week_ema": "Before ANY crypto trade, check if BTC is above or below the 21-week EMA. Above = bullish environment, trade freely. Below = bear market, reduce size or skip.",
+    "2_btc_dominance_direction": "If BTC dominance rising on weekly chart, ONLY trade BTC. Avoid altcoins \u2014 they will underperform.",
+    "3_counter_trend_awareness": "If BTC is in a bear market (below 21w EMA) and rallying, treat it as a COUNTER-TREND rally. Tighter stops, smaller size, expect rejection at the 21w EMA.",
+    "4_support_at_prior_cycle_levels": "Key BTC levels from prior cycles tend to act as support/resistance. Check if current price is near a historically significant level.",
+    "5_rsi_divergence": "If price making higher highs but RSI making lower highs on daily = bearish divergence. Don't enter longs."
+  },
+  "exit_rules": {
+    "1_rejection_at_21w_ema": "If BTC gets rejected at the 21-week EMA (bear market resistance band), close longs immediately.",
+    "2_btc_dominance_reversal": "If BTC dominance starts dropping on weekly, consider rotating some BTC to altcoins.",
+    "3_seasonality_exit": "Before known weakness windows (June, October), reduce crypto exposure."
+  },
+  "how_to_check": {
+    "21_week_ema": "On TradingView, switch BTCUSD to Weekly timeframe, add EMA(21). If price is above = bull. Below = bear.",
+    "btc_dominance": "Chart BTC.D on TradingView. Rising = risk-off for altcoins.",
+    "rsi_divergence": "RSI(14) on Daily chart. Compare RSI highs vs price highs."
+  },
+  "max_risk": 10,
+  "target_profit": 20,
+  "breakeven_at": 10,
+  "close_at": 20,
+  "key_difference_from_v80": "v8.0 and v8.1 treat crypto like stocks \u2014 just find movers and trade momentum. v8.2 adds MACRO CONTEXT: is the crypto market in a bull or bear cycle? Should we even be trading crypto right now, or should we wait? Cowen's framework prevents trading against the macro trend.",
+  "journal_file": "journal-v82.json",
+  "paper_trading_mode": true,
+  "portfolio_limit": "NONE \u2014 paper trading, no budget limits. Trade freely to test strategy rules.",
+  "max_positions": "UNLIMITED \u2014 paper trading. More trades = more data = better comparison.",
+  "daily_loss_limit": "NONE \u2014 never stop trading due to losses in paper mode",
+  "gap_scalp_mode": {
+    "enabled": true,
+    "inherits_from": "strategies/v8.0-baseline/gap-scalp.json",
+    "description": "At market open (15:30-15:35), use GAP SCALP timing mode. Apply own strategy rules for stop/target within the 5-min window.",
+    "override": "GAP SCALP timing overrides normal entry rules for first 5 min. After 15:35, revert to normal strategy rules."
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "strategy": "v8.1-rayner",
+  "description": "Enhanced with Rayner Teo breakout rules \u2014 buildup detection, retest entries, 20 EMA proximity, ATR stops",
+  "version": "8.1",
+  "source": "Rayner Teo (TradingwithRayner) \u2014 transcripts in transcripts/rayner_*.txt",
+  "entry_rules": {
+    "1_buildup": "Tight consolidation (buildup) at resistance = sign of strength. 20-25 candles in tight range near a level \u2192 breakout likely.",
+    "2_higher_lows": "Higher lows into resistance (ascending triangle) = buyers getting aggressive. Strong breakout signal.",
+    "3_retest": "After breakout, wait for price to come back and retest broken level as support. Safer entry, better R:R.",
+    "4_ema_proximity": "Best entries when price is CLOSE to 20 EMA (hugging it). Gives tight stop + swift move. Don't enter when far from 20 EMA.",
+    "5_strong_trend": "In strong trend (price below/above 20 EMA consistently), trade breakdowns/breakouts of swing lows/highs near the 20 EMA."
+  },
+  "stop_loss": "1 ATR below the swing low of the buildup/pattern. NOT just below last candle \u2014 below the PATTERN low.",
+  "take_profit": "Entry + (2 x stop_distance) minimum. If strong trend, trail with 20 EMA.",
+  "max_risk": 10,
+  "target_profit": 20,
+  "breakeven_at": 10,
+  "close_at": 20,
+  "key_differences_from_v80": {
+    "1": "Buildup detection \u2014 look for tight consolidation before breakout, not just EMA position",
+    "2": "Retest entries \u2014 if we miss the initial breakout, wait for the retest instead of chasing",
+    "3": "20 EMA proximity \u2014 only enter when price is near EMA 21 (our closest to Rayner's 20 MA). Skip if extended far above/below",
+    "4": "ATR-based stop below pattern low \u2014 not just last candle low. More room but still sized to $10 risk",
+    "5": "Ascending/descending triangle detection \u2014 higher lows into resistance or lower highs into support"
+  },
+  "chart_checklist": {
+    "1": "Is there a BUILDUP (tight consolidation) at a key level?",
+    "2": "Is price within 1 ATR of EMA 21? (proximity check)",
+    "3": "Are there higher lows into resistance? (ascending triangle)",
+    "4": "Is this a RETEST of a broken level? (second chance entry)",
+    "5": "What is the ATR(14)? Stop = 1 ATR below pattern swing low"
+  },
+  "journal_file": "journal-v81.json",
+  "paper_trading_mode": true,
+  "portfolio_limit": "NONE \u2014 paper trading, no budget limits. Trade freely to test strategy rules.",
+  "max_positions": "UNLIMITED \u2014 paper trading. More trades = more data = better comparison.",
+  "daily_loss_limit": "NONE \u2014 never stop trading due to losses in paper mode",
+  "gap_scalp_mode": {
+    "enabled": true,
+    "inherits_from": "strategies/v8.0-baseline/gap-scalp.json",
+    "description": "At market open (15:30-15:35), use GAP SCALP timing mode. Apply own strategy rules for stop/target within the 5-min window.",
+    "override": "GAP SCALP timing overrides normal entry rules for first 5 min. After 15:35, revert to normal strategy rules."
+  }
+}
