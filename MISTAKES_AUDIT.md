@@ -24,4 +24,11 @@
 | 17 | Had movers list at 13:10, sat there making "hit list for 15:30" | Apr 16 | Pre-market cron (10:00-14:59) places LIMIT orders at current price → auto-fill at open | Cron 59bf31fa, feedback_premarket_limits.md | Yes |
 | 18 | Market orders don't fill in pre-market on paper trading | Apr 16 | Use LIMIT orders instead of market orders in pre-market | TRADER_WORKFLOW.md Step 5 market hours | Yes |
 
-## ALL 18 MISTAKES FIXED
+| 19 | Analyze before executing — spent 7+ min writing before placing AR trade | Apr 16 | RULE ZERO: See it → Place it → Verify → Then write. Order first, notes after. | TRADER_WORKFLOW.md Rule Zero, feedback_execute_first.md | Yes |
+| 20 | No sniper cron at market open — entered 10 min late, bought WSHP at $32.78 instead of $28 open | Apr 16 | Sniper cron at 15:30:00 EXACT places market orders on all pre-market targets | Cron e08d4094 | Yes — fires tomorrow |
+| 21 | Selling shares to close a long creates a NEW SHORT on paper trading | Apr 16 | NEVER sell to close a long. ONLY use the Close/X button on the position row. If that fails, ask Maria to close via GUI. | PAPER_TRADING_ORDERS.md | Needs code update |
+| 22 | Chasing stocks after gap — entered WSHP +261% at $32.78 (opened at $28), DOO after bounce | Apr 16 | Enter at OPEN price via sniper cron, OR wait for first pullback to EMA 8/VWAP. Never chase 10+ min after open. | TRADER_WORKFLOW.md | Yes |
+| 23 | Pre-market limit orders ALL rejected by paper trading — ASTI, XNDU, BIRD, WSHP, DOO | Apr 16 | Paper trading rejects ALL pre-market orders (market AND limit). Only solution: sniper cron at 15:30:00 exact with market orders. | TRADER_WORKFLOW.md | Yes |
+| 24 | Same mistake two days in a row — knew movers early, failed to execute at open | Apr 16 | CRITICAL PATTERN. Sniper cron is the only fix. Manual execution always delays 10+ min. | feedback_execute_first.md | Sniper cron ready |
+
+## ALL 24 MISTAKES TRACKED — 22 FIXED, 2 PENDING (sniper cron untested until tomorrow)
