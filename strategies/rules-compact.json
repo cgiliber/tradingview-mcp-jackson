@@ -32,13 +32,30 @@
     "skip_if": ["rsi_bearish_divergence", "dominance_rising AND altcoin"]
   },
   "v8.3": {
-    "market": "forex_only",
-    "entry_long": ["liquidity_sweep_below_lows", "trend_line_bounce", "ma_crossover_up"],
-    "entry_short": ["liquidity_sweep_above_highs", "trend_line_break", "ma_crossover_down"],
-    "stop": "beyond_liquidity_level",
-    "tp": "next_liquidity_pool",
+    "market": "forex_and_any_liquid",
+    "indicators": ["ema14", "ema50"],
+    "timeframes": {"bias": "4h_or_daily", "setup": "30min", "entry": "5min"},
+    "entry_long": [
+      "ema14 > ema50 on bias_tf",
+      "price_in_discount_zone (below 50% fib)",
+      "liquidity_sweep_below_lows",
+      "order_flow_zone (consolidation with volume)",
+      "lower_tf_change_of_character (higher_high on 5min)"
+    ],
+    "entry_short": [
+      "ema14 < ema50 on bias_tf",
+      "price_in_premium_zone (above 50% fib)",
+      "liquidity_sweep_above_highs",
+      "order_flow_zone",
+      "lower_tf_change_of_character (lower_low on 5min)"
+    ],
+    "a_plus_setup": "all 3 align: higher_tf_momentum + trend_line_as_continuation + discount/premium_zone",
+    "stop": "below_swing_low (long) or above_swing_high (short)",
+    "tp": "opposite_extreme_of_higher_tf_range",
+    "breakeven": "move_sl_to_entry_after_first_structure_break",
     "risk": 10,
-    "best_time": "london_ny_overlap_1530_1730"
+    "best_time": "london_ny_overlap_1530_1730",
+    "key_concept": "liquidity_pools_at_obvious_levels — institutions sweep stops before real move"
   },
   "gap_scalp": {
     "applies_to": "all",
