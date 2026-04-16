@@ -1,0 +1,6 @@
+{
+  "strategy": "v8.4-range-breakout",
+  "description": "15-min opening range breakout — wait, mark range, enter on breakout pullback",
+  "started": "2026-04-17",
+  "trades": []
+}

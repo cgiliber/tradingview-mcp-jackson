@@ -69,17 +69,24 @@ For each top 10 mover:
 - **Rules:** strategies/v8.3-wysetrade/rules.json
 - **Note:** 10% portfolio limit suspended during paper trading — trade freely to test
 
+## Strategy E: v8.4 Range Breakout
+- **Framework:** 15-min opening range breakout. Wait for first candle, mark range, enter on 5-min breakout + pullback.
+- **Key difference:** Does NOT enter at market open. Waits 15 min. Avoids spike-and-crash.
+- **Crons:** 15:45 mark ranges, 15:50-16:15 check breakouts every 5 min
+- **Journal:** journal-v84.json
+- **Rules:** strategies/v8.4-range-breakout/rules.json
+
 ## Scoring After 20 Days
 
-| Metric | v8.0 | v8.1 | v8.2 | v8.3 |
+| Metric | v8.0 | v8.1 | v8.2 | v8.3 | v8.4 |
 |--------|------|------|------|
-| Total trades | | | | |
-| Win rate | | | | |
-| Avg profit per win | | | | |
-| Avg loss per loss | | | | |
-| Total P&L | | | | |
-| Best trade | | | | |
-| Worst trade | | | | |
-| Max drawdown | | | | |
+| Total trades | | | | | |
+| Win rate | | | | | |
+| Avg profit per win | | | | | |
+| Avg loss per loss | | | | | |
+| Total P&L | | | | | |
+| Best trade | | | | | |
+| Worst trade | | | | | |
+| Max drawdown | | | | | |
 
 Winner becomes the permanent strategy.

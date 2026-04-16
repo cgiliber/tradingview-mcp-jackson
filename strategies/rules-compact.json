@@ -66,6 +66,18 @@
     "max_hold": "5_min",
     "min_gap": 20
   },
+  "v8.4": {
+    "name": "range_breakout",
+    "window_wait": "15:30-15:45 NO TRADES",
+    "mark_range": "at 15:45 record high/low of first 15min candle per mover",
+    "entry_long": "5min candle CLOSES above range_high → buy pullback to range_high",
+    "entry_short": "5min candle CLOSES below range_low → sell pullback to range_low",
+    "stop_long": "below range_low",
+    "stop_short": "above range_high",
+    "tp": "2x stop_distance",
+    "risk": 10,
+    "check_interval": "every 5 min from 15:45 to 16:15"
+  },
   "global": {
     "risk_per_trade": 10,
     "sizing": "FLOOR(10 / stop_distance)",

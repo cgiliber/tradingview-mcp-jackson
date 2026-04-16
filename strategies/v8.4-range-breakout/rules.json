@@ -1,0 +1,19 @@
+{
+  "strategy": "v8.4-range-breakout",
+  "description": "15-min opening range breakout. Wait for first candle, mark range, enter on 5-min breakout + pullback.",
+  "source": "YouTube short — 10 years in 1 minute strategy",
+  "version": "8.4",
+
+  "steps": {
+    "1_wait": "15:30-15:45 Oslo — DO NOT TRADE. Let first 15-min candle form.",
+    "2_mark_range": "At 15:45 — record HIGH and LOW of first 15-min candle for each top 30 mover.",
+    "3_watch_breakout": "15:45-16:15 — every 5 min, check if 5-min candle CLOSED above range_high (BUY) or below range_low (SELL).",
+    "4_enter_pullback": "After breakout confirmed — enter on pullback to the range level (support/resistance).",
+    "5_stop": "Below range_low (for longs) or above range_high (for shorts).",
+    "6_target": "2x stop distance or next major level."
+  },
+
+  "key_difference": "Does NOT enter at market open. Waits 15 min for range to form. Avoids the spike-and-crash problem.",
+  "risk": 10,
+  "journal_file": "journal-v84.json"
+}
