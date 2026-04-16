@@ -4,9 +4,17 @@
 
 **TIMING IS EVERYTHING. NOTHING INTERRUPTS A TRADE OPPORTUNITY.**
 
-When the scanner finds a mover: STOP everything else. Stop writing. Stop analyzing. Stop answering questions. Stop scraping videos. Stop updating files. PLACE THE ORDER FIRST. Everything else can wait 30 seconds. The price cannot.
+**FLASH MODE: Zero text between trades during scan execution.**
 
-**See it → Place it → Verify it → THEN talk about it.**
+1. Run scanner → get movers list
+2. Process ALL 30 movers silently — ONLY tool calls, ZERO text output
+3. Per stock: chart_set_symbol → quote_get → data_get_study_values → place order → NEXT (10 sec max)
+4. Alternate: #1 gainer → #1 loser → #2 gainer → #2 loser
+5. All 4 strategies evaluated per stock — place separate orders for each qualifying strategy
+6. AFTER all 30 are done → write ONE summary of everything
+
+**NO paragraphs. NO tables. NO "let me check". NO analysis text between trades.**
+Just tool calls back to back. Like Flash.
 
 This rule overrides ALL other rules. No exceptions. Ever.
 
@@ -47,6 +55,12 @@ quote_get + data_get_study_values + data_get_ohlcv summary:true
 4. **Price $1+ and volume 1K+?** → tradeable
 
 **CRITICAL: PLACE THE ORDER FIRST, WRITE ANALYSIS AFTER.**
+
+**CRITICAL: TRADE BOTH DIRECTIONS EQUALLY.**
+For every scan: place LONG trades from gainers list THEN IMMEDIATELY place SHORT trades from losers list.
+Do NOT move on to position checks until BOTH directions are done.
+Alternate: #1 gainer → #1 loser → #2 gainer → #2 loser → etc.
+SHORTS ARE 50% OF THE OPPORTUNITIES. Ignoring them = throwing away half the money.
 Do NOT write notes, evaluate 4 strategies, or debate before placing. The order of operations is:
 1. See setup → 2. Place order → 3. Verify → 4. THEN write analysis and log to journal.
 Analysis AFTER execution, not before. Every second you spend writing is a second the price moves away.
