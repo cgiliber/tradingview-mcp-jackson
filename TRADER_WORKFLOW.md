@@ -100,11 +100,30 @@ quote_get + data_get_study_values + data_get_ohlcv summary:true
 
 ### CRITICAL RULE: Never say "TP hit" or "SL triggered" without checking order history on TradingView. Price going past TP doesn't mean the order filled — verify it.
 
-## Step 5: Profit Management
+## Step 5: Market Hours Check — BEFORE Any Stock Action
+
+**NEVER try to place, close, or modify a US stock order outside market hours.**
+
+| Market | Open (Oslo) | Close (Oslo) | Days |
+|--------|-------------|--------------|------|
+| US stocks (NYSE/NASDAQ) | 15:30 | 22:00 | Mon-Fri |
+| EU stocks (ADR) | 15:30 | 22:00 | Mon-Fri |
+| Crypto | 24/7 | 24/7 | Every day |
+| Forex | 24/7 (Sun 23:00 - Fri 23:00) | — | Sun-Fri |
+
+**Before ANY stock order action:**
+1. Check Oslo time with `date`
+2. If before 15:30 or after 22:00 → **DON'T TRY.** Paper trading won't execute.
+3. If stock needs closing and market is closed → **set a reminder for 15:30, not now**
+4. Crypto and forex can trade anytime
+
+**STLA lesson:** Tried to close NYSE stock at 21:50 and 07:00 Oslo. Both failed silently. Wasted time. The order just doesn't execute outside hours.
+
+## Step 6: Profit Management
 
 1. **At +$10 unrealized** → move SL to breakeven → VERIFY per 4c
-2. **At +$20 unrealized** → CLOSE position → VERIFY per 4b
-3. Close ALL stocks by 22:00 Oslo → VERIFY each one closed
+2. **At +$20 unrealized** → CLOSE position → VERIFY per 4b (only during market hours for stocks)
+3. Close ALL stocks by **21:55 Oslo** (5 min before close, not AT close) → VERIFY each one closed
 
 ## Step 6: Log to journal.json
 
