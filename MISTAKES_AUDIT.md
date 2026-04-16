@@ -31,4 +31,17 @@
 | 23 | Pre-market limit orders ALL rejected by paper trading — ASTI, XNDU, BIRD, WSHP, DOO | Apr 16 | Paper trading rejects ALL pre-market orders (market AND limit). Only solution: sniper cron at 15:30:00 exact with market orders. | TRADER_WORKFLOW.md | Yes |
 | 24 | Same mistake two days in a row — knew movers early, failed to execute at open | Apr 16 | CRITICAL PATTERN. Sniper cron is the only fix. Manual execution always delays 10+ min. | feedback_execute_first.md | Sniper cron ready |
 
-## ALL 24 MISTAKES TRACKED — 23 FIXED, 1 PENDING (sniper cron untested until tomorrow)
+| 25 | Only traded 8 of 30 movers — ignored 22 with no valid reason | Apr 16 | Rapid fire: 30 seconds per stock, process ALL 30 movers | feedback_rapid_fire.md | Needs architecture fix |
+| 26 | Only traded LONGS, ignored 50% of opportunities (SHORTS) | Apr 15+16 | Alternate long/short during scan | feedback_trade_both_directions.md | Fixed in workflow |
+
+## CRITICAL OPEN ISSUE — SPEED BOTTLENECK
+
+**This is the #1 problem killing our performance. Must be solved before anything else.**
+
+**Problem:** Processing 30 movers takes too long. Currently ~5 min per stock = 2.5 hours for 30 stocks. Need 30 seconds per stock = 15 min for 30 stocks.
+
+**Root cause analysis needed:** Is it computer performance? TradingView MCP latency? Too many tool calls per trade? Claude thinking too much? Need to profile and fix.
+
+**See: SPEED_BOTTLENECK.md for full analysis.**
+
+## ALL 26 MISTAKES TRACKED — 23 FIXED, 3 PENDING
