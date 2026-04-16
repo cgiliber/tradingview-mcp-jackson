@@ -1,6 +1,26 @@
 {
   "strategy": "v8.2-cowen",
-  "description": "A/B/C test — Benjamin Cowen crypto cycle strategy trades",
-  "started": "2026-04-16",
-  "trades": []
+  "description": "BTC 21w EMA cycle, dominance, RSI divergence \u2014 crypto only",
+  "trades": [
+    {
+      "id": "T16-C1",
+      "date": "2026-04-16",
+      "time": "18:20",
+      "symbol": "DOT",
+      "side": "LONG",
+      "entry": 1.312,
+      "exit": null,
+      "qty": 588,
+      "pnl": null,
+      "result": "OPEN",
+      "scanner": "coingecko",
+      "entry_type": "counter_trend_major",
+      "btc_vs_21w_ema": "below_bearish",
+      "btc_dominance": "59.76_rising",
+      "stop": "1.295_tight_counter_trend",
+      "tp": "1.346_conservative",
+      "note": "First v8.2 trade. Counter-trend = tight stop, small target.",
+      "breakeven_locked": true
+    }
+  ]
 }

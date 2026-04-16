@@ -1,6 +1,6 @@
 {
   "strategy": "v8.3-wysetrade",
-  "description": "A/B/C/D test — Wysetrade forex strategy trades",
-  "started": "2026-04-16",
-  "trades": []
+  "description": "Forex liquidity sweeps, smart money, trend lines",
+  "trades": [],
+  "note": "No forex setups identified today. Need London session forex pairs moving for this strategy."
 }
