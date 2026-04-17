@@ -1,0 +1,85 @@
+//@version=6
+// v8.5 Supply Demand — TradingLab "The Only Strategy You Will Ever Need"
+// Source: YouTube video by TradingLab
+// Features: Valid market structure, supply/demand zones, R:R > 2.5:1
+// Sticky signals: BUY_SIGNAL/SELL_SIGNAL persist for ~60 min on any timeframe
+indicator("v8.5 Supply Demand", overlay=true, max_bars_back=500)
+length = input.int(10, "Swing Length")
+persistMinutes = 60
+barsPerPersist = math.max(1, math.round(persistMinutes * 60 / timeframe.in_seconds()))
+pivHigh = ta.pivothigh(high, length, length)
+pivLow = ta.pivotlow(low, length, length)
+var float swingHigh = na
+var float swingLow = na
+var int trendDir = 0
+if not na(pivHigh) and (na(swingHigh) or pivHigh != swingHigh)
+    swingHigh := pivHigh
+if not na(pivLow) and (na(swingLow) or pivLow != swingLow)
+    swingLow := pivLow
+if not na(swingHigh) and not na(swingLow)
+    if close > swingHigh
+        trendDir := 1
+    if close < swingLow
+        trendDir := -1
+bodySize = math.abs(close - open)
+avgBody = ta.sma(bodySize, 14)
+isImpulseUp = (close - open) > avgBody * 2 and close > open
+isImpulseDown = (open - close) > avgBody * 2 and close < open
+var float zoneHigh = na
+var float zoneLow = na
+var int zoneType = 0
+var bool zoneActive = false
+if isImpulseUp and trendDir == 1
+    zoneHigh := high[1]
+    zoneLow := low[1]
+    zoneType := 1
+    zoneActive := true
+if isImpulseDown and trendDir == -1
+    zoneHigh := high[1]
+    zoneLow := low[1]
+    zoneType := -1
+    zoneActive := true
+buySignal = false
+sellSignal = false
+var float entryPrice = na
+var float stopPrice = na
+var float tpPrice = na
+var int buyCounter = 0
+var int sellCounter = 0
+if zoneActive and zoneType == 1 and trendDir == 1 and low <= zoneHigh and close > zoneLow
+    stopDist = zoneHigh - zoneLow
+    reward = nz(swingHigh, close) - zoneHigh
+    if stopDist > 0 and reward / stopDist >= 2.5
+        buySignal := true
+        buyCounter := barsPerPersist
+        entryPrice := zoneHigh
+        stopPrice := zoneLow
+        tpPrice := zoneHigh + reward
+        zoneActive := false
+if zoneActive and zoneType == -1 and trendDir == -1 and high >= zoneLow and close < zoneHigh
+    stopDist = zoneHigh - zoneLow
+    reward = zoneLow - nz(swingLow, close)
+    if stopDist > 0 and reward / stopDist >= 2.5
+        sellSignal := true
+        sellCounter := barsPerPersist
+        entryPrice := zoneLow
+        stopPrice := zoneHigh
+        tpPrice := zoneLow - reward
+        zoneActive := false
+if buyCounter > 0
+    buyCounter -= 1
+if sellCounter > 0
+    sellCounter -= 1
+stickyBuy = buyCounter > 0
+stickySell = sellCounter > 0
+plot(swingHigh, "Swing High", color.red, 1, plot.style_stepline)
+plot(swingLow, "Swing Low", color.green, 1, plot.style_stepline)
+plotshape(buySignal, "BUY", shape.triangleup, location.belowbar, color.green, size=size.normal)
+plotshape(sellSignal, "SELL", shape.triangledown, location.abovebar, color.red, size=size.normal)
+bgcolor(trendDir == 1 ? color.new(color.green, 95) : trendDir == -1 ? color.new(color.red, 95) : na)
+plot(stickyBuy ? 1 : 0, "BUY_SIGNAL", display=display.data_window)
+plot(stickySell ? 1 : 0, "SELL_SIGNAL", display=display.data_window)
+plot(trendDir, "TREND", display=display.data_window)
+plot(entryPrice, "ENTRY", display=display.data_window)
+plot(stopPrice, "STOP", display=display.data_window)
+plot(tpPrice, "TP", display=display.data_window)
