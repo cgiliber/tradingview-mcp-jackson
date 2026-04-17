@@ -1,0 +1,98 @@
+//@version=6
+// EURGBP 1H Mean-Reversion v1.0
+// Discovered via K-Means clustering + Bonferroni validation + OOS backtest
+// Source: scripts/statistical_validation_v2.py + backtest_forex_meanrev.py
+// Validated: 192 OOS trades, 57.3% WR, +1.43% return, PF 1.19
+indicator("EURGBP MeanRev v1.0", overlay=true)
+
+// ─── Inputs ───
+rsiLen = input.int(14, "RSI length")
+emaLen = input.int(20, "EMA length")
+atrLen = input.int(14, "ATR length")
+holdBars = input.int(5, "Exit after N bars")
+
+rsiLongMax = input.float(50, "LONG: RSI max")
+rsiShortMin = input.float(55, "SHORT: RSI min")
+ema20DistMaxLong = input.float(0.10, "LONG: EMA20 dist max %")
+ema20DistMinLong = input.float(-0.20, "LONG: EMA20 dist min %")
+ema20DistMinShort = input.float(-0.10, "SHORT: EMA20 dist min %")
+ema20DistMaxShort = input.float(0.20, "SHORT: EMA20 dist max %")
+rangeAtrMaxLong = input.float(1.0, "LONG: range/ATR max")
+rangeAtrMinShort = input.float(1.0, "SHORT: range/ATR min")
+longHourStart = input.int(18, "LONG hour UTC start")
+longHourEnd = input.int(22, "LONG hour UTC end")
+shortHourStart = input.int(9, "SHORT hour UTC start")
+shortHourEnd = input.int(16, "SHORT hour UTC end")
+
+// ─── Indicators ───
+rsi = ta.rsi(close, rsiLen)
+ema20 = ta.ema(close, emaLen)
+atrV = ta.atr(atrLen)
+
+ema20Dist = (close - ema20) / ema20 * 100
+rangeAtr = (high - low) / atrV
+hourUtc = hour(time, "GMT")
+
+// ─── Entry conditions ───
+longCond = rsi <= rsiLongMax
+       and ema20Dist >= ema20DistMinLong
+       and ema20Dist <= ema20DistMaxLong
+       and rangeAtr <= rangeAtrMaxLong
+       and hourUtc >= longHourStart
+       and hourUtc <= longHourEnd
+
+shortCond = rsi >= rsiShortMin
+        and ema20Dist >= ema20DistMinShort
+        and ema20Dist <= ema20DistMaxShort
+        and rangeAtr >= rangeAtrMinShort
+        and hourUtc >= shortHourStart
+        and hourUtc <= shortHourEnd
+
+// ─── Exit timer (5 bars after signal) ───
+var int barsSinceLong = -1
+var int barsSinceShort = -1
+
+if longCond
+    barsSinceLong := 0
+else if barsSinceLong >= 0
+    barsSinceLong := barsSinceLong + 1
+
+if shortCond
+    barsSinceShort := 0
+else if barsSinceShort >= 0
+    barsSinceShort := barsSinceShort + 1
+
+exitLong = barsSinceLong == holdBars
+exitShort = barsSinceShort == holdBars
+
+if exitLong
+    barsSinceLong := -1
+if exitShort
+    barsSinceShort := -1
+
+// ─── Plots ───
+plot(ema20, "EMA20", color=color.yellow, linewidth=1)
+plotshape(longCond, "BUY", style=shape.triangleup, location=location.belowbar,
+          color=color.lime, size=size.small)
+plotshape(shortCond, "SELL", style=shape.triangledown, location=location.abovebar,
+          color=color.red, size=size.small)
+plotshape(exitLong, "EXIT_L", style=shape.xcross, location=location.abovebar,
+          color=color.lime, size=size.tiny)
+plotshape(exitShort, "EXIT_S", style=shape.xcross, location=location.belowbar,
+          color=color.red, size=size.tiny)
+
+// ─── Data window outputs (for MCP scanning) ───
+plot(longCond ? 1 : 0, "BUY_SIGNAL", display=display.data_window)
+plot(shortCond ? 1 : 0, "SELL_SIGNAL", display=display.data_window)
+plot(exitLong ? 1 : 0, "EXIT_LONG", display=display.data_window)
+plot(exitShort ? 1 : 0, "EXIT_SHORT", display=display.data_window)
+plot(rsi, "RSI", display=display.data_window)
+plot(ema20Dist, "EMA20_DIST_%", display=display.data_window)
+plot(rangeAtr, "RANGE_ATR", display=display.data_window)
+plot(hourUtc, "HOUR_UTC", display=display.data_window)
+
+// ─── Alerts ───
+alertcondition(longCond, "EURGBP LONG entry", "EURGBP MeanRev — LONG @ {{close}}")
+alertcondition(shortCond, "EURGBP SHORT entry", "EURGBP MeanRev — SHORT @ {{close}}")
+alertcondition(exitLong, "EURGBP exit LONG", "EURGBP MeanRev — close LONG @ {{close}}")
+alertcondition(exitShort, "EURGBP exit SHORT", "EURGBP MeanRev — close SHORT @ {{close}}")

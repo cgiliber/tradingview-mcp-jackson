@@ -1,0 +1,51 @@
+{
+  "name": "EURGBP 1H Mean-Reversion v1.0",
+  "version": "1.0",
+  "discovered": "2026-04-18",
+  "status": "validated_oos",
+  "asset": "EURGBP",
+  "timeframe": "1h",
+  "long_entry": {
+    "rsi_max": 50,
+    "ema20_dist_min": -0.20,
+    "ema20_dist_max": 0.10,
+    "range_atr_max": 1.0,
+    "hour_utc_min": 18,
+    "hour_utc_max": 22
+  },
+  "short_entry": {
+    "rsi_min": 55,
+    "ema20_dist_min": -0.10,
+    "ema20_dist_max": 0.20,
+    "range_atr_min": 1.0,
+    "hour_utc_min": 9,
+    "hour_utc_max": 16
+  },
+  "exit": {
+    "type": "time_based",
+    "hold_bars": 5
+  },
+  "risk": {
+    "max_loss_per_trade_usd": 10,
+    "max_concurrent_positions": 1,
+    "daily_loss_cap_consecutive": 3
+  },
+  "validation": {
+    "method": "K-Means K=20 clustering + Bonferroni correction + 70/30 train/test split",
+    "bonferroni_p_value": 5.12e-06,
+    "bonferroni_threshold": 3.76e-05,
+    "train_trades": 437,
+    "train_win_rate": 50.6,
+    "test_trades_oos": 192,
+    "test_win_rate_oos": 57.3,
+    "test_return_pct_oos": 1.43,
+    "test_profit_factor_oos": 1.19,
+    "test_max_drawdown_pct": 1.92,
+    "spread_cost_pct_per_trade": 0.0083
+  },
+  "expected_performance": {
+    "trades_per_day": 1.2,
+    "estimated_annual_return_pct": "4-6",
+    "win_rate": "55-58"
+  }
+}

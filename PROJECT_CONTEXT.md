@@ -51,27 +51,40 @@ Based on TradingLab YouTube: "The Only Strategy You Will Ever Need"
 
 **Important:** Pine Script strategies CANNOT auto-trade on Paper Trading. Must use indicator + manual order placement.
 
-## Pattern Scanner (NEW — April 17)
+## Pattern R&D Pipeline (NEW — April 17-18)
 
-Mathematical pattern recognition on OHLCV data for strategy R&D.
+Mathematical pattern recognition on OHLCV data for strategy discovery.
 
-**Approach:**
-1. 5-candle sliding windows, OHLC normalized as % change from base (price-independent)
-2. K-Means clustering (K=15) groups similar patterns
-3. Measures outcome: price change in next 5 bars per cluster
-4. Cross-correlation template matching (V-reversals, inverted-V tops)
+**Approach evolution:**
+1. K-Means clustering on 5-candle OHLCV windows
+2. Cross-correlation template matching (V-reversals)
+3. Statistical validation (binomial test + Bonferroni correction)
+4. Out-of-sample backtest (70/30 train/test split)
+5. Multi-asset generalization testing
 
-**Findings on NVDA 1H (443 bars, Jan-Apr 2026):**
-- Best bullish cluster: 59% win rate (C14, n=22, avg +0.60%)
-- Best bearish cluster: 67% short accuracy (C7, n=18)
-- V-reversals: 45.5% — NOT reliable buy signals
-- Inverted-V tops: 35% sell accuracy — moderately useful
-- Overall edges are modest (55-65% range)
+**Final result — ONE validated strategy emerged:**
+- **EURGBP 1H Mean-Reversion v1.0** — see `strategies/forex-meanrev-eurgbp/`
+- Bonferroni p < 5.1e-06, OOS WR 57.3%, +1.43% return on 192 trades
+- Time-of-day mean reversion using RSI + EMA20 + ATR + hour
+
+**Process learnings:**
+- 4,156 patterns tested with raw OHLCV → 0 survived Bonferroni (curve fitting noise)
+- Adding indicators (RSI, EMAs, ATR, time) → 2 EURGBP patterns survived
+- Cross-pair testing (EURJPY, USDCHF, etc.) → only EURGBP held in OOS
+- Stocks/crypto produced no statistically valid edges at this data scale
 
 **Files:**
-- `scripts/pattern_scanner.py` — K-Means + cross-correlation scanner
-- `data/pattern-results.json` — full results with examples
-- `charts/pattern-clusters.png` — visual of cluster centroids
+- `scripts/pattern_scanner.py` — original K-Means + cross-correlation scanner
+- `scripts/statistical_validation.py` — v1 Bonferroni testing (zero survivors)
+- `scripts/statistical_validation_v2.py` — v2 with indicators (2 survivors)
+- `scripts/test_forex_crosses.py` — cross-pair generalization
+- `scripts/backtest_forex_meanrev.py` — out-of-sample backtest
+- `scripts/download_watchlist.py` — yfinance batch downloader (2y 1H)
+- `data/ohlcv/` — raw 1H OHLCV for 82 assets
+- `data/statistical-validation-v2.json` — full pattern test results
+- `data/backtest-meanrev.json` — backtest output
+- `charts/batch-summary.png` — per-asset-class performance map
+- `charts/eurgbp-survivors.png` — visual of the 2 surviving patterns
 
 ## Chart Visualizer
 

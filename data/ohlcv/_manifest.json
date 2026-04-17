@@ -1,0 +1,650 @@
+{
+  "downloaded_at": "2026-04-18 00:56:39",
+  "summary": {
+    "forex": {
+      "ok": 5,
+      "fail": 0,
+      "total_bars": 61720
+    },
+    "unknown": {
+      "ok": 0,
+      "fail": 19,
+      "total_bars": 0
+    },
+    "us_stocks": {
+      "ok": 38,
+      "fail": 0,
+      "total_bars": 130691
+    },
+    "crypto": {
+      "ok": 8,
+      "fail": 0,
+      "total_bars": 138920
+    },
+    "etf_macro": {
+      "ok": 2,
+      "fail": 0,
+      "total_bars": 6966
+    },
+    "eu_stocks": {
+      "ok": 21,
+      "fail": 0,
+      "total_bars": 69073
+    }
+  },
+  "results": [
+    {
+      "symbol": "EURUSD",
+      "yahoo": "EURUSD=X",
+      "status": "ok",
+      "bars": 12355,
+      "asset_class": "forex"
+    },
+    {
+      "symbol": "GBPUSD",
+      "yahoo": "GBPUSD=X",
+      "status": "ok",
+      "bars": 12357,
+      "asset_class": "forex"
+    },
+    {
+      "symbol": "USDJPY",
+      "yahoo": "USDJPY=X",
+      "status": "ok",
+      "bars": 12269,
+      "asset_class": "forex"
+    },
+    {
+      "symbol": "EURGBP",
+      "yahoo": "EURGBP=X",
+      "status": "ok",
+      "bars": 12375,
+      "asset_class": "forex"
+    },
+    {
+      "symbol": "GBPJPY",
+      "yahoo": "GBPJPY=X",
+      "status": "ok",
+      "bars": 12364,
+      "asset_class": "forex"
+    },
+    {
+      "symbol": "XAUUSD",
+      "status": "empty",
+      "bars": 0
+    },
+    {
+      "symbol": "XAGUSD",
+      "status": "empty",
+      "bars": 0
+    },
+    {
+      "symbol": "USOIL",
+      "status": "empty",
+      "bars": 0
+    },
+    {
+      "symbol": "UKOUSD",
+      "status": "empty",
+      "bars": 0
+    },
+    {
+      "symbol": "NATGAS",
+      "status": "empty",
+      "bars": 0
+    },
+    {
+      "symbol": "COPPUSD",
+      "status": "empty",
+      "bars": 0
+    },
+    {
+      "symbol": "NVDA",
+      "yahoo": "NVDA",
+      "status": "ok",
+      "bars": 3483,
+      "asset_class": "us_stocks"
+    },
+    {
+      "symbol": "AMD",
+      "yahoo": "AMD",
+      "status": "ok",
+      "bars": 3483,
+      "asset_class": "us_stocks"
+    },
+    {
+      "symbol": "TSM",
+      "yahoo": "TSM",
+      "status": "ok",
+      "bars": 3483,
+      "asset_class": "us_stocks"
+    },
+    {
+      "symbol": "AVGO",
+      "yahoo": "AVGO",
+      "status": "ok",
+      "bars": 3483,
+      "asset_class": "us_stocks"
+    },
+    {
+      "symbol": "INTC",
+      "yahoo": "INTC",
+      "status": "ok",
+      "bars": 3483,
+      "asset_class": "us_stocks"
+    },
+    {
+      "symbol": "ARM",
+      "yahoo": "ARM",
+      "status": "ok",
+      "bars": 3483,
+      "asset_class": "us_stocks"
+    },
+    {
+      "symbol": "MSFT",
+      "yahoo": "MSFT",
+      "status": "ok",
+      "bars": 3483,
+      "asset_class": "us_stocks"
+    },
+    {
+      "symbol": "GOOGL",
+      "yahoo": "GOOGL",
+      "status": "ok",
+      "bars": 3483,
+      "asset_class": "us_stocks"
+    },
+    {
+      "symbol": "AMZN",
+      "yahoo": "AMZN",
+      "status": "ok",
+      "bars": 3483,
+      "asset_class": "us_stocks"
+    },
+    {
+      "symbol": "META",
+      "yahoo": "META",
+      "status": "ok",
+      "bars": 3483,
+      "asset_class": "us_stocks"
+    },
+    {
+      "symbol": "PLTR",
+      "yahoo": "PLTR",
+      "status": "ok",
+      "bars": 3483,
+      "asset_class": "us_stocks"
+    },
+    {
+      "symbol": "ORCL",
+      "yahoo": "ORCL",
+      "status": "ok",
+      "bars": 3483,
+      "asset_class": "us_stocks"
+    },
+    {
+      "symbol": "NOW",
+      "yahoo": "NOW",
+      "status": "ok",
+      "bars": 3483,
+      "asset_class": "us_stocks"
+    },
+    {
+      "symbol": "DELL",
+      "yahoo": "DELL",
+      "status": "ok",
+      "bars": 3483,
+      "asset_class": "us_stocks"
+    },
+    {
+      "symbol": "SMCI",
+      "yahoo": "SMCI",
+      "status": "ok",
+      "bars": 3483,
+      "asset_class": "us_stocks"
+    },
+    {
+      "symbol": "CRWV",
+      "yahoo": "CRWV",
+      "status": "ok",
+      "bars": 1840,
+      "asset_class": "us_stocks"
+    },
+    {
+      "symbol": "CEG",
+      "yahoo": "CEG",
+      "status": "ok",
+      "bars": 3483,
+      "asset_class": "us_stocks"
+    },
+    {
+      "symbol": "VST",
+      "yahoo": "VST",
+      "status": "ok",
+      "bars": 3473,
+      "asset_class": "us_stocks"
+    },
+    {
+      "symbol": "NRG",
+      "yahoo": "NRG",
+      "status": "ok",
+      "bars": 3483,
+      "asset_class": "us_stocks"
+    },
+    {
+      "symbol": "CCJ",
+      "yahoo": "CCJ",
+      "status": "ok",
+      "bars": 3483,
+      "asset_class": "us_stocks"
+    },
+    {
+      "symbol": "FCX",
+      "yahoo": "FCX",
+      "status": "ok",
+      "bars": 3483,
+      "asset_class": "us_stocks"
+    },
+    {
+      "symbol": "MP",
+      "yahoo": "MP",
+      "status": "ok",
+      "bars": 3483,
+      "asset_class": "us_stocks"
+    },
+    {
+      "symbol": "UUUU",
+      "yahoo": "UUUU",
+      "status": "ok",
+      "bars": 3483,
+      "asset_class": "us_stocks"
+    },
+    {
+      "symbol": "ALB",
+      "yahoo": "ALB",
+      "status": "ok",
+      "bars": 3483,
+      "asset_class": "us_stocks"
+    },
+    {
+      "symbol": "ANET",
+      "yahoo": "ANET",
+      "status": "ok",
+      "bars": 3483,
+      "asset_class": "us_stocks"
+    },
+    {
+      "symbol": "CSCO",
+      "yahoo": "CSCO",
+      "status": "ok",
+      "bars": 3483,
+      "asset_class": "us_stocks"
+    },
+    {
+      "symbol": "MRVL",
+      "yahoo": "MRVL",
+      "status": "ok",
+      "bars": 3483,
+      "asset_class": "us_stocks"
+    },
+    {
+      "symbol": "TSLA",
+      "yahoo": "TSLA",
+      "status": "ok",
+      "bars": 3483,
+      "asset_class": "us_stocks"
+    },
+    {
+      "symbol": "AAPL",
+      "yahoo": "AAPL",
+      "status": "ok",
+      "bars": 3483,
+      "asset_class": "us_stocks"
+    },
+    {
+      "symbol": "NFLX",
+      "yahoo": "NFLX",
+      "status": "ok",
+      "bars": 3483,
+      "asset_class": "us_stocks"
+    },
+    {
+      "symbol": "COIN",
+      "yahoo": "COIN",
+      "status": "ok",
+      "bars": 3483,
+      "asset_class": "us_stocks"
+    },
+    {
+      "symbol": "MSTR",
+      "yahoo": "MSTR",
+      "status": "ok",
+      "bars": 3483,
+      "asset_class": "us_stocks"
+    },
+    {
+      "symbol": "CRWD",
+      "yahoo": "CRWD",
+      "status": "ok",
+      "bars": 3483,
+      "asset_class": "us_stocks"
+    },
+    {
+      "symbol": "HOOD",
+      "yahoo": "HOOD",
+      "status": "ok",
+      "bars": 3483,
+      "asset_class": "us_stocks"
+    },
+    {
+      "symbol": "RKLB",
+      "yahoo": "RKLB",
+      "status": "ok",
+      "bars": 3483,
+      "asset_class": "us_stocks"
+    },
+    {
+      "symbol": "BABA",
+      "yahoo": "BABA",
+      "status": "ok",
+      "bars": 3483,
+      "asset_class": "us_stocks"
+    },
+    {
+      "symbol": "BIDU",
+      "yahoo": "BIDU",
+      "status": "ok",
+      "bars": 3483,
+      "asset_class": "us_stocks"
+    },
+    {
+      "symbol": "IONQ",
+      "yahoo": "IONQ",
+      "status": "ok",
+      "bars": 3473,
+      "asset_class": "us_stocks"
+    },
+    {
+      "symbol": "BTCUSD",
+      "yahoo": "BTC-USD",
+      "status": "ok",
+      "bars": 17365,
+      "asset_class": "crypto"
+    },
+    {
+      "symbol": "ETHUSD",
+      "yahoo": "ETH-USD",
+      "status": "ok",
+      "bars": 17365,
+      "asset_class": "crypto"
+    },
+    {
+      "symbol": "SOLUSD",
+      "yahoo": "SOL-USD",
+      "status": "ok",
+      "bars": 17365,
+      "asset_class": "crypto"
+    },
+    {
+      "symbol": "XRPUSD",
+      "yahoo": "XRP-USD",
+      "status": "ok",
+      "bars": 17365,
+      "asset_class": "crypto"
+    },
+    {
+      "symbol": "BNBUSD",
+      "yahoo": "BNB-USD",
+      "status": "ok",
+      "bars": 17365,
+      "asset_class": "crypto"
+    },
+    {
+      "symbol": "ADAUSD",
+      "yahoo": "ADA-USD",
+      "status": "ok",
+      "bars": 17365,
+      "asset_class": "crypto"
+    },
+    {
+      "symbol": "AVAXUSD",
+      "yahoo": "AVAX-USD",
+      "status": "ok",
+      "bars": 17365,
+      "asset_class": "crypto"
+    },
+    {
+      "symbol": "LINKUSD",
+      "yahoo": "LINK-USD",
+      "status": "ok",
+      "bars": 17365,
+      "asset_class": "crypto"
+    },
+    {
+      "symbol": "FETUSD",
+      "status": "empty",
+      "bars": 0
+    },
+    {
+      "symbol": "RENDERUSD",
+      "status": "empty",
+      "bars": 0
+    },
+    {
+      "symbol": "TAOUSD",
+      "status": "empty",
+      "bars": 0
+    },
+    {
+      "symbol": "ARUSD",
+      "status": "empty",
+      "bars": 0
+    },
+    {
+      "symbol": "OCEANPUSD",
+      "status": "empty",
+      "bars": 0
+    },
+    {
+      "symbol": "AGIXUSD",
+      "status": "empty",
+      "bars": 0
+    },
+    {
+      "symbol": "VIRTUALSUSD",
+      "status": "empty",
+      "bars": 0
+    },
+    {
+      "symbol": "WLDUSD",
+      "status": "empty",
+      "bars": 0
+    },
+    {
+      "symbol": "SPY",
+      "yahoo": "SPY",
+      "status": "ok",
+      "bars": 3483,
+      "asset_class": "etf_macro"
+    },
+    {
+      "symbol": "QQQ",
+      "yahoo": "QQQ",
+      "status": "ok",
+      "bars": 3483,
+      "asset_class": "etf_macro"
+    },
+    {
+      "symbol": "DXY",
+      "status": "empty",
+      "bars": 0
+    },
+    {
+      "symbol": "USOIL",
+      "status": "empty",
+      "bars": 0
+    },
+    {
+      "symbol": "COPPUSD",
+      "status": "empty",
+      "bars": 0
+    },
+    {
+      "symbol": "XAGUSD",
+      "status": "empty",
+      "bars": 0
+    },
+    {
+      "symbol": "NATGAS",
+      "status": "empty",
+      "bars": 0
+    },
+    {
+      "symbol": "AZN",
+      "yahoo": "AZN",
+      "status": "ok",
+      "bars": 3483,
+      "asset_class": "eu_stocks"
+    },
+    {
+      "symbol": "SHEL",
+      "yahoo": "SHEL",
+      "status": "ok",
+      "bars": 3483,
+      "asset_class": "eu_stocks"
+    },
+    {
+      "symbol": "BP",
+      "yahoo": "BP",
+      "status": "ok",
+      "bars": 3483,
+      "asset_class": "eu_stocks"
+    },
+    {
+      "symbol": "HSBC",
+      "yahoo": "HSBC",
+      "status": "ok",
+      "bars": 3483,
+      "asset_class": "eu_stocks"
+    },
+    {
+      "symbol": "GSK",
+      "yahoo": "GSK",
+      "status": "ok",
+      "bars": 3483,
+      "asset_class": "eu_stocks"
+    },
+    {
+      "symbol": "BCS",
+      "yahoo": "BCS",
+      "status": "ok",
+      "bars": 3483,
+      "asset_class": "eu_stocks"
+    },
+    {
+      "symbol": "SAP",
+      "yahoo": "SAP",
+      "status": "ok",
+      "bars": 3483,
+      "asset_class": "eu_stocks"
+    },
+    {
+      "symbol": "DB",
+      "yahoo": "DB",
+      "status": "ok",
+      "bars": 3483,
+      "asset_class": "eu_stocks"
+    },
+    {
+      "symbol": "VWAGY",
+      "yahoo": "VWAGY",
+      "status": "ok",
+      "bars": 3275,
+      "asset_class": "eu_stocks"
+    },
+    {
+      "symbol": "BASFY",
+      "yahoo": "BASFY",
+      "status": "ok",
+      "bars": 2923,
+      "asset_class": "eu_stocks"
+    },
+    {
+      "symbol": "TTE",
+      "yahoo": "TTE",
+      "status": "ok",
+      "bars": 3483,
+      "asset_class": "eu_stocks"
+    },
+    {
+      "symbol": "EADSY",
+      "yahoo": "EADSY",
+      "status": "ok",
+      "bars": 3446,
+      "asset_class": "eu_stocks"
+    },
+    {
+      "symbol": "STLA",
+      "yahoo": "STLA",
+      "status": "ok",
+      "bars": 3483,
+      "asset_class": "eu_stocks"
+    },
+    {
+      "symbol": "RACE",
+      "yahoo": "RACE",
+      "status": "ok",
+      "bars": 3483,
+      "asset_class": "eu_stocks"
+    },
+    {
+      "symbol": "EQNR",
+      "yahoo": "EQNR",
+      "status": "ok",
+      "bars": 3483,
+      "asset_class": "eu_stocks"
+    },
+    {
+      "symbol": "DNBBY",
+      "yahoo": "DNBBY",
+      "status": "ok",
+      "bars": 2044,
+      "asset_class": "eu_stocks"
+    },
+    {
+      "symbol": "YARIY",
+      "yahoo": "YARIY",
+      "status": "ok",
+      "bars": 1657,
+      "asset_class": "eu_stocks"
+    },
+    {
+      "symbol": "ERIC",
+      "yahoo": "ERIC",
+      "status": "ok",
+      "bars": 3483,
+      "asset_class": "eu_stocks"
+    },
+    {
+      "symbol": "SPOT",
+      "yahoo": "SPOT",
+      "status": "ok",
+      "bars": 3483,
+      "asset_class": "eu_stocks"
+    },
+    {
+      "symbol": "NVS",
+      "yahoo": "NVS",
+      "status": "ok",
+      "bars": 3483,
+      "asset_class": "eu_stocks"
+    },
+    {
+      "symbol": "UL",
+      "yahoo": "UL",
+      "status": "ok",
+      "bars": 3483,
+      "asset_class": "eu_stocks"
+    }
+  ]
+}
