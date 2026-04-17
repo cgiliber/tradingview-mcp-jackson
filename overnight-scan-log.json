@@ -1,0 +1,383 @@
+{
+  "started": "2026-04-16T23:15:00+02:00",
+  "strategy": "v8.5 Supply Demand Pine Script",
+  "symbols": [
+    "BTCUSDT",
+    "ETHUSDT",
+    "SOLUSDT",
+    "XRPUSDT",
+    "DOTUSDT",
+    "ORDIUSDT",
+    "ARUSDT",
+    "RENDERUSDT"
+  ],
+  "timeframes": [
+    "5",
+    "15",
+    "30",
+    "60"
+  ],
+  "scans": [
+    {
+      "time": "2026-04-16T23:15:00+02:00",
+      "timeframes_scanned": [
+        "5",
+        "15",
+        "30",
+        "60"
+      ],
+      "results": {
+        "5m": {
+          "BTC": {
+            "signal": "NONE",
+            "trend": "UP",
+            "entry": 74420.49,
+            "stop": 74606.23,
+            "tp": 73309.85
+          },
+          "ETH": {
+            "signal": "NONE",
+            "trend": "UP",
+            "entry": 2351.42,
+            "stop": 2347.55,
+            "tp": 2364.68
+          },
+          "SOL": {
+            "signal": "NONE",
+            "trend": "UP",
+            "entry": 86.14,
+            "stop": 85.92,
+            "tp": 87.13
+          },
+          "XRP": {
+            "signal": "NONE",
+            "trend": "UP",
+            "entry": 1.4465,
+            "stop": 1.444,
+            "tp": 1.4664
+          },
+          "DOT": {
+            "signal": "NONE",
+            "trend": "UP",
+            "entry": 1.334,
+            "stop": 1.327,
+            "tp": 1.353
+          },
+          "ORDI": {
+            "signal": "NONE",
+            "trend": "UP",
+            "entry": 6.994,
+            "stop": 6.831,
+            "tp": 7.5
+          },
+          "AR": {
+            "signal": "NONE",
+            "trend": "UP",
+            "entry": 2.19,
+            "stop": 2.18,
+            "tp": 2.23
+          },
+          "RENDER": {
+            "signal": "NONE",
+            "trend": "UP",
+            "entry": 1.839,
+            "stop": 1.844,
+            "tp": 1.806
+          }
+        },
+        "15m": {
+          "BTC": {
+            "signal": "NONE",
+            "trend": "UP",
+            "entry": 74824.65,
+            "stop": 74706.26,
+            "tp": 75281.0
+          },
+          "ETH": {
+            "signal": "NONE",
+            "trend": "UP",
+            "entry": 2332.24,
+            "stop": 2350.44,
+            "tp": 2285.1
+          },
+          "SOL": {
+            "signal": "NONE",
+            "trend": "UP",
+            "entry": 85.09,
+            "stop": 84.96,
+            "tp": 85.71
+          },
+          "XRP": {
+            "signal": "NONE",
+            "trend": "UP",
+            "entry": 1.4095,
+            "stop": 1.4061,
+            "tp": 1.4231
+          },
+          "DOT": {
+            "signal": "NONE",
+            "trend": "UP",
+            "entry": 1.164,
+            "stop": 1.168,
+            "tp": 1.147
+          },
+          "ORDI": {
+            "signal": "NONE",
+            "trend": "UP",
+            "entry": 4.357,
+            "stop": 4.234,
+            "tp": 4.754
+          },
+          "AR": {
+            "signal": "NONE",
+            "trend": "UP",
+            "entry": 2.19,
+            "stop": 2.16,
+            "tp": 2.3
+          },
+          "RENDER": {
+            "signal": "NONE",
+            "trend": "DOWN",
+            "entry": 1.877,
+            "stop": 1.895,
+            "tp": 1.806
+          }
+        },
+        "30m": {
+          "BTC": {
+            "signal": "NONE",
+            "trend": "UP",
+            "entry": 74527.87,
+            "stop": 74240.0,
+            "tp": 75425.0
+          },
+          "ETH": {
+            "signal": "NONE",
+            "trend": "UP",
+            "entry": 2337.8,
+            "stop": 2351.8,
+            "tp": 2285.1
+          },
+          "SOL": {
+            "signal": "NONE",
+            "trend": "UP",
+            "entry": 85.17,
+            "stop": 84.96,
+            "tp": 85.71
+          },
+          "XRP": {
+            "signal": "NONE",
+            "trend": "UP",
+            "entry": 1.3892,
+            "stop": 1.3846,
+            "tp": 1.4086
+          },
+          "DOT": {
+            "signal": "NONE",
+            "trend": "UP",
+            "entry": 1.168,
+            "stop": 1.175,
+            "tp": 1.147
+          },
+          "ORDI": {
+            "signal": "NONE",
+            "trend": "UP",
+            "entry": 2.488,
+            "stop": 2.462,
+            "tp": 2.639
+          },
+          "AR": {
+            "signal": "NONE",
+            "trend": "UP",
+            "entry": 1.76,
+            "stop": 1.74,
+            "tp": 1.84
+          },
+          "RENDER": {
+            "signal": "NONE",
+            "trend": "DOWN",
+            "entry": 1.888,
+            "stop": 1.875,
+            "tp": 1.948
+          }
+        },
+        "1h": {
+          "BTC": {
+            "signal": "NONE",
+            "trend": "DOWN",
+            "entry": 74574.79,
+            "stop": 74872.0,
+            "tp": 73514.0
+          },
+          "ETH": {
+            "signal": "NONE",
+            "trend": "DOWN",
+            "entry": 2328.52,
+            "stop": 2312.15,
+            "tp": 2415.5
+          },
+          "SOL": {
+            "signal": "NONE",
+            "trend": "UP",
+            "entry": 85.17,
+            "stop": 84.94,
+            "tp": 85.83
+          },
+          "XRP": {
+            "signal": "NONE",
+            "trend": "UP",
+            "entry": 1.3338,
+            "stop": 1.3391,
+            "tp": 1.3193
+          },
+          "DOT": {
+            "signal": "NONE",
+            "trend": "UP",
+            "entry": 1.228,
+            "stop": 1.232,
+            "tp": 1.217
+          },
+          "ORDI": {
+            "signal": "NONE",
+            "trend": "UP",
+            "entry": 2.426,
+            "stop": 2.411,
+            "tp": 2.478
+          },
+          "AR": {
+            "signal": "NONE",
+            "trend": "UP",
+            "entry": 1.69,
+            "stop": 1.66,
+            "tp": 1.77
+          },
+          "RENDER": {
+            "signal": "NONE",
+            "trend": "UP",
+            "entry": 1.841,
+            "stop": 1.821,
+            "tp": 1.921
+          }
+        }
+      },
+      "signals_found": 0
+    },
+    {
+      "time": "2026-04-16T23:30:00+02:00",
+      "timeframes_scanned": [
+        "5",
+        "15",
+        "30"
+      ],
+      "results": {
+        "5m": {
+          "signals": 0,
+          "note": "All 8 symbols: BUY=0 SELL=0. ORDI/AR flipped to DOWN trend."
+        },
+        "15m": {
+          "signals": 0,
+          "note": "All 8 symbols: BUY=0 SELL=0. RENDER DOWN trend."
+        },
+        "30m": {
+          "signals": 0,
+          "note": "All 8 symbols: BUY=0 SELL=0. RENDER DOWN trend."
+        }
+      },
+      "signals_found": 0
+    },
+    {
+      "time": "2026-04-16T23:40:00+02:00",
+      "timeframes_scanned": [
+        "5"
+      ],
+      "results": {
+        "5m": {
+          "signals": 0,
+          "note": "All 0. ORDI/AR DOWN trend on 5m."
+        }
+      },
+      "signals_found": 0
+    },
+    {
+      "time": "2026-04-16T23:47:00+02:00",
+      "timeframes_scanned": [
+        "5",
+        "15"
+      ],
+      "results": {
+        "5m": {
+          "signals": 0,
+          "note": "All 0. ORDI/AR DOWN on 5m."
+        },
+        "15m": {
+          "signals": 0,
+          "note": "All 0. RENDER DOWN on 15m. ORDI back to UP on 15m."
+        }
+      },
+      "signals_found": 0
+    },
+    {
+      "time": "2026-04-16T23:57:00+02:00",
+      "timeframes_scanned": [
+        "5"
+      ],
+      "results": {
+        "5m": {
+          "signals": 0,
+          "note": "All 0. Same trends holding. ORDI/AR still DOWN on 5m."
+        }
+      },
+      "signals_found": 0
+    },
+    {
+      "time": "2026-04-17T07:00:00+02:00",
+      "timeframes_scanned": [
+        "5",
+        "15",
+        "30",
+        "60"
+      ],
+      "results": {
+        "5m": {
+          "signals": 0,
+          "note": "7/8 DOWN trend. Only SOL UP."
+        },
+        "15m": {
+          "signals": 0,
+          "note": "BTC/ETH/ORDI/AR DOWN. SOL/XRP/DOT/RENDER mixed."
+        },
+        "30m": {
+          "signals": 0,
+          "note": "BTC/ETH/SOL/ORDI/RENDER DOWN. XRP/DOT/AR UP."
+        },
+        "1h": {
+          "signals": 0,
+          "note": "BTC/ETH DOWN. SOL/XRP/DOT/ORDI/AR/RENDER UP."
+        }
+      },
+      "signals_found": 0
+    }
+  ],
+  "trades_placed": [
+    {
+      "time": "2026-04-17T00:03:00+02:00",
+      "symbol": "ETHUSDT",
+      "timeframe": "5m",
+      "direction": "LONG",
+      "signal": "BUY_SIGNAL=1",
+      "entry_indicator": 2341.29,
+      "stop_indicator": 2338.78,
+      "tp_indicator": 2356.53,
+      "fill_price": 2331.9,
+      "tp_ticks": 75,
+      "sl_ticks": 25,
+      "quantity": 1,
+      "status": "FILLED"
+    }
+  ],
+  "summary": {
+    "total_scans": 6,
+    "signals_found": 1,
+    "trades_placed": 1
+  }
+}

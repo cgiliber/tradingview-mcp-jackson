@@ -1,0 +1,115 @@
+{
+  "date": "2026-04-17",
+  "account_start": 99424.91,
+  "account_current": 99366.98,
+  "realized_pnl": -633.02,
+  "procedure_version": "place-order.md v1.0",
+  "trades": [
+    {
+      "id": 1,
+      "time": "00:03",
+      "symbol": "ETHUSDT",
+      "side": "BUY",
+      "entry": 2331.90,
+      "tp": "default ticks",
+      "sl": "default ticks",
+      "result": "CLOSED_MANUAL",
+      "pnl": -3,
+      "error": "Used default tick TP/SL instead of indicator prices. Procedure Step 2-5 not followed."
+    },
+    {
+      "id": 2,
+      "time": "07:35",
+      "symbol": "BTCUSDT",
+      "side": "SELL",
+      "entry": 74635.95,
+      "tp": "default ticks",
+      "sl": "default ticks",
+      "result": "CLOSED_MANUAL",
+      "pnl": -82,
+      "error": "TP/SL both below entry for a SHORT — wrong direction. Procedure Step 2-5 not followed."
+    },
+    {
+      "id": 3,
+      "time": "07:40",
+      "symbol": "BTCUSDT",
+      "side": "SELL",
+      "entry": 74720.00,
+      "tp": "none",
+      "sl": "none",
+      "result": "CLOSED_MANUAL",
+      "pnl": -2,
+      "error": "TP/SL toggles were OFF. No protection. Procedure Step 2-3 skipped."
+    },
+    {
+      "id": 4,
+      "time": "07:45",
+      "symbol": "BTCUSDT",
+      "side": "SELL",
+      "entry": 74650.52,
+      "tp": 74589.88,
+      "sl": 74805.15,
+      "result": "CLOSED_MANUAL",
+      "pnl": -24,
+      "error": "Correct TP/SL but market reversed. Procedure followed correctly."
+    },
+    {
+      "id": 5,
+      "time": "07:50",
+      "symbol": "DOTUSDT",
+      "side": "SELL",
+      "entry": 1.296,
+      "tp": 1.290,
+      "sl": 1.295,
+      "result": "SL_HIT",
+      "pnl": -1,
+      "error": "SL only $0.001 from entry. Pre-flight check #4 should have caught this."
+    },
+    {
+      "id": 6,
+      "time": "10:07",
+      "symbol": "ETHUSDT",
+      "side": "BUY",
+      "entry": 2335.20,
+      "tp": 2364.68,
+      "sl": 2328.03,
+      "result": "TP_HIT",
+      "pnl": 29.48,
+      "error": "NONE — procedure followed correctly. FIRST WIN."
+    },
+    {
+      "id": 7,
+      "time": "10:10",
+      "symbol": "XRPUSDT",
+      "side": "BUY",
+      "entry": 1.4385,
+      "tp": 1.4664,
+      "sl": 1.4324,
+      "result": "OPEN",
+      "pnl": 0,
+      "error": "NONE — procedure followed correctly."
+    },
+    {
+      "id": 8,
+      "time": "12:25",
+      "symbol": "ETHUSDT",
+      "side": "BUY",
+      "entry": 2356.65,
+      "tp": 2377.00,
+      "sl": 2352.67,
+      "result": "SL_HIT",
+      "pnl": -3.98,
+      "error": "NONE — procedure followed. Market reversed after entry. Valid loss."
+    }
+  ],
+  "summary": {
+    "total_trades": 8,
+    "wins": 1,
+    "losses": 5,
+    "open": 1,
+    "manual_closes": 3,
+    "procedure_errors": 4,
+    "valid_trades": 4,
+    "valid_win_rate": "25% (1 win out of 4 valid trades)"
+  }
+}
