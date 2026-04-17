@@ -1,9 +1,10 @@
 //@version=6
-// v8.5 Supply Demand — TradingLab "The Only Strategy You Will Ever Need"
-// Source: YouTube video by TradingLab
-// Features: Valid market structure, supply/demand zones, R:R > 2.5:1
+// TradingLab — "The Only Strategy You Will Ever Need"
+// YouTube: https://www.youtube.com/watch?v=e-QmGJU1XYc
+// Strategy: Supply & Demand zones with valid market structure
+// Features: Pivot-based swing tracking, impulse detection, zone retests, R:R > 2.5:1
 // Sticky signals: BUY_SIGNAL/SELL_SIGNAL persist for ~60 min on any timeframe
-indicator("v8.5 Supply Demand", overlay=true, max_bars_back=500)
+indicator("TradingLab Supply Demand", overlay=true, max_bars_back=500)
 length = input.int(10, "Swing Length")
 persistMinutes = 60
 barsPerPersist = math.max(1, math.round(persistMinutes * 60 / timeframe.in_seconds()))
