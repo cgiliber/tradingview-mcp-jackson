@@ -1,116 +1,95 @@
 #!/usr/bin/env python3
 """
-NVDA 1H Candlestick Chart Visualizer
-Reads CSV OHLCV data and generates a candlestick chart with volume bars.
-Uses pure matplotlib (no mplfinance dependency).
+NVDA 1H Candlestick Chart — index-based, no gaps.
 """
-
-import csv
-import os
+import csv, os
 from datetime import datetime, timedelta
-
 import matplotlib
-matplotlib.use('Agg')  # Non-interactive backend for PNG output
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-import matplotlib.dates as mdates
 from matplotlib.patches import Rectangle
+from matplotlib.collections import PatchCollection
 
-# Paths
-CSV_PATH = os.path.join(os.path.dirname(__file__), '..', 'data', 'nvda-1h-ohlcv.csv')
-OUTPUT_PATH = os.path.join(os.path.dirname(__file__), '..', 'charts', 'nvda-1h-chart.png')
+CSV = os.path.join(os.path.dirname(__file__), '..', 'data', 'nvda-1h-ohlcv.csv')
+OUT = os.path.join(os.path.dirname(__file__), '..', 'charts', 'nvda-1h-chart.png')
 
-def read_csv(path):
-    bars = []
-    with open(path, 'r') as f:
-        reader = csv.DictReader(f)
-        for row in reader:
-            bars.append({
-                'time': datetime.utcfromtimestamp(int(row['timestamp'])),
-                'open': float(row['open']),
-                'high': float(row['high']),
-                'low': float(row['low']),
-                'close': float(row['close']),
-                'volume': int(float(row['volume'])),
-            })
-    return bars
+# Load
+bars = []
+with open(CSV) as f:
+    for r in csv.DictReader(f):
+        bars.append({
+            't': datetime.utcfromtimestamp(int(r['timestamp'])),
+            'o': float(r['open']), 'h': float(r['high']),
+            'l': float(r['low']),  'c': float(r['close']),
+            'v': int(float(r['volume'])),
+        })
+cutoff = bars[-1]['t'] - timedelta(days=30)
+bars = [b for b in bars if b['t'] >= cutoff]
+N = len(bars)
 
-def filter_last_30_days(bars):
-    if not bars:
-        return bars
-    last_date = bars[-1]['time']
-    cutoff = last_date - timedelta(days=30)
-    return [b for b in bars if b['time'] >= cutoff]
+# Pure integer x: 0, 1, 2, ... N-1
+x = list(range(N))
+W = 0.8
 
-def plot_candlestick(bars, output_path):
-    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(18, 10), height_ratios=[3, 1],
-                                    sharex=True, gridspec_kw={'hspace': 0.05})
+fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(22, 10), height_ratios=[3, 1],
+                                gridspec_kw={'hspace': 0.03})
+BG = '#1e1e2e'
+fig.patch.set_facecolor(BG)
+ax1.set_facecolor(BG)
+ax2.set_facecolor(BG)
 
-    fig.patch.set_facecolor('#1e1e2e')
-    ax1.set_facecolor('#1e1e2e')
-    ax2.set_facecolor('#1e1e2e')
+GREEN, RED = '#26a69a', '#ef5350'
 
-    dates = [b['time'] for b in bars]
-    # Width of one bar in date units (1 hour = 1/24 day, use 80% width)
-    width = 0.8 / 24
+# Draw candles at integer positions
+for i in range(N):
+    o, h, l, c = bars[i]['o'], bars[i]['h'], bars[i]['l'], bars[i]['c']
+    col = GREEN if c >= o else RED
+    # wick
+    ax1.plot([i, i], [l, h], color=col, linewidth=0.7, solid_capstyle='butt')
+    # body
+    blo = min(o, c)
+    bh = abs(c - o) or 0.01
+    r = Rectangle((i - W/2, blo), W, bh, facecolor=col, edgecolor='none',
+                   antialiased=False)
+    ax1.add_patch(r)
+    # volume
+    ax2.bar(i, bars[i]['v'], width=W, color=col, alpha=0.7, edgecolor='none')
 
-    for i, bar in enumerate(bars):
-        dt = bar['time']
-        o, h, l, c = bar['open'], bar['high'], bar['low'], bar['close']
-        color = '#26a69a' if c >= o else '#ef5350'  # green / red
+# X labels: every 20th bar
+label_idx = list(range(0, N, 20))
+if (N - 1) not in label_idx:
+    label_idx.append(N - 1)
+ax2.set_xticks(label_idx)
+ax2.set_xticklabels([bars[i]['t'].strftime('%b %d') for i in label_idx],
+                    rotation=45, ha='right')
+ax1.set_xticks([])  # no x labels on price chart
 
-        # Wick (high-low line)
-        ax1.plot([dt, dt], [l, h], color=color, linewidth=0.6)
+# Lock x range
+ax1.set_xlim(-1, N)
+ax2.set_xlim(-1, N)
+ax1.autoscale_view(scalex=False, scaley=True)
 
-        # Body
-        body_bottom = min(o, c)
-        body_height = abs(c - o) or 0.01
-        rect = Rectangle((mdates.date2num(dt) - width / 2, body_bottom),
-                          width, body_height, facecolor=color, edgecolor=color, linewidth=0.5)
-        ax1.add_patch(rect)
+# Style
+for ax in (ax1, ax2):
+    ax.tick_params(colors='#cdd6f4', labelsize=8)
+    for s in ['top', 'right']:
+        ax.spines[s].set_visible(False)
+    for s in ['bottom', 'left']:
+        ax.spines[s].set_color('#585b70')
+    ax.grid(True, alpha=0.15, color='#585b70')
 
-        # Volume bar
-        vol_color = '#26a69a' if c >= o else '#ef5350'
-        ax2.bar(dt, bar['volume'], width=width, color=vol_color, alpha=0.7)
+ax1.set_ylabel('Price ($)', color='#cdd6f4', fontsize=10)
+ax2.set_ylabel('Volume', color='#cdd6f4', fontsize=10)
+ax1.set_title('NVDA 1H — Last 30 Days', color='#cdd6f4', fontsize=14,
+              fontweight='bold', pad=12)
 
-    # Styling
-    for ax in (ax1, ax2):
-        ax.tick_params(colors='#cdd6f4', labelsize=8)
-        ax.spines['top'].set_visible(False)
-        ax.spines['right'].set_visible(False)
-        ax.spines['bottom'].set_color('#585b70')
-        ax.spines['left'].set_color('#585b70')
-        ax.grid(True, alpha=0.15, color='#585b70')
+# Last price
+ax1.annotate(f"${bars[-1]['c']:.2f}", xy=(N-1, bars[-1]['c']),
+             xytext=(10, 0), textcoords='offset points',
+             color='#cdd6f4', fontsize=9, fontweight='bold',
+             arrowprops=dict(arrowstyle='->', color='#cdd6f4', lw=0.8))
 
-    ax1.set_ylabel('Price ($)', color='#cdd6f4', fontsize=10)
-    ax2.set_ylabel('Volume', color='#cdd6f4', fontsize=10)
-
-    ax2.xaxis.set_major_formatter(mdates.DateFormatter('%b %d'))
-    ax2.xaxis.set_major_locator(mdates.WeekdayLocator(interval=1))
-    plt.setp(ax2.xaxis.get_majorticklabels(), rotation=45, ha='right')
-
-    ax1.set_title('NVDA 1H \u2014 Last 30 Days', color='#cdd6f4', fontsize=14, fontweight='bold', pad=12)
-
-    # Price annotation for last bar
-    last = bars[-1]
-    ax1.annotate(f"${last['close']:.2f}", xy=(last['time'], last['close']),
-                 xytext=(10, 0), textcoords='offset points',
-                 color='#cdd6f4', fontsize=9, fontweight='bold',
-                 arrowprops=dict(arrowstyle='->', color='#cdd6f4', lw=0.8))
-
-    fig.tight_layout()
-    os.makedirs(os.path.dirname(output_path), exist_ok=True)
-    fig.savefig(output_path, dpi=150, bbox_inches='tight', facecolor=fig.get_facecolor())
-    plt.close(fig)
-    print(f'Chart saved to {output_path}')
-
-def main():
-    bars = read_csv(CSV_PATH)
-    print(f'Total bars loaded: {len(bars)}')
-    bars_30d = filter_last_30_days(bars)
-    print(f'Bars in last 30 days: {len(bars_30d)}')
-    if bars_30d:
-        print(f'Date range: {bars_30d[0]["time"]} to {bars_30d[-1]["time"]}')
-    plot_candlestick(bars_30d, OUTPUT_PATH)
-
-if __name__ == '__main__':
-    main()
+os.makedirs(os.path.dirname(OUT), exist_ok=True)
+fig.savefig(OUT, dpi=150, bbox_inches='tight', facecolor=BG)
+plt.close(fig)
+print(f'Saved {OUT} — {N} bars')

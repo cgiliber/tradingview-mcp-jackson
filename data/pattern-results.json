@@ -1,0 +1,716 @@
+{
+  "scan_date": "2026-04-17 23:31",
+  "params": {
+    "window": 5,
+    "lookahead": 5,
+    "k_clusters": 15
+  },
+  "total_bars": 443,
+  "total_windows": 433,
+  "clusters": [
+    {
+      "cluster": 14,
+      "n": 22,
+      "win_rate": 59.1,
+      "avg_change_pct": 0.603,
+      "avg_max_up_pct": 1.712,
+      "avg_max_down_pct": -1.395,
+      "bias": "LONG",
+      "examples": [
+        {
+          "index": 0,
+          "time": "2026-01-15 19:30",
+          "entry_price": 188.03
+        },
+        {
+          "index": 35,
+          "time": "2026-01-23 19:30",
+          "entry_price": 186.66
+        },
+        {
+          "index": 91,
+          "time": "2026-02-04 19:30",
+          "entry_price": 175.28
+        },
+        {
+          "index": 112,
+          "time": "2026-02-09 19:30",
+          "entry_price": 189.69
+        },
+        {
+          "index": 127,
+          "time": "2026-02-11 20:30",
+          "entry_price": 189.25
+        }
+      ]
+    },
+    {
+      "cluster": 5,
+      "n": 34,
+      "win_rate": 58.8,
+      "avg_change_pct": 0.11,
+      "avg_max_up_pct": 1.037,
+      "avg_max_down_pct": -0.752,
+      "bias": "LONG",
+      "examples": [
+        {
+          "index": 13,
+          "time": "2026-01-20 18:30",
+          "entry_price": 182.73
+        },
+        {
+          "index": 26,
+          "time": "2026-01-22 17:30",
+          "entry_price": 187.65
+        },
+        {
+          "index": 33,
+          "time": "2026-01-23 17:30",
+          "entry_price": 187.34
+        },
+        {
+          "index": 40,
+          "time": "2026-01-26 17:30",
+          "entry_price": 188.92
+        },
+        {
+          "index": 47,
+          "time": "2026-01-27 17:30",
+          "entry_price": 191.41
+        }
+      ]
+    },
+    {
+      "cluster": 0,
+      "n": 49,
+      "win_rate": 57.1,
+      "avg_change_pct": 0.236,
+      "avg_max_up_pct": 1.655,
+      "avg_max_down_pct": -1.306,
+      "bias": "LONG",
+      "examples": [
+        {
+          "index": 16,
+          "time": "2026-01-21 14:30",
+          "entry_price": 182.96
+        },
+        {
+          "index": 17,
+          "time": "2026-01-21 15:30",
+          "entry_price": 183.77
+        },
+        {
+          "index": 21,
+          "time": "2026-01-21 19:30",
+          "entry_price": 184.98
+        },
+        {
+          "index": 44,
+          "time": "2026-01-27 14:30",
+          "entry_price": 189.12
+        },
+        {
+          "index": 60,
+          "time": "2026-01-29 16:30",
+          "entry_price": 192.44
+        }
+      ]
+    },
+    {
+      "cluster": 6,
+      "n": 82,
+      "win_rate": 56.1,
+      "avg_change_pct": 0.277,
+      "avg_max_up_pct": 1.531,
+      "avg_max_down_pct": -1.358,
+      "bias": "LONG",
+      "examples": [
+        {
+          "index": 3,
+          "time": "2026-01-16 15:30",
+          "entry_price": 187.75
+        },
+        {
+          "index": 4,
+          "time": "2026-01-16 16:30",
+          "entry_price": 186.09
+        },
+        {
+          "index": 23,
+          "time": "2026-01-22 14:30",
+          "entry_price": 184.66
+        },
+        {
+          "index": 24,
+          "time": "2026-01-22 15:30",
+          "entry_price": 184.1
+        },
+        {
+          "index": 30,
+          "time": "2026-01-23 14:30",
+          "entry_price": 187.83
+        }
+      ]
+    },
+    {
+      "cluster": 3,
+      "n": 20,
+      "win_rate": 55.0,
+      "avg_change_pct": 0.078,
+      "avg_max_up_pct": 1.388,
+      "avg_max_down_pct": -1.231,
+      "bias": "LONG",
+      "examples": [
+        {
+          "index": 19,
+          "time": "2026-01-21 17:30",
+          "entry_price": 184.87
+        },
+        {
+          "index": 20,
+          "time": "2026-01-21 18:30",
+          "entry_price": 185.74
+        },
+        {
+          "index": 29,
+          "time": "2026-01-22 20:30",
+          "entry_price": 187.9
+        },
+        {
+          "index": 98,
+          "time": "2026-02-05 19:30",
+          "entry_price": 184.53
+        },
+        {
+          "index": 99,
+          "time": "2026-02-05 20:30",
+          "entry_price": 184.51
+        }
+      ]
+    },
+    {
+      "cluster": 12,
+      "n": 17,
+      "win_rate": 52.9,
+      "avg_change_pct": 0.491,
+      "avg_max_up_pct": 1.581,
+      "avg_max_down_pct": -1.533,
+      "bias": "NEUTRAL",
+      "examples": [
+        {
+          "index": 58,
+          "time": "2026-01-29 14:30",
+          "entry_price": 190.36
+        },
+        {
+          "index": 79,
+          "time": "2026-02-03 14:30",
+          "entry_price": 178.7
+        },
+        {
+          "index": 87,
+          "time": "2026-02-04 15:30",
+          "entry_price": 175.28
+        },
+        {
+          "index": 93,
+          "time": "2026-02-05 14:30",
+          "entry_price": 173.67
+        },
+        {
+          "index": 114,
+          "time": "2026-02-10 14:30",
+          "entry_price": 189.21
+        }
+      ]
+    },
+    {
+      "cluster": 4,
+      "n": 21,
+      "win_rate": 52.4,
+      "avg_change_pct": 0.335,
+      "avg_max_up_pct": 1.769,
+      "avg_max_down_pct": -1.463,
+      "bias": "NEUTRAL",
+      "examples": [
+        {
+          "index": 1,
+          "time": "2026-01-15 20:30",
+          "entry_price": 187.94
+        },
+        {
+          "index": 36,
+          "time": "2026-01-23 20:30",
+          "entry_price": 186.42
+        },
+        {
+          "index": 57,
+          "time": "2026-01-28 20:30",
+          "entry_price": 190.07
+        },
+        {
+          "index": 71,
+          "time": "2026-01-30 20:30",
+          "entry_price": 189.74
+        },
+        {
+          "index": 92,
+          "time": "2026-02-04 20:30",
+          "entry_price": 174.32
+        }
+      ]
+    },
+    {
+      "cluster": 1,
+      "n": 6,
+      "win_rate": 50.0,
+      "avg_change_pct": 0.972,
+      "avg_max_up_pct": 1.936,
+      "avg_max_down_pct": -1.192,
+      "bias": "NEUTRAL",
+      "examples": [
+        {
+          "index": 100,
+          "time": "2026-02-06 14:30",
+          "entry_price": 184.45
+        },
+        {
+          "index": 107,
+          "time": "2026-02-09 14:30",
+          "entry_price": 191.0
+        },
+        {
+          "index": 143,
+          "time": "2026-02-17 15:30",
+          "entry_price": 185.42
+        },
+        {
+          "index": 205,
+          "time": "2026-03-02 14:30",
+          "entry_price": 182.65
+        },
+        {
+          "index": 352,
+          "time": "2026-03-31 13:30",
+          "entry_price": 173.27
+        }
+      ]
+    },
+    {
+      "cluster": 8,
+      "n": 28,
+      "win_rate": 50.0,
+      "avg_change_pct": -0.287,
+      "avg_max_up_pct": 1.143,
+      "avg_max_down_pct": -1.398,
+      "bias": "NEUTRAL",
+      "examples": [
+        {
+          "index": 55,
+          "time": "2026-01-28 18:30",
+          "entry_price": 187.84
+        },
+        {
+          "index": 56,
+          "time": "2026-01-28 19:30",
+          "entry_price": 189.54
+        },
+        {
+          "index": 69,
+          "time": "2026-01-30 18:30",
+          "entry_price": 189.15
+        },
+        {
+          "index": 74,
+          "time": "2026-02-02 16:30",
+          "entry_price": 185.67
+        },
+        {
+          "index": 84,
+          "time": "2026-02-03 19:30",
+          "entry_price": 173.35
+        }
+      ]
+    },
+    {
+      "cluster": 10,
+      "n": 52,
+      "win_rate": 46.2,
+      "avg_change_pct": -0.186,
+      "avg_max_up_pct": 1.299,
+      "avg_max_down_pct": -1.484,
+      "bias": "NEUTRAL",
+      "examples": [
+        {
+          "index": 2,
+          "time": "2026-01-16 14:30",
+          "entry_price": 187.69
+        },
+        {
+          "index": 9,
+          "time": "2026-01-20 14:30",
+          "entry_price": 179.44
+        },
+        {
+          "index": 10,
+          "time": "2026-01-20 15:30",
+          "entry_price": 178.49
+        },
+        {
+          "index": 11,
+          "time": "2026-01-20 16:30",
+          "entry_price": 178.2
+        },
+        {
+          "index": 12,
+          "time": "2026-01-20 17:30",
+          "entry_price": 180.82
+        }
+      ]
+    },
+    {
+      "cluster": 13,
+      "n": 39,
+      "win_rate": 46.2,
+      "avg_change_pct": 0.039,
+      "avg_max_up_pct": 1.368,
+      "avg_max_down_pct": -1.38,
+      "bias": "NEUTRAL",
+      "examples": [
+        {
+          "index": 14,
+          "time": "2026-01-20 19:30",
+          "entry_price": 179.44
+        },
+        {
+          "index": 15,
+          "time": "2026-01-20 20:30",
+          "entry_price": 180.25
+        },
+        {
+          "index": 22,
+          "time": "2026-01-21 20:30",
+          "entry_price": 184.72
+        },
+        {
+          "index": 28,
+          "time": "2026-01-22 19:30",
+          "entry_price": 187.74
+        },
+        {
+          "index": 42,
+          "time": "2026-01-26 19:30",
+          "entry_price": 189.69
+        }
+      ]
+    },
+    {
+      "cluster": 2,
+      "n": 17,
+      "win_rate": 41.2,
+      "avg_change_pct": -0.447,
+      "avg_max_up_pct": 1.092,
+      "avg_max_down_pct": -2.008,
+      "bias": "SHORT",
+      "examples": [
+        {
+          "index": 8,
+          "time": "2026-01-16 20:30",
+          "entry_price": 179.52
+        },
+        {
+          "index": 77,
+          "time": "2026-02-02 19:30",
+          "entry_price": 180.0
+        },
+        {
+          "index": 78,
+          "time": "2026-02-02 20:30",
+          "entry_price": 179.17
+        },
+        {
+          "index": 86,
+          "time": "2026-02-04 14:30",
+          "entry_price": 174.94
+        },
+        {
+          "index": 128,
+          "time": "2026-02-12 14:30",
+          "entry_price": 189.05
+        }
+      ]
+    },
+    {
+      "cluster": 9,
+      "n": 5,
+      "win_rate": 40.0,
+      "avg_change_pct": -0.94,
+      "avg_max_up_pct": 0.383,
+      "avg_max_down_pct": -2.179,
+      "bias": "SHORT",
+      "examples": [
+        {
+          "index": 6,
+          "time": "2026-01-16 18:30",
+          "entry_price": 180.32
+        },
+        {
+          "index": 7,
+          "time": "2026-01-16 19:30",
+          "entry_price": 180.02
+        },
+        {
+          "index": 76,
+          "time": "2026-02-02 18:30",
+          "entry_price": 179.1
+        },
+        {
+          "index": 188,
+          "time": "2026-02-25 18:30",
+          "entry_price": 187.79
+        },
+        {
+          "index": 189,
+          "time": "2026-02-25 19:30",
+          "entry_price": 187.57
+        }
+      ]
+    },
+    {
+      "cluster": 11,
+      "n": 23,
+      "win_rate": 34.8,
+      "avg_change_pct": -0.062,
+      "avg_max_up_pct": 0.702,
+      "avg_max_down_pct": -0.822,
+      "bias": "SHORT",
+      "examples": [
+        {
+          "index": 27,
+          "time": "2026-01-22 18:30",
+          "entry_price": 187.77
+        },
+        {
+          "index": 41,
+          "time": "2026-01-26 18:30",
+          "entry_price": 189.71
+        },
+        {
+          "index": 48,
+          "time": "2026-01-27 18:30",
+          "entry_price": 191.78
+        },
+        {
+          "index": 62,
+          "time": "2026-01-29 18:30",
+          "entry_price": 192.24
+        },
+        {
+          "index": 97,
+          "time": "2026-02-05 18:30",
+          "entry_price": 183.98
+        }
+      ]
+    },
+    {
+      "cluster": 7,
+      "n": 18,
+      "win_rate": 33.3,
+      "avg_change_pct": -0.136,
+      "avg_max_up_pct": 1.162,
+      "avg_max_down_pct": -0.958,
+      "bias": "SHORT",
+      "examples": [
+        {
+          "index": 5,
+          "time": "2026-01-16 17:30",
+          "entry_price": 180.79
+        },
+        {
+          "index": 68,
+          "time": "2026-01-30 17:30",
+          "entry_price": 188.58
+        },
+        {
+          "index": 75,
+          "time": "2026-02-02 17:30",
+          "entry_price": 180.27
+        },
+        {
+          "index": 110,
+          "time": "2026-02-09 17:30",
+          "entry_price": 189.17
+        },
+        {
+          "index": 125,
+          "time": "2026-02-11 18:30",
+          "entry_price": 187.31
+        }
+      ]
+    }
+  ],
+  "v_reversals": [
+    {
+      "index": 12,
+      "time": "2026-01-20 17:30",
+      "correlation": 0.869,
+      "entry_price": 180.82,
+      "outcome_5bar_pct": 1.631,
+      "direction": "UP"
+    },
+    {
+      "index": 13,
+      "time": "2026-01-20 18:30",
+      "correlation": 0.802,
+      "entry_price": 182.73,
+      "outcome_5bar_pct": 0.328,
+      "direction": "UP"
+    },
+    {
+      "index": 26,
+      "time": "2026-01-22 17:30",
+      "correlation": 0.865,
+      "entry_price": 187.65,
+      "outcome_5bar_pct": -0.229,
+      "direction": "DOWN"
+    },
+    {
+      "index": 81,
+      "time": "2026-02-03 16:30",
+      "correlation": 0.929,
+      "entry_price": 180.28,
+      "outcome_5bar_pct": -2.959,
+      "direction": "DOWN"
+    },
+    {
+      "index": 91,
+      "time": "2026-02-04 19:30",
+      "correlation": 0.873,
+      "entry_price": 175.28,
+      "outcome_5bar_pct": 4.205,
+      "direction": "UP"
+    },
+    {
+      "index": 96,
+      "time": "2026-02-05 17:30",
+      "correlation": 0.866,
+      "entry_price": 182.65,
+      "outcome_5bar_pct": 1.459,
+      "direction": "UP"
+    },
+    {
+      "index": 118,
+      "time": "2026-02-10 18:30",
+      "correlation": 0.89,
+      "entry_price": 191.3,
+      "outcome_5bar_pct": -0.664,
+      "direction": "DOWN"
+    },
+    {
+      "index": 180,
+      "time": "2026-02-24 17:30",
+      "correlation": 0.802,
+      "entry_price": 196.04,
+      "outcome_5bar_pct": 0.436,
+      "direction": "UP"
+    },
+    {
+      "index": 219,
+      "time": "2026-03-04 14:30",
+      "correlation": 0.927,
+      "entry_price": 184.31,
+      "outcome_5bar_pct": -1.734,
+      "direction": "DOWN"
+    },
+    {
+      "index": 227,
+      "time": "2026-03-05 15:30",
+      "correlation": 0.828,
+      "entry_price": 181.88,
+      "outcome_5bar_pct": -0.23,
+      "direction": "DOWN"
+    }
+  ],
+  "inverted_v": [
+    {
+      "index": 2,
+      "time": "2026-01-16 14:30",
+      "correlation": 0.889,
+      "entry_price": 187.69,
+      "outcome_5bar_pct": -4.087,
+      "direction": "DOWN"
+    },
+    {
+      "index": 31,
+      "time": "2026-01-23 15:30",
+      "correlation": 0.869,
+      "entry_price": 187.22,
+      "outcome_5bar_pct": -0.427,
+      "direction": "DOWN"
+    },
+    {
+      "index": 44,
+      "time": "2026-01-27 14:30",
+      "correlation": 0.81,
+      "entry_price": 189.12,
+      "outcome_5bar_pct": 1.042,
+      "direction": "UP"
+    },
+    {
+      "index": 73,
+      "time": "2026-02-02 15:30",
+      "correlation": 0.851,
+      "entry_price": 186.18,
+      "outcome_5bar_pct": -3.765,
+      "direction": "DOWN"
+    },
+    {
+      "index": 83,
+      "time": "2026-02-03 18:30",
+      "correlation": 0.825,
+      "entry_price": 175.25,
+      "outcome_5bar_pct": -0.605,
+      "direction": "DOWN"
+    },
+    {
+      "index": 89,
+      "time": "2026-02-04 17:30",
+      "correlation": 0.912,
+      "entry_price": 171.58,
+      "outcome_5bar_pct": 0.402,
+      "direction": "UP"
+    },
+    {
+      "index": 129,
+      "time": "2026-02-12 15:30",
+      "correlation": 0.823,
+      "entry_price": 187.59,
+      "outcome_5bar_pct": -1.791,
+      "direction": "DOWN"
+    },
+    {
+      "index": 136,
+      "time": "2026-02-13 15:30",
+      "correlation": 0.859,
+      "entry_price": 182.31,
+      "outcome_5bar_pct": 1.667,
+      "direction": "UP"
+    },
+    {
+      "index": 144,
+      "time": "2026-02-17 16:30",
+      "correlation": 0.841,
+      "entry_price": 185.0,
+      "outcome_5bar_pct": 1.924,
+      "direction": "UP"
+    },
+    {
+      "index": 154,
+      "time": "2026-02-18 19:30",
+      "correlation": 0.857,
+      "entry_price": 186.63,
+      "outcome_5bar_pct": 0.64,
+      "direction": "UP"
+    }
+  ]
+}
