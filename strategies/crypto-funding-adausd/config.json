@@ -1,0 +1,41 @@
+{
+  "id": "crypto-funding-adausd",
+  "title": "ADAUSD Funding Squeeze",
+  "description": "Buy ADAUSD when shorts are crowded (funding < -0.01%) AND funding is decreasing further. Short squeeze setup.",
+  "validation": "Bonferroni p=5.5e-5, out-of-sample +7.7% return, 55.6% WR",
+  "asset": "ADAUSD",
+  "direction": "LONG",
+  "timeframe": "1h",
+  "feature_set": "v5",
+  "cluster_id": 9,
+  "cluster_size": 903,
+  "in_sample_win_rate": 55.6,
+  "entry_trigger": {
+    "rsi_min": 31.0,
+    "rsi_max": 57.2,
+    "ema20_dist_min_pct": -1.87,
+    "ema20_dist_max_pct": 1.09,
+    "ema50_dist_min_pct": -3.91,
+    "ema50_dist_max_pct": 0.86,
+    "range_atr_min": 0.45,
+    "range_atr_max": 1.51,
+    "hour_min": 2,
+    "hour_max": 21,
+    "weekday_min": 0,
+    "weekday_max": 6,
+    "funding_now_p10": -0.0258,
+    "funding_now_p50": -0.0153,
+    "funding_now_p90": -0.01,
+    "funding_change_1d_p10": -0.03,
+    "funding_change_1d_p50": -0.0178,
+    "funding_change_1d_p90": -0.0049
+  },
+  "exit_rule": {
+    "type": "time_based",
+    "hold_bars": 5
+  },
+  "risk": {
+    "max_loss_per_trade_usd": 10,
+    "default_position_size_usd": 10000
+  }
+}

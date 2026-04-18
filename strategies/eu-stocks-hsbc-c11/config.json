@@ -1,0 +1,35 @@
+{
+  "id": "eu-stocks-hsbc-c11",
+  "title": "HSBC Holdings C11 LONG",
+  "description": "Long HSBC ADR on specific indicator pattern. UK bank, NYSE-traded ADR.",
+  "validation": "5/5 multi-split tests passed, 149 trades, 66% WR, +$3595 on $10K/trade over 2y",
+  "asset": "HSBC",
+  "direction": "LONG",
+  "timeframe": "1h",
+  "feature_set": "v2",
+  "cluster_id": 11,
+  "cluster_size": 471,
+  "in_sample_win_rate": 67.7,
+  "entry_trigger": {
+    "rsi_min": 33.2,
+    "rsi_max": 54.6,
+    "ema20_dist_min_pct": -1.23,
+    "ema20_dist_max_pct": 0.27,
+    "ema50_dist_min_pct": -2.46,
+    "ema50_dist_max_pct": 0.51,
+    "range_atr_min": 0.35,
+    "range_atr_max": 0.94,
+    "hour_min": 16,
+    "hour_max": 20,
+    "weekday_min": 0,
+    "weekday_max": 4
+  },
+  "exit_rule": {
+    "type": "time_based",
+    "hold_bars": 5
+  },
+  "risk": {
+    "max_loss_per_trade_usd": 10,
+    "default_position_size_usd": 10000
+  }
+}

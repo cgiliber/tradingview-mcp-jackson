@@ -1,0 +1,41 @@
+{
+  "id": "crypto-oversold-xrpusd",
+  "title": "XRPUSD Deep Oversold Bounce",
+  "description": "Buy XRPUSD when price is deeply oversold (RSI<40, >3% below EMA20/50). Mean-reversion bounce expected in 5 bars.",
+  "validation": "Bonferroni p=8.9e-7, out-of-sample holds (59% WR, +2.5% return)",
+  "asset": "XRPUSD",
+  "direction": "LONG",
+  "timeframe": "1h",
+  "feature_set": "v5",
+  "cluster_id": 1,
+  "cluster_size": 111,
+  "in_sample_win_rate": 73.0,
+  "entry_trigger": {
+    "rsi_min": 16.3,
+    "rsi_max": 46.0,
+    "ema20_dist_min_pct": -11.13,
+    "ema20_dist_max_pct": -1.74,
+    "ema50_dist_min_pct": -15.46,
+    "ema50_dist_max_pct": 1.98,
+    "range_atr_min": 0.55,
+    "range_atr_max": 1.95,
+    "hour_min": 1,
+    "hour_max": 21,
+    "weekday_min": 0,
+    "weekday_max": 5,
+    "funding_now_p10": -0.0039,
+    "funding_now_p50": 0.0084,
+    "funding_now_p90": 0.0262,
+    "funding_change_1d_p10": -0.0178,
+    "funding_change_1d_p50": 0.0,
+    "funding_change_1d_p90": 0.0175
+  },
+  "exit_rule": {
+    "type": "time_based",
+    "hold_bars": 5
+  },
+  "risk": {
+    "max_loss_per_trade_usd": 10,
+    "default_position_size_usd": 10000
+  }
+}

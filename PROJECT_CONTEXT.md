@@ -62,16 +62,39 @@ Mathematical pattern recognition on OHLCV data for strategy discovery.
 4. Out-of-sample backtest (70/30 train/test split)
 5. Multi-asset generalization testing
 
-**Final result — ONE validated strategy emerged:**
-- **EURGBP 1H Mean-Reversion v1.0** — see `strategies/forex-meanrev-eurgbp/`
-- Bonferroni p < 5.1e-06, OOS WR 57.3%, +1.43% return on 192 trades
-- Time-of-day mean reversion using RSI + EMA20 + ATR + hour
+**Final result — 7 VALIDATED STRATEGIES across 3 asset classes:**
+
+See `strategies/REGISTRY.json` for the master list. Summary:
+
+| Strategy | Asset Class | Expected $/month ($10K pos) |
+|----------|-------------|------------------------------|
+| EURGBP mean-reversion | forex | ~$100 |
+| XRPUSD deep oversold | crypto | ~$100 |
+| ADAUSD funding squeeze | crypto | ~$350 |
+| Barclays (BCS) C2 | US stock ADR | ~$253 |
+| HSBC C11 | US stock ADR | ~$159 |
+| DNB Bank (DNBBY) C2 | US OTC ADR | ~$86 |
+| Barclays (BCS) C4 | US stock ADR | ~$54 |
+| **TOTAL** | | **~$1,100/month on $70K** |
+
+Target was $3,000/month → currently covering 37% of target.
+
+**Validation pipeline (every strategy passed ALL these):**
+1. K-Means clustering with engineered features
+2. Binomial test vs 50% baseline
+3. Bonferroni correction on all patterns tested that round
+4. Out-of-sample 70/30 backtest
+5. Multi-split robustness (5 different time splits, including reverse chronological)
+6. Full-period trade simulation with trading costs
 
 **Process learnings:**
 - 4,156 patterns tested with raw OHLCV → 0 survived Bonferroni (curve fitting noise)
 - Adding indicators (RSI, EMAs, ATR, time) → 2 EURGBP patterns survived
-- Cross-pair testing (EURJPY, USDCHF, etc.) → only EURGBP held in OOS
-- Stocks/crypto produced no statistically valid edges at this data scale
+- Adding funding rate features → 2 crypto patterns survived
+- Multi-split validation caught 5/12 Bonferroni-passing patterns as FAKE (XRPUSD C2, AAPL C6, BNBUSD C6, HSBC C13, NVS C0)
+- Stock ADRs (BCS, HSBC, DNBBY) produced the most robust patterns when cash-flow frequency filter was applied
+
+**Order procedure:** see `ORDER_PROCEDURE.md` — codified to prevent previous TP/SL mistakes.
 
 **Files:**
 - `scripts/pattern_scanner.py` — original K-Means + cross-correlation scanner

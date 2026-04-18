@@ -1,0 +1,35 @@
+{
+  "id": "eu-stocks-barclays-c4",
+  "title": "Barclays (BCS) C4 LONG",
+  "description": "Alternative Barclays pattern. Weaker edge, may be lucky recent spike.",
+  "validation": "5/5 multi-split tests passed, 163 trades, 56% WR. MARGINAL \u2014 trust cautiously.",
+  "asset": "BCS",
+  "direction": "LONG",
+  "timeframe": "1h",
+  "feature_set": "v2",
+  "cluster_id": 4,
+  "cluster_size": 236,
+  "in_sample_win_rate": 63.6,
+  "entry_trigger": {
+    "rsi_min": 36.3,
+    "rsi_max": 58.9,
+    "ema20_dist_min_pct": -1.43,
+    "ema20_dist_max_pct": 0.59,
+    "ema50_dist_min_pct": -1.59,
+    "ema50_dist_max_pct": 1.85,
+    "range_atr_min": 0.48,
+    "range_atr_max": 1.15,
+    "hour_min": 15,
+    "hour_max": 17,
+    "weekday_min": 0,
+    "weekday_max": 4
+  },
+  "exit_rule": {
+    "type": "time_based",
+    "hold_bars": 5
+  },
+  "risk": {
+    "max_loss_per_trade_usd": 10,
+    "default_position_size_usd": 10000
+  }
+}

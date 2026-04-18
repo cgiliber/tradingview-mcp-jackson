@@ -1,0 +1,122 @@
+{
+  "version": "1.0",
+  "last_updated": "2026-04-18",
+  "description": "Master registry of all validated trading strategies. Auto-scanner reads this to know what to scan for and on which assets.",
+  "strategies": [
+    {
+      "id": "forex-meanrev-eurgbp",
+      "title": "EURGBP Mean-Reversion",
+      "asset": "EURGBP",
+      "asset_class": "forex",
+      "tradable_on": ["TradingView Paper (OANDA)", "IG", "Saxo"],
+      "paper_trading_supported": "PARTIAL — OANDA forex works on TV Paper but needs OANDA broker connection; most paper accounts default to stocks",
+      "timeframe": "1h",
+      "direction": "BOTH (LONG + SHORT rules)",
+      "expected_signals_per_month": 35,
+      "expected_monthly_pnl_usd_on_10k": 100,
+      "config_file": "strategies/forex-meanrev-eurgbp/config.json",
+      "pine_file": "strategies/forex-meanrev-eurgbp/strategy.pine"
+    },
+    {
+      "id": "crypto-oversold-xrpusd",
+      "title": "XRPUSD Deep Oversold Bounce",
+      "asset": "XRPUSD",
+      "asset_class": "crypto",
+      "tradable_on": ["Binance (via TV Paper)", "Bybit", "Coinbase"],
+      "paper_trading_supported": "YES — Binance crypto works on TV Paper Trading 24/7",
+      "timeframe": "1h",
+      "direction": "LONG",
+      "expected_signals_per_month": 5,
+      "expected_monthly_pnl_usd_on_10k": 100,
+      "config_file": "strategies/crypto-oversold-xrpusd/config.json"
+    },
+    {
+      "id": "crypto-funding-adausd",
+      "title": "ADAUSD Funding Squeeze",
+      "asset": "ADAUSD",
+      "asset_class": "crypto",
+      "tradable_on": ["Binance (via TV Paper)"],
+      "paper_trading_supported": "YES — Binance ADAUSDT on TV Paper",
+      "requires_funding_rate_data": true,
+      "funding_data_source": "Binance futures API (free, no auth)",
+      "timeframe": "1h",
+      "direction": "LONG",
+      "expected_signals_per_month": 5,
+      "expected_monthly_pnl_usd_on_10k": 350,
+      "config_file": "strategies/crypto-funding-adausd/config.json"
+    },
+    {
+      "id": "eu-stocks-barclays-c2",
+      "title": "Barclays (BCS) Mean-Reversion C2",
+      "asset": "BCS",
+      "actual_instrument": "NYSE:BCS (Barclays PLC ADR — US-listed)",
+      "asset_class": "us_stocks_adr",
+      "tradable_on": ["TV Paper Trading", "Interactive Brokers", "Schwab"],
+      "paper_trading_supported": "YES — traded during US market hours 15:30-22:00 Oslo (9:30-16:00 ET)",
+      "timeframe": "1h",
+      "direction": "LONG",
+      "expected_signals_per_month": 10.6,
+      "expected_monthly_pnl_usd_on_10k": 253,
+      "config_file": "strategies/eu-stocks-barclays-c2/config.json"
+    },
+    {
+      "id": "eu-stocks-hsbc-c11",
+      "title": "HSBC Mean-Reversion C11",
+      "asset": "HSBC",
+      "actual_instrument": "NYSE:HSBC (HSBC Holdings ADR — US-listed)",
+      "asset_class": "us_stocks_adr",
+      "tradable_on": ["TV Paper Trading", "Interactive Brokers", "Schwab"],
+      "paper_trading_supported": "YES — US market hours 15:30-22:00 Oslo",
+      "timeframe": "1h",
+      "direction": "LONG",
+      "expected_signals_per_month": 6.6,
+      "expected_monthly_pnl_usd_on_10k": 159,
+      "config_file": "strategies/eu-stocks-hsbc-c11/config.json"
+    },
+    {
+      "id": "eu-stocks-dnb-c2",
+      "title": "DNB Bank (DNBBY) Mean-Reversion C2",
+      "asset": "DNBBY",
+      "actual_instrument": "OTC:DNBBY (DNB Bank ADR — pink sheets, LOW LIQUIDITY)",
+      "asset_class": "us_stocks_otc",
+      "tradable_on": ["TV Paper Trading (MAY FAIL due to OTC/low liquidity)", "Interactive Brokers"],
+      "paper_trading_supported": "UNCERTAIN — OTC stocks often rejected by paper brokers. TEST FIRST with small order.",
+      "timeframe": "1h",
+      "direction": "LONG",
+      "expected_signals_per_month": 4.1,
+      "expected_monthly_pnl_usd_on_10k": 86,
+      "warning": "Lumpy equity curve. OTC liquidity concerns. Marginal strategy — trust cautiously.",
+      "config_file": "strategies/eu-stocks-dnb-c2/config.json"
+    },
+    {
+      "id": "eu-stocks-barclays-c4",
+      "title": "Barclays (BCS) Alternative Pattern C4",
+      "asset": "BCS",
+      "actual_instrument": "NYSE:BCS",
+      "asset_class": "us_stocks_adr",
+      "tradable_on": ["TV Paper Trading", "Interactive Brokers"],
+      "paper_trading_supported": "YES — US market hours 15:30-22:00 Oslo",
+      "timeframe": "1h",
+      "direction": "LONG",
+      "expected_signals_per_month": 7.0,
+      "expected_monthly_pnl_usd_on_10k": 54,
+      "warning": "Marginal strategy — big spike at end of 2026-04 may be luck. Trust cautiously.",
+      "config_file": "strategies/eu-stocks-barclays-c4/config.json"
+    }
+  ],
+  "portfolio_summary": {
+    "total_strategies": 7,
+    "expected_combined_monthly_pnl_on_10k_each": 1102,
+    "capital_required_for_full_portfolio": 70000,
+    "annual_return_estimate_pct": 18.8,
+    "target_monthly_usd": 3000,
+    "target_coverage_pct": 37
+  },
+  "known_limitations": [
+    "BCS + HSBC + DNBBY are all EU bank/financial stocks — portfolio is correlated during market stress",
+    "XRPUSD C1 'deep oversold' had only 111 training samples — variance is real",
+    "ADAUSD funding signal requires free Binance funding-rate feed (downloads on demand)",
+    "EURGBP requires forex-enabled broker connection on TradingView (paper mode defaults to stocks)",
+    "All strategies use 5-bar time-based exit (no traditional stop loss)"
+  ]
+}

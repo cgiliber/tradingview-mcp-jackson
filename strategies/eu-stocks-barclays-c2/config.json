@@ -1,0 +1,35 @@
+{
+  "id": "eu-stocks-barclays-c2",
+  "title": "Barclays (BCS) C2 LONG",
+  "description": "Long Barclays ADR on specific indicator pattern. UK bank, NYSE-traded ADR.",
+  "validation": "5/5 multi-split tests passed, 249 trades, 60% WR, +$5920 on $10K/trade over 2y",
+  "asset": "BCS",
+  "direction": "LONG",
+  "timeframe": "1h",
+  "feature_set": "v2",
+  "cluster_id": 2,
+  "cluster_size": 231,
+  "in_sample_win_rate": 64.9,
+  "entry_trigger": {
+    "rsi_min": 33.5,
+    "rsi_max": 60.7,
+    "ema20_dist_min_pct": -1.64,
+    "ema20_dist_max_pct": 1.17,
+    "ema50_dist_min_pct": -2.55,
+    "ema50_dist_max_pct": 2.02,
+    "range_atr_min": 0.43,
+    "range_atr_max": 1.12,
+    "hour_min": 16,
+    "hour_max": 19,
+    "weekday_min": 0,
+    "weekday_max": 4
+  },
+  "exit_rule": {
+    "type": "time_based",
+    "hold_bars": 5
+  },
+  "risk": {
+    "max_loss_per_trade_usd": 10,
+    "default_position_size_usd": 10000
+  }
+}
