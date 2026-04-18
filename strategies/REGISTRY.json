@@ -15,7 +15,7 @@
       "timeframe": "1h",
       "direction": "BOTH (LONG + SHORT rules)",
       "expected_signals_per_month": 35,
-      "expected_monthly_pnl_usd_on_10k": 100,
+      "expected_monthly_pnl_usd_on_1k": 10,
       "config_file": "strategies/forex-meanrev-eurgbp/config.json",
       "pine_file": "strategies/forex-meanrev-eurgbp/strategy.pine"
     },
@@ -31,7 +31,7 @@
       "timeframe": "1h",
       "direction": "LONG",
       "expected_signals_per_month": 5,
-      "expected_monthly_pnl_usd_on_10k": 100,
+      "expected_monthly_pnl_usd_on_1k": 10,
       "config_file": "strategies/crypto-oversold-xrpusd/config.json"
     },
     {
@@ -48,7 +48,7 @@
       "timeframe": "1h",
       "direction": "LONG",
       "expected_signals_per_month": 5,
-      "expected_monthly_pnl_usd_on_10k": 350,
+      "expected_monthly_pnl_usd_on_1k": 35,
       "config_file": "strategies/crypto-funding-adausd/config.json"
     },
     {
@@ -63,7 +63,7 @@
       "timeframe": "1h",
       "direction": "LONG",
       "expected_signals_per_month": 10.6,
-      "expected_monthly_pnl_usd_on_10k": 253,
+      "expected_monthly_pnl_usd_on_1k": 25,
       "config_file": "strategies/eu-stocks-barclays-c2/config.json"
     },
     {
@@ -78,7 +78,7 @@
       "timeframe": "1h",
       "direction": "LONG",
       "expected_signals_per_month": 6.6,
-      "expected_monthly_pnl_usd_on_10k": 159,
+      "expected_monthly_pnl_usd_on_1k": 16,
       "config_file": "strategies/eu-stocks-hsbc-c11/config.json"
     },
     {
@@ -94,7 +94,7 @@
       "timeframe": "1h",
       "direction": "LONG",
       "expected_signals_per_month": 4.1,
-      "expected_monthly_pnl_usd_on_10k": 86,
+      "expected_monthly_pnl_usd_on_1k": 9,
       "warning": "Lumpy equity curve. OTC liquidity concerns. Marginal strategy.",
       "config_file": "strategies/eu-stocks-dnb-c2/config.json"
     },
@@ -112,7 +112,7 @@
       "timeframe": "1h",
       "direction": "LONG",
       "expected_signals_per_month": 7.0,
-      "expected_monthly_pnl_usd_on_10k": 54,
+      "expected_monthly_pnl_usd_on_1k": 5,
       "warning": "Marginal strategy — big spike at end of 2026-04 may be luck.",
       "config_file": "strategies/eu-stocks-barclays-c4/config.json"
     }
@@ -131,11 +131,19 @@
       "forex-meanrev-eurgbp",
       "eu-stocks-barclays-c4"
     ],
-    "deployable_monthly_pnl_on_10k_each": 862,
-    "capital_required": 40000,
-    "annual_return_estimate_pct": 25.9,
+    "position_sizing": {
+      "standard_position_size_usd": 1000,
+      "max_portfolio_exposure_pct": 20,
+      "max_simultaneous_positions": "10-20 on $100K paper account",
+      "risk_per_trade_usd": 10,
+      "target_per_trade_usd": 20,
+      "risk_rules_doc": "strategies/RISK_RULES.md"
+    },
+    "deployable_monthly_pnl_on_1k_each": 86,
+    "capital_at_risk_simultaneous": "up to $5K (5 strategies × $1K positions)",
     "target_monthly_usd": 3000,
-    "target_coverage_pct": 29
+    "target_coverage_pct": "~3% (realistic given $1K position sizing on v7 risk rules)",
+    "note": "The v7 risk overlay ($10 SL, $20 TP, breakeven at +$10) may push returns higher if trades hit +$20 target before time exit. Paper trading will reveal actual numbers."
   },
   "known_limitations": [
     "Only TradingView Paper Trading is available. Supports: Binance crypto 24/7, US stocks/ADRs 15:30-22:00 Oslo.",

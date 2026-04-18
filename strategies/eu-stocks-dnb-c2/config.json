@@ -25,11 +25,24 @@
     "weekday_max": 4
   },
   "exit_rule": {
-    "type": "time_based",
-    "hold_bars": 5
+    "type": "risk_overlay_plus_time",
+    "hard_tp_pct": 2.0,
+    "hard_sl_pct": 1.0,
+    "breakeven_trigger_pct": 1.0,
+    "time_exit_bars": 5,
+    "force_close_session_end": true,
+    "note": "Close on first of: TP hit, SL hit, 5-bar timer, session end"
   },
   "risk": {
-    "max_loss_per_trade_usd": 10,
-    "default_position_size_usd": 10000
+    "position_size_usd": 1000,
+    "hard_stop_loss_usd": 10,
+    "hard_stop_loss_pct": 1.0,
+    "take_profit_usd": 20,
+    "take_profit_pct": 2.0,
+    "breakeven_trigger_usd": 10,
+    "force_close_session_end": true,
+    "time_exit_bars": 5,
+    "max_open_positions_this_strategy": 3,
+    "risk_reference": "strategies/RISK_RULES.md"
   }
 }

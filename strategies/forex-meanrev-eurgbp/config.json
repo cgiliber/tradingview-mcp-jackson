@@ -7,16 +7,16 @@
   "timeframe": "1h",
   "long_entry": {
     "rsi_max": 50,
-    "ema20_dist_min": -0.20,
-    "ema20_dist_max": 0.10,
+    "ema20_dist_min": -0.2,
+    "ema20_dist_max": 0.1,
     "range_atr_max": 1.0,
     "hour_utc_min": 18,
     "hour_utc_max": 22
   },
   "short_entry": {
     "rsi_min": 55,
-    "ema20_dist_min": -0.10,
-    "ema20_dist_max": 0.20,
+    "ema20_dist_min": -0.1,
+    "ema20_dist_max": 0.2,
     "range_atr_min": 1.0,
     "hour_utc_min": 9,
     "hour_utc_max": 16
@@ -26,9 +26,16 @@
     "hold_bars": 5
   },
   "risk": {
-    "max_loss_per_trade_usd": 10,
-    "max_concurrent_positions": 1,
-    "daily_loss_cap_consecutive": 3
+    "position_size_usd": 1000,
+    "hard_stop_loss_usd": 10,
+    "hard_stop_loss_pct": 1.0,
+    "take_profit_usd": 20,
+    "take_profit_pct": 2.0,
+    "breakeven_trigger_usd": 10,
+    "force_close_session_end": true,
+    "time_exit_bars": 5,
+    "max_open_positions_this_strategy": 3,
+    "risk_reference": "strategies/RISK_RULES.md"
   },
   "validation": {
     "method": "K-Means K=20 clustering + Bonferroni correction + 70/30 train/test split",
@@ -47,5 +54,14 @@
     "trades_per_day": 1.2,
     "estimated_annual_return_pct": "4-6",
     "win_rate": "55-58"
+  },
+  "exit_rule": {
+    "type": "risk_overlay_plus_time",
+    "hard_tp_pct": 2.0,
+    "hard_sl_pct": 1.0,
+    "breakeven_trigger_pct": 1.0,
+    "time_exit_bars": 5,
+    "force_close_session_end": true,
+    "note": "Close on first of: TP hit, SL hit, 5-bar timer, session end"
   }
 }
